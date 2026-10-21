@@ -1,0 +1,7 @@
+/**
+ * Overflow variables
+ */
+:root,
+:host {
+  --i-line-clamp-lines: 3;
+}

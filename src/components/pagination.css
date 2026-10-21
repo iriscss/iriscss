@@ -1,0 +1,64 @@
+/**
+ * Pagination
+ *
+ * Page links in a <nav class="pagination"> list. Mark the current page with
+ * aria-current="page" and unavailable links with aria-disabled="true", and use
+ * a span for gaps. A color class on the nav colors the current page.
+ */
+:where(nav.pagination) {
+  --i-variant: var(--i-color-primary);
+  --i-variant-inverse: var(--i-color-primary-inverse);
+}
+
+/* Links reset --i-variant, so the nav hands its color down privately */
+nav.pagination {
+  --_current: var(--i-variant);
+  --_current-text: var(--i-variant-inverse);
+  margin-bottom: var(--i-spacing);
+  color: inherit;
+  background-color: transparent;
+}
+
+nav.pagination :is(ol, ul) {
+  flex-wrap: wrap;
+  gap: calc(var(--i-spacing) * 0.25);
+  margin-inline: 0;
+}
+
+nav.pagination li {
+  padding: 0;
+  margin: 0;
+}
+
+nav.pagination li > :is(a, span) {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 2.25em;
+  padding: 0.25em 0.625em;
+  border: var(--i-border-width) solid transparent;
+  border-radius: var(--i-border-radius);
+  margin: 0;
+  text-decoration: none;
+}
+
+nav.pagination li > span {
+  color: var(--i-color-subtle);
+}
+
+nav.pagination li > a:is(:hover, :focus-visible):not([aria-current="page"]) {
+  text-decoration: none;
+  background-color: color-mix(in oklab, var(--_current) 12%, transparent);
+}
+
+nav.pagination li > a[aria-current="page"] {
+  border-color: var(--_current);
+  color: var(--_current-text);
+  text-decoration: none;
+  background-color: var(--_current);
+}
+
+nav.pagination li > a[aria-disabled="true"] {
+  opacity: var(--i-control-disabled-opacity);
+  pointer-events: none;
+}

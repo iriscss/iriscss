@@ -1,0 +1,107 @@
+/**
+ * Carousel
+ *
+ * A row of slides that scrolls sideways and snaps to each one:
+ * <div class="carousel"><figure>...</figure>...</div>. Where the browser
+ * supports scroll buttons and markers, it adds previous and next buttons and a
+ * dot for each slide, with no JavaScript.
+ */
+.carousel {
+  display: grid;
+  gap: var(--i-carousel-gap);
+  grid-auto-columns: var(--i-carousel-item-width);
+  grid-auto-flow: column;
+  overflow-x: auto;
+  margin-bottom: var(--i-spacing);
+  scrollbar-width: thin;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+}
+
+.carousel > * {
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .carousel {
+    scroll-behavior: smooth;
+  }
+}
+
+@supports selector(::scroll-button(*)) {
+  .carousel {
+    anchor-name: --i-carousel;
+    anchor-scope: --i-carousel;
+    scrollbar-width: none;
+    scroll-marker-group: after;
+  }
+
+  .carousel::scroll-button(*) {
+    position: absolute;
+    top: anchor(center);
+    position-anchor: --i-carousel;
+    width: var(--i-carousel-button-size);
+    height: var(--i-carousel-button-size);
+    border: var(--i-border-width) solid var(--i-dropdown-color-border);
+    border-radius: 50%;
+    background-color: var(--i-dropdown-color-background);
+    background-image: var(--i-svg-chevron-down);
+    background-position: center;
+    background-size: 1rem;
+    background-repeat: no-repeat;
+    box-shadow: var(--i-dropdown-shadow);
+    transition: opacity var(--i-duration) var(--i-easing);
+    cursor: pointer;
+  }
+
+  .carousel::scroll-button(inline-start) {
+    inset-inline-start: anchor(start);
+    margin-inline-start: calc(var(--i-spacing) * 0.5);
+    translate: 0 -50%;
+    rotate: 90deg;
+    content: "" / "Previous";
+  }
+
+  .carousel::scroll-button(inline-end) {
+    inset-inline-end: anchor(end);
+    margin-inline-end: calc(var(--i-spacing) * 0.5);
+    translate: 0 -50%;
+    rotate: -90deg;
+    content: "" / "Next";
+  }
+
+  /* The chevrons point the other way in right to left text. Every browser
+     with scroll buttons has :dir(). */
+  .carousel:dir(rtl)::scroll-button(inline-start) {
+    rotate: -90deg;
+  }
+
+  .carousel:dir(rtl)::scroll-button(inline-end) {
+    rotate: 90deg;
+  }
+
+  .carousel::scroll-button(*):disabled {
+    opacity: 0;
+    cursor: default;
+  }
+
+  .carousel::scroll-marker-group {
+    display: flex;
+    justify-content: center;
+    gap: calc(var(--i-spacing) * 0.5);
+    margin-bottom: var(--i-spacing);
+  }
+
+  .carousel > ::scroll-marker {
+    width: var(--i-carousel-marker-size);
+    height: var(--i-carousel-marker-size);
+    border-radius: 50%;
+    background-color: var(--i-color-subtle-border);
+    content: "";
+  }
+
+  .carousel > ::scroll-marker:target-current {
+    background-color: var(--i-color-primary);
+  }
+}

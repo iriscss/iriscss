@@ -1,0 +1,38 @@
+/**
+ * Loader
+ *
+ * aria-busy="true" shows a spinner before the content, in the text color.
+ * Form controls are left out, since they cannot show pseudo elements. It
+ * blocks nothing: a busy button also needs aria-disabled="true".
+ */
+/* Keeps the spinner on the same line as a short label. Containers wrap. */
+:is(button, a, span, label, [role="button"], [role="link"])[aria-busy="true"] {
+  white-space: nowrap;
+}
+
+[aria-busy="true"]:not(input, select, textarea, html, form)::before {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-inline-end: calc(var(--i-spacing) * 0.5);
+  vertical-align: -0.125em;
+  background-color: currentcolor;
+  mask-image: var(--i-svg-loading);
+  mask-size: 1em auto;
+  mask-repeat: no-repeat;
+  animation: i-spin var(--i-loader-duration) linear infinite;
+  content: "";
+}
+
+/* Alone, the spinner sits in the middle without changing the element's text
+   alignment */
+[aria-busy="true"]:not(input, select, textarea, html, form):empty::before {
+  display: block;
+  margin-inline: auto;
+}
+
+@keyframes i-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

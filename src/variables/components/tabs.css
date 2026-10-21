@@ -1,0 +1,8 @@
+/**
+ * Tabs variables
+ */
+:root,
+:host {
+  /* Underline of the open tab */
+  --i-tabs-indicator-width: 0.125rem;
+}

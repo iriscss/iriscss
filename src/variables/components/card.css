@@ -1,0 +1,20 @@
+/**
+ * Card variables
+ */
+:root,
+:host {
+  /* Header and footer padding, relative to the card padding */
+  --i-card-section-padding-scale: 0.66;
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-card-color-background: light-dark(var(--i-color-background), #181c25);
+  --i-card-color-border: light-dark(
+    var(--i-color-subtle-border),
+    var(--i-card-color-background)
+  );
+  --i-card-section-color-background: light-dark(#fbfcfd, #1a1f28);
+  --i-card-shadow: var(--i-shadow);
+}

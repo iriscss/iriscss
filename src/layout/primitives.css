@@ -1,0 +1,78 @@
+/**
+ * Layout primitives
+ *
+ * Four classes that cover most page layouts without media queries:
+ * .stack spaces its children vertically, .cluster wraps them in a row,
+ * .with-sidebar puts a fixed width first child next to fluid content and
+ * stacks them when narrow (.end puts the sidebar last), and .switcher shows
+ * its children in one row or one column depending on the space it has.
+ * <menu> is a toolbar: a cluster of list items.
+ */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--i-stack-gap);
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--i-cluster-gap);
+}
+
+menu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--i-cluster-gap);
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: var(--i-typography-spacing);
+  list-style: none;
+}
+
+.with-sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--i-sidebar-gap);
+}
+
+/* :not(.end) keeps the two rules apart, so neither leaks into the other side */
+.with-sidebar:not(.end) > :first-child,
+.with-sidebar.end > :last-child {
+  flex-basis: var(--i-sidebar-width);
+  flex-grow: 1;
+}
+
+.with-sidebar:not(.end) > :last-child,
+.with-sidebar.end > :first-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-width: var(--i-sidebar-content-min-width);
+}
+
+.switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--i-switcher-gap);
+}
+
+/* Negative below the threshold, so each child takes a full row */
+.switcher > * {
+  flex-basis: calc((var(--i-switcher-threshold) - 100%) * 999);
+  flex-grow: 1;
+}
+
+/* More than four children always stack */
+.switcher > :nth-last-child(n + 5),
+.switcher > :nth-last-child(n + 5) ~ * {
+  flex-basis: 100%;
+}
+
+/* The gap replaces the margins elements bring */
+:is(.stack, .cluster, .with-sidebar, .switcher) > *,
+menu > li,
+menu > li > * {
+  margin-block: 0;
+}

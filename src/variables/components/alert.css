@@ -1,0 +1,11 @@
+/**
+ * Alert variables
+ */
+:root,
+:host {
+  --i-alert-padding-block: calc(var(--i-spacing) * 0.75);
+  --i-alert-padding-inline: var(--i-spacing);
+
+  /* Colored bar on the start edge */
+  --i-alert-accent-width: 0.25rem;
+}

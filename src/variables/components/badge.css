@@ -1,0 +1,12 @@
+/**
+ * Badge variables
+ */
+:root,
+:host {
+  /* Relative to the surrounding text, so a badge fits headings and buttons */
+  --i-badge-font-size: 0.75em;
+  --i-badge-padding-block: 0.125em;
+  /* Used where text-box trims the line to the cap height, for the same height */
+  --i-badge-trimmed-padding-block: 0.4em;
+  --i-badge-padding-inline: 0.5em;
+}

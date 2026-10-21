@@ -1,0 +1,17 @@
+/**
+ * Container
+ *
+ * .container is a centered column whose max width steps up at each breakpoint
+ * (--i-container-max-width). .container-fluid always spans the full width.
+ */
+.container,
+.container-fluid {
+  width: 100%;
+  padding-inline: var(--i-spacing);
+  margin-inline: auto;
+}
+
+.container {
+  max-width: var(--i-container-max-width);
+  padding-inline: var(--i-container-padding-inline);
+}

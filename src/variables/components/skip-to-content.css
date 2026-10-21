@@ -1,0 +1,8 @@
+/**
+ * Skip to content variables
+ */
+:root,
+:host {
+  /* Sits above everything else */
+  --i-skip-to-content-z-index: 9999;
+}

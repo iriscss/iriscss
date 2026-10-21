@@ -1,0 +1,79 @@
+{
+  "name": "iriscss",
+  "version": "1.0.0",
+  "description": "Modern, minimalist and lightweight CSS Framework",
+  "author": "Madalin Grigore-Enescu",
+  "main": "dist/iris.min.css",
+  "style": "dist/iris.min.css",
+  "exports": {
+    ".": "./dist/iris.min.css",
+    "./iris.css": "./dist/iris.css",
+    "./iris.min.css": "./dist/iris.min.css",
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "ai",
+    "dist",
+    "src"
+  ],
+  "homepage": "https://iriscss.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iriscss/iriscss.git"
+  },
+  "keywords": [
+    "css",
+    "css-framework",
+    "dark-mode",
+    "dark-theme",
+    "lightweight",
+    "minimal",
+    "minimalist",
+    "minimalistic",
+    "native-html",
+    "semantic"
+  ],
+  "bugs": {
+    "url": "https://github.com/iriscss/iriscss/issues"
+  },
+  "scripts": {
+    "build": "npm run build:concat && npm run build:autoprefix && npm run build:minify",
+    "build:concat": "node scripts/concat.js",
+    "build:autoprefix": "postcss --replace dist/*.css !dist/*.min.css",
+    "build:minify": "postcss dist/*.css !dist/*.min.css --use cssnano --no-map --dir dist --ext .min.css",
+    "dev": "nodemon -q --watch src/ --ext css --exec 'npm run build'",
+    "format": "prettier --write \"src/**/*.css\"",
+    "lint": "stylelint \"src/**/*.css\"",
+    "lint:fix": "stylelint \"src/**/*.css\" --fix",
+    "format:check": "prettier --check \"src/**/*.css\"",
+    "check": "npm run lint && npm run format:check && npm run build && npm test",
+    "prepublishOnly": "npm run check",
+    "test": "playwright test",
+    "test:watch": "nodemon -q --watch src/ --watch tests/ --ext css,mjs --exec 'npm run build && playwright test --project=chromium'"
+  },
+  "devDependencies": {
+    "@csstools/postcss-light-dark-function": "^3.0.7",
+    "@playwright/test": "1.64.1",
+    "autoprefixer": "^10.6.1",
+    "caniuse-lite": "^1.0.30001814",
+    "cssnano": "9.9.0",
+    "nodemon": "^3.1.14",
+    "postcss": "^8.5.28",
+    "postcss-cli": "^12.0.0",
+    "postcss-nesting": "^14.0.3",
+    "prettier": "^3.9.9",
+    "stylelint": "^17.16.0",
+    "stylelint-order": "^8.1.2"
+  },
+  "browserslist": [
+    "chrome >= 111",
+    "edge >= 111",
+    "firefox >= 113",
+    "safari >= 16.2",
+    "ios_saf >= 16.2",
+    "opera >= 97",
+    "samsung >= 22"
+  ]
+}

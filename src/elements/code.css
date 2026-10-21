@@ -1,0 +1,71 @@
+/**
+ * Code
+ *
+ * pre, code, kbd and samp. .light switches them to light code colors. var keeps
+ * the text font, since it names a variable rather than showing code.
+ */
+
+pre,
+code,
+kbd,
+samp {
+  border-radius: var(--i-border-radius);
+  font-family: var(--i-code-font-family);
+  font-size: var(--i-code-font-size);
+  font-weight: var(--i-font-weight);
+  line-height: normal;
+  color: var(--i-code-color-text);
+  background: var(--i-code-color-background);
+}
+
+/* Inline, so long code wraps. Each line keeps its own padding and corners. */
+code,
+kbd,
+samp {
+  padding: var(--i-code-padding-block) var(--i-code-padding-inline);
+  box-decoration-break: clone;
+}
+
+pre {
+  overflow-x: auto;
+  padding: var(--i-spacing);
+  margin-top: 0;
+  margin-bottom: var(--i-spacing);
+  line-height: var(--i-line-height);
+}
+
+/* The pre paints the block, so .light on the pre reaches the code inside */
+pre > code,
+pre > samp {
+  display: block;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background: none;
+}
+
+:is(pre, code, kbd, samp).light {
+  color: var(--i-code-light-color-text);
+  background: var(--i-code-light-color-background);
+}
+
+kbd {
+  font-weight: var(--i-kbd-font-weight);
+  color: var(--i-kbd-color-text);
+  vertical-align: baseline;
+  background-color: var(--i-kbd-color-background);
+}
+
+/* A key combination: <kbd><kbd>Ctrl</kbd>+<kbd>C</kbd></kbd>. In :is(), so
+   browsers without :has() skip only this selector. */
+kbd:is(:has(kbd)) {
+  padding: 0;
+  color: inherit;
+  background: none;
+}
+
+kbd kbd {
+  font-size: 1em;
+}

@@ -1,0 +1,23 @@
+/**
+ * Skeleton variables
+ */
+:root,
+:host {
+  /* One shimmer sweep */
+  --i-skeleton-duration: 1.5s;
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-skeleton-color-background: color-mix(
+    in oklab,
+    var(--i-color-text) 10%,
+    var(--i-color-background)
+  );
+  --i-skeleton-color-highlight: color-mix(
+    in oklab,
+    var(--i-color-text) 4%,
+    var(--i-color-background)
+  );
+}

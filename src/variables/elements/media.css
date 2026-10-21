@@ -1,0 +1,10 @@
+/**
+ * Media variables
+ */
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  /* Video captions */
+  --i-cue-color-text: var(--i-color-white);
+  --i-cue-color-background: #000c;
+}

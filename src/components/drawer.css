@@ -1,0 +1,64 @@
+/**
+ * Drawer
+ *
+ * A modal that slides in from an edge: <dialog class="drawer">, opened like
+ * any modal. It comes from the end edge; .start uses the start edge and
+ * .bottom makes a bottom sheet.
+ */
+dialog.drawer {
+  --_from: translateX(calc(100% * var(--_drawer-sign, 1)));
+  width: var(--i-drawer-width);
+  max-width: 100%;
+  height: 100dvh;
+  max-height: none;
+  border-radius: 0;
+  margin: 0;
+  margin-inline-start: auto;
+}
+
+dialog.drawer.start {
+  --_from: translateX(calc(-100% * var(--_drawer-sign, 1)));
+  margin-inline: 0 auto;
+}
+
+/* Right to left mirrors the slide. The sign inherits, so the nearest dir
+   wins. :dir() also reads dir="auto", in rules of its own, since browsers
+   without it drop the whole rule. */
+:where([dir="ltr"]) {
+  --_drawer-sign: 1;
+}
+
+:where([dir="rtl"]) {
+  --_drawer-sign: -1;
+}
+
+dialog.drawer:dir(ltr) {
+  --_drawer-sign: 1;
+}
+
+dialog.drawer:dir(rtl) {
+  --_drawer-sign: -1;
+}
+
+dialog.drawer.bottom {
+  --_from: translateY(100%);
+  width: 100%;
+  height: fit-content;
+  max-height: var(--i-drawer-max-height);
+  border-start-start-radius: var(--i-border-radius);
+  border-start-end-radius: var(--i-border-radius);
+  margin: 0;
+  margin-block-start: auto;
+}
+
+dialog.drawer:not([open]) {
+  opacity: 1;
+  transform: var(--_from);
+}
+
+@starting-style {
+  dialog.drawer[open] {
+    opacity: 1;
+    transform: var(--_from);
+  }
+}

@@ -1,0 +1,216 @@
+/**
+ * Typography
+ *
+ * Text elements, headings, quotes and inline markup.
+ */
+
+/* ==================================================
+   Text blocks
+   ================================================== */
+
+address,
+blockquote,
+dl,
+ol,
+p,
+ul {
+  margin-top: 0;
+  margin-bottom: var(--i-typography-spacing);
+}
+
+address {
+  font-style: normal;
+}
+
+/* Avoids a single word on the last line */
+:where(p, li, dd, blockquote, figcaption) {
+  text-wrap: pretty;
+}
+
+blockquote {
+  padding: var(--i-spacing);
+  border-inline-start: 0.25rem solid var(--i-blockquote-color-border);
+  margin: var(--i-typography-spacing) 0;
+  /* An opening quote mark hangs outside the text. Safari only. */
+  hanging-punctuation: first;
+}
+
+blockquote footer {
+  margin-top: calc(var(--i-typography-spacing) * 0.5);
+  color: var(--i-blockquote-footer-color-text);
+}
+
+hr {
+  height: 0;
+  border: 0;
+  border-block-start: var(--i-border-width) solid var(--i-color-subtle-border);
+  margin: var(--i-typography-spacing) 0;
+}
+
+/* ==================================================
+   Headings
+   ================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: var(--i-typography-spacing);
+  font-family: var(--i-font-family);
+  font-weight: var(--i-heading-font-weight);
+  text-wrap: balance;
+}
+
+h1 {
+  --_space-top: var(--i-h1-margin-top);
+  font-size: var(--i-h1-font-size);
+  line-height: var(--i-h1-line-height);
+  color: var(--i-h1-color-text);
+}
+
+h2 {
+  --_space-top: var(--i-h2-margin-top);
+  font-size: var(--i-h2-font-size);
+  line-height: var(--i-h2-line-height);
+  color: var(--i-h2-color-text);
+}
+
+h3 {
+  --_space-top: var(--i-h3-margin-top);
+  font-size: var(--i-h3-font-size);
+  line-height: var(--i-h3-line-height);
+  color: var(--i-h3-color-text);
+}
+
+h4 {
+  --_space-top: var(--i-h4-margin-top);
+  font-size: var(--i-h4-font-size);
+  line-height: var(--i-h4-line-height);
+  color: var(--i-h4-color-text);
+}
+
+h5 {
+  --_space-top: var(--i-h5-margin-top);
+  font-size: var(--i-h5-font-size);
+  line-height: var(--i-h5-line-height);
+  color: var(--i-h5-color-text);
+}
+
+h6 {
+  --_space-top: var(--i-h6-margin-top);
+  font-size: var(--i-h6-font-size);
+  line-height: var(--i-h6-line-height);
+  color: var(--i-h6-color-text);
+}
+
+/* Headings in a color class fill take its text color, and so does a heading
+   with its own color class. It lives here because base/variants.css sits in an
+   earlier layer and loses to the colors above. */
+:where(
+    .primary,
+    .secondary,
+    .contrast,
+    .accent,
+    .info,
+    .success,
+    .warning,
+    .danger,
+    .link
+  ):where(:not(a, [role="link"]))
+  :is(h1, h2, h3, h4, h5, h6) {
+  color: inherit;
+}
+
+:is(h1, h2, h3, h4, h5, h6):where(
+  .primary,
+  .secondary,
+  .contrast,
+  .accent,
+  .info,
+  .success,
+  .warning,
+  .danger,
+  .link
+) {
+  color: var(--i-variant-inverse);
+}
+
+/* Extra space above a heading that follows other content */
+:where(article, address, blockquote, dl, figure, form, ol, p, pre, table, ul)
+  ~ :is(h1, h2, h3, h4, h5, h6) {
+  margin-top: var(--_space-top);
+}
+
+hgroup {
+  margin-bottom: var(--i-typography-spacing);
+}
+
+hgroup > * {
+  margin-block: 0;
+}
+
+hgroup > *:not(:first-child):last-child {
+  font-size: 1rem;
+  font-weight: unset;
+}
+
+/* Element weight, so a class on the subtitle can still set its color */
+hgroup > :where(:not(:first-child):last-child) {
+  color: var(--i-color-subtle);
+}
+
+/* ==================================================
+   Inline text
+   ================================================== */
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+small {
+  font-size: var(--i-small-font-size);
+}
+
+sub,
+sup {
+  position: relative;
+  font-size: 0.75em;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+mark {
+  padding: 0.125em 0.25em;
+  color: var(--i-mark-color-text);
+  vertical-align: baseline;
+  background-color: var(--i-mark-color-background);
+}
+
+abbr[title] {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+ins {
+  color: var(--i-ins-color-text);
+}
+
+del {
+  color: var(--i-del-color-text);
+}
+
+math {
+  font-family: math;
+}

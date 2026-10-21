@@ -1,0 +1,36 @@
+/**
+ * Skeleton
+ *
+ * A shimmering placeholder while content loads: <div class="skeleton"
+ * aria-hidden="true">. One line tall by default; set a width or height for other
+ * shapes. .rounded makes a pill or circle.
+ */
+.skeleton {
+  display: block;
+  /* em first, for browsers without the lh unit */
+  min-height: calc(var(--i-line-height) * 1em);
+  min-height: 1lh;
+  border-radius: var(--i-border-radius);
+  margin-bottom: calc(var(--i-spacing) * 0.5);
+  color: transparent;
+  background: linear-gradient(
+      90deg,
+      var(--i-skeleton-color-background) 25%,
+      var(--i-skeleton-color-highlight) 50%,
+      var(--i-skeleton-color-background) 75%
+    )
+    0 0 / 200% 100%;
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton {
+    animation: i-skeleton-shimmer var(--i-skeleton-duration) linear infinite;
+  }
+}
+
+@keyframes i-skeleton-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}

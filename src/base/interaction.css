@@ -1,0 +1,18 @@
+/**
+ * Interaction
+ *
+ * Touch defaults for interactive elements.
+ */
+
+/* Removes the double tap zoom delay on touch screens */
+a,
+area,
+button,
+input,
+label,
+select,
+summary,
+textarea,
+[tabindex] {
+  touch-action: manipulation;
+}

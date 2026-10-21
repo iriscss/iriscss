@@ -1,0 +1,11 @@
+/**
+ * Range input variables
+ */
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-range-color-track: light-dark(#8790a3, #5f6880);
+  --i-range-active-color-track: light-dark(#6f788c, #7b849a);
+  --i-range-color-thumb: var(--i-color-secondary);
+  --i-range-thumb-color-border: var(--i-color-background);
+}

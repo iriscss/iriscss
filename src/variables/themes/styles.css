@@ -1,0 +1,91 @@
+/**
+ * Theme colors
+ *
+ * Each color is light-dark(light, dark). The element's color-scheme picks the
+ * value, so the system preference and data-theme switch every color at once,
+ * nested themes included. Override a variable with your own light-dark() pair.
+ *
+ * :where([data-theme], .light, .dark) is for browsers without light-dark(),
+ * whose build fallback only recomputes a value where it is declared. The build
+ * gives them that copy alone, see postcss.config.js. Colors owned by one
+ * element or component live in that owner's file, on the same selectors.
+ */
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  /* Default colors */
+  --i-color-text: light-dark(#373c44, #c2c7d0);
+  --i-color-background: light-dark(var(--i-color-white), #13171f);
+
+  /* Light & dark colors */
+  --i-color-light: var(--i-color-white);
+  --i-color-dark: var(--i-color-black);
+
+  /* Brand colors. The text ones reach 4.5:1 on the page and on tinted bands,
+     such as the footer, in both themes. */
+  --i-color-brand: light-dark(#b31fc6, #e12afb);
+  --i-color-brand-dark: #a800b7;
+  --i-color-brand-light: #f4a8ff;
+  --i-color-brand-name: light-dark(var(--i-color-brand-dark), #e47ef0);
+  --i-color-brand-accent: light-dark(#b31fc6, var(--i-color-brand-light));
+
+  /* Mix targets. Hovers and colored text mix toward ink, tints mix toward paper */
+  --i-color-ink: light-dark(var(--i-color-black), var(--i-color-white));
+  --i-color-paper: light-dark(var(--i-color-white), #13171f);
+
+  /* Neutral color of buttons and links without a color class */
+  --i-color-base: light-dark(#8e9fbc, #c2c7d0);
+  --i-color-focus: color-mix(
+    in oklab,
+    var(--i-color-base),
+    var(--i-color-ink) 40%
+  );
+
+  /* Each family is a color and the text color used on top of it.
+     Hover, border, focus and tint colors are derived where they are used. */
+  --i-color-primary: light-dark(#00d5be, #05cc47);
+  --i-color-primary-inverse: var(--i-color-slate-900);
+  --i-color-secondary: light-dark(#5d6b89, #525f7a);
+  --i-color-secondary-inverse: var(--i-color-white);
+  --i-color-contrast: light-dark(#1c2840, #eff1f4);
+  --i-color-contrast-inverse: light-dark(
+    var(--i-color-white),
+    var(--i-color-black)
+  );
+  --i-color-accent: #ffb900;
+  --i-color-accent-inverse: var(--i-color-slate-900);
+  --i-color-info: var(--i-color-cyan);
+  --i-color-info-inverse: var(--i-color-slate-900);
+  --i-color-success: var(--i-color-green);
+  --i-color-success-inverse: var(--i-color-slate-900);
+  --i-color-warning: var(--i-color-yellow);
+  --i-color-warning-inverse: var(--i-color-slate-900);
+  --i-color-danger: var(--i-color-red-600);
+  --i-color-danger-inverse: var(--i-color-white);
+  --i-color-link: var(--i-color-blue-600);
+  --i-color-link-inverse: var(--i-color-white);
+
+  /* Current color family. The color classes set it, buttons and links read it */
+  --i-variant: var(--i-color-base);
+  --i-variant-inverse: var(--i-color-paper);
+
+  /* Subtle colors */
+  --i-color-subtle: light-dark(#646b79, #848d9e);
+  --i-color-subtle-border: light-dark(#e7eaf0, #202632);
+
+  /* Box shadow, built from one color so it follows the theme */
+  --i-color-shadow: light-dark(#8191b5, #07090c);
+  --i-shadow:
+    0.0145rem 0.029rem 0.174rem
+      color-mix(in srgb, var(--i-color-shadow) 1.6%, transparent),
+    0.0335rem 0.067rem 0.402rem
+      color-mix(in srgb, var(--i-color-shadow) 2.4%, transparent),
+    0.0625rem 0.125rem 0.75rem
+      color-mix(in srgb, var(--i-color-shadow) 3.1%, transparent),
+    0.1125rem 0.225rem 1.35rem
+      color-mix(in srgb, var(--i-color-shadow) 3.5%, transparent),
+    0.2085rem 0.417rem 2.502rem
+      color-mix(in srgb, var(--i-color-shadow) 4.3%, transparent),
+    0.5rem 1rem 6rem color-mix(in srgb, var(--i-color-shadow) 5.9%, transparent),
+    0 0 0 0.0625rem color-mix(in srgb, var(--i-color-shadow) 1.6%, transparent);
+}

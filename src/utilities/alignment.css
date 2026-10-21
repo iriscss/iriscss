@@ -1,0 +1,21 @@
+/**
+ * Alignment
+ *
+ * Optional utilities for centering text, flex items and blocks.
+ */
+
+.text-center {
+  text-align: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.mx-auto {
+  margin-inline: auto;
+}

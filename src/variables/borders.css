@@ -1,0 +1,17 @@
+/**
+ * Border variables
+ */
+:root,
+:host {
+  /* Border radius scale */
+  --i-border-radius-small: 0.125rem;
+  --i-border-radius: 0.25rem;
+  --i-border-radius-medium: 0.375rem;
+  --i-border-radius-large: 0.5rem;
+  --i-border-radius-xlarge: 0.75rem;
+  --i-border-radius-pill: 9999px;
+
+  /* Border widths */
+  --i-border-width: 0.0625rem;
+  --i-focus-ring-width: 0.125rem;
+}

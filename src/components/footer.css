@@ -1,0 +1,159 @@
+/**
+ * Footer
+ *
+ * A page footer band: <footer class="footer"><div class="container">. The
+ * element holding the navs is the column grid, its first child is the brand
+ * when it is not a nav, and the element after the grid is the bottom row.
+ * Below a 48rem wide footer the brand spans the row and the bottom row stacks.
+ * .sticky keeps the footer at the bottom of short pages, and a color class
+ * fills it.
+ */
+.footer {
+  --_background: var(--i-footer-color-background);
+  --_border: var(--i-footer-color-border);
+  --_text: var(--i-footer-color-text);
+  container-type: inline-size;
+  display: block;
+  padding-block: var(--i-footer-padding-block)
+    max(var(--i-footer-padding-block), env(safe-area-inset-bottom, 0px));
+  border-top: var(--i-border-width) solid var(--_border);
+  font-size: var(--i-footer-font-size);
+  color: var(--_text);
+  background-color: var(--_background);
+}
+
+.footer :where(p, ul, ol):last-child {
+  margin-bottom: 0;
+}
+
+/* Columns: the element whose children include a nav */
+.footer :where(:has(> nav)) {
+  display: grid;
+  gap: var(--i-footer-gap);
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(var(--i-footer-column-min-width), 100%), 1fr)
+  );
+}
+
+/* Brand: a link with an optional logo, then a short text */
+.footer :where(:has(> nav) > :first-child:not(nav) > a:first-child) {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--i-spacing) * 0.5);
+  font-size: var(--i-footer-brand-font-size);
+  font-weight: 700;
+  color: var(--i-h1-color-text);
+  text-decoration: none;
+}
+
+.footer
+  :where(:has(> nav) > :first-child:not(nav) > a:first-child)
+  > :is(img, svg) {
+  width: auto;
+  height: var(--i-footer-brand-image-height);
+}
+
+.footer :where(:has(> nav) > :first-child:not(nav) > a:first-child + p) {
+  margin-top: calc(var(--i-spacing) * 0.75);
+}
+
+/* Link columns stack instead of lining up like other navs */
+.footer nav {
+  display: block;
+}
+
+.footer nav > :is(h2, h3, h4, h5, h6) {
+  margin-bottom: calc(var(--i-spacing) * 0.75);
+  font-size: var(--i-footer-heading-font-size);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.footer nav :is(ol, ul) {
+  display: block;
+  margin: 0;
+}
+
+.footer nav li {
+  display: block;
+  padding: calc(var(--i-spacing) * 0.2) 0;
+}
+
+/* Bottom row: copyright and credits */
+.footer :where(:has(> nav) + *) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: calc(var(--i-spacing) * 0.5) var(--i-footer-gap);
+  padding-top: calc(var(--i-spacing) * 1.5);
+  border-top: var(--i-border-width) solid var(--_border);
+  margin-top: var(--i-footer-padding-block);
+}
+
+.footer :where(:has(> nav) + *) > p {
+  margin: 0;
+}
+
+/* Color classes fill the band, and links and headings take its text color */
+.footer:where(
+  .primary,
+  .secondary,
+  .contrast,
+  .accent,
+  .info,
+  .success,
+  .warning,
+  .danger,
+  .link
+) {
+  --_background: var(--i-variant);
+  --_border: color-mix(
+    in oklab,
+    var(--i-variant-inverse) 25%,
+    var(--i-variant)
+  );
+  --_text: var(--i-variant-inverse);
+}
+
+.footer:where(
+    .primary,
+    .secondary,
+    .contrast,
+    .accent,
+    .info,
+    .success,
+    .warning,
+    .danger,
+    .link
+  )
+  :where(a:not([role="button"]), [role="link"], h1, h2, h3, h4, h5, h6) {
+  color: inherit;
+  text-decoration-color: currentcolor;
+}
+
+/* Sticky: on short pages the body becomes a column that pushes the footer down */
+body:has(> .footer.sticky) {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+body > .footer.sticky {
+  margin-top: auto;
+}
+
+/* Phones: the brand gets its own row, links are easier to tap */
+@container (width < 48rem) {
+  .footer :where(:has(> nav) > :first-child:not(nav)) {
+    grid-column: 1 / -1;
+  }
+
+  .footer nav li {
+    padding-block: calc(var(--i-spacing) * 0.375);
+  }
+
+  .footer :where(:has(> nav) + *) {
+    flex-direction: column;
+  }
+}

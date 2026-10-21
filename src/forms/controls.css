@@ -1,0 +1,492 @@
+/**
+ * Form controls
+ *
+ * Inputs, selects, textareas and output: sizing, colors, focus and validation.
+ * .select draws a button as a select, for a dropdown that holds choices.
+ * Colors switch through private variables (--_background, --_border, --_text
+ * and --_outline for the focus ring) that states and modifiers set. Padding is
+ * --_padding-block and --_padding-inline plus room for an icon at the start
+ * (--_icon-start) or the end (--_icon-end), so size classes, icons and
+ * validation combine. The size classes set --_size-block, --_size-inline and
+ * --_size-font multipliers. Button type inputs are styled by button.css.
+ */
+
+/* ==================================================
+   Base
+   ================================================== */
+
+/* Zero specificity, so the field rules below set the spacing */
+:where(input, optgroup, select, textarea) {
+  margin: 0;
+  font-family: inherit;
+  line-height: var(--i-line-height);
+  letter-spacing: inherit;
+}
+
+input {
+  overflow: visible;
+}
+
+select {
+  text-transform: none;
+}
+
+/* Even digit widths, so a live value does not shift as it changes */
+output {
+  font-weight: bolder;
+  font-variant-numeric: tabular-nums;
+}
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/* Icon sides follow the text direction. A nested dir resets them. */
+:where([dir="rtl"]) {
+  --_start-side: right;
+  --_end-side: left;
+}
+
+:where([dir="ltr"]) {
+  --_start-side: left;
+  --_end-side: right;
+}
+
+/* ==================================================
+   Fieldsets and labels
+   ================================================== */
+
+/* Browsers give a fieldset min-inline-size: min-content, so wide content
+   would push it past a grid cell or a narrow screen */
+fieldset {
+  min-inline-size: 0;
+  padding: 0;
+  border: 0;
+  margin: 0 0 var(--i-spacing);
+}
+
+label {
+  display: block;
+  margin-bottom: calc(var(--i-spacing) * 0.375);
+  font-weight: var(--i-label-font-weight);
+}
+
+legend {
+  display: block;
+  max-width: 100%;
+  padding: 0;
+  margin-bottom: calc(var(--i-spacing) * 0.5);
+  font-weight: var(--i-label-font-weight);
+  color: inherit;
+  white-space: normal;
+}
+
+label > :where(input, select, textarea, .select) {
+  margin-top: calc(var(--i-spacing) * 0.25);
+}
+
+/* ==================================================
+   Colors
+   ================================================== */
+
+/* Zero specificity, so states and modifiers win with one class or pseudo class */
+:where(
+  input:not([type="submit"], [type="button"], [type="reset"], [type="image"]),
+  select,
+  textarea,
+  .select
+) {
+  --_background: var(--i-input-color-background);
+  --_border: var(--i-input-color-border);
+  --_text: var(--i-input-color-text);
+  --_outline: var(--i-input-focus-color-outline);
+  border: var(--i-border-width) solid var(--_border);
+  border-radius: var(--i-border-radius);
+  font-weight: var(--i-font-weight);
+  color: var(--_text);
+  background-color: var(--_background);
+  outline: none;
+  transition:
+    background-color var(--i-duration) var(--i-easing),
+    border-color var(--i-duration) var(--i-easing),
+    color var(--i-duration) var(--i-easing);
+}
+
+::placeholder,
+select:invalid {
+  color: var(--i-input-color-placeholder);
+  opacity: 1;
+}
+
+/* Native pickers pass the select color on to the options, so they keep the
+   text color while the select shows its empty choice */
+select:invalid option {
+  color: var(--i-input-color-text);
+}
+
+/* ==================================================
+   Text fields: inputs with a text box, selects and textareas
+   ================================================== */
+
+:where(
+  input:not(
+    [type="checkbox"],
+    [type="radio"],
+    [type="range"],
+    [type="file"],
+    [type="submit"],
+    [type="button"],
+    [type="reset"],
+    [type="image"]
+  ),
+  select,
+  textarea,
+  .select
+) {
+  --_padding-block: calc(
+    var(--i-control-padding-block) * var(--_size-block, 1)
+  );
+  --_padding-inline: calc(
+    var(--i-control-padding-inline) * var(--_size-inline, 1)
+  );
+  --_icon-start: 0rem;
+  --_icon-end: 0rem;
+  width: 100%;
+  padding-block: var(--_padding-block);
+  padding-inline: calc(var(--_padding-inline) + var(--_icon-start))
+    calc(var(--_padding-inline) + var(--_icon-end));
+  margin-bottom: var(--i-spacing);
+  font-size: calc(1rem * var(--_size-font, 1));
+  background-repeat: no-repeat;
+  appearance: none;
+}
+
+/* One line of text, so inputs line up with buttons whatever their font size */
+:where(
+  input:not(
+    [type="checkbox"],
+    [type="radio"],
+    [type="range"],
+    [type="submit"],
+    [type="button"],
+    [type="reset"],
+    [type="image"]
+  )
+) {
+  height: calc(
+    1em * var(--i-line-height) +
+      var(--_padding-block, var(--i-control-padding-block)) * 2 +
+      var(--i-border-width) * 2
+  );
+}
+
+/* ==================================================
+   States
+   ================================================== */
+
+:where(
+  input:not(
+    [type="submit"],
+    [type="button"],
+    [type="reset"],
+    [type="image"],
+    [type="checkbox"],
+    [type="radio"],
+    [readonly]
+  ),
+  select,
+  textarea:not([readonly]),
+  .select
+):is(:active, :focus) {
+  --_background: var(--i-input-active-color-background);
+}
+
+:where(
+  input:not(
+    [type="submit"],
+    [type="button"],
+    [type="reset"],
+    [type="image"],
+    [role="switch"],
+    [readonly]
+  ),
+  select,
+  textarea:not([readonly]),
+  .select
+):is(:active, :focus) {
+  --_border: var(--i-input-active-color-border);
+}
+
+/* Readonly fields keep their colors but still show keyboard focus */
+:where(
+  input:not(
+    [type="submit"],
+    [type="button"],
+    [type="reset"],
+    [type="image"],
+    [type="file"]
+  ),
+  select,
+  textarea,
+  .select
+):focus-visible {
+  outline: var(--i-input-outline-width) solid var(--_outline);
+  outline-offset: 0;
+}
+
+:where(input:is([type="checkbox"], [type="radio"], [type="file"])) {
+  --_outline: var(--i-input-button-focus-color-outline);
+}
+
+:where(
+  input:not([type="submit"], [type="button"], [type="reset"], [type="image"]),
+  select,
+  textarea
+):is([disabled], fieldset[disabled] *),
+label[aria-disabled="true"] {
+  opacity: var(--i-control-disabled-opacity);
+}
+
+/* The label already fades, so the controls inside it do not fade twice */
+label[aria-disabled="true"] :disabled {
+  opacity: 1;
+}
+
+/* ==================================================
+   Validation: aria-invalid, or :user-invalid once the user has edited a field
+   ================================================== */
+
+/* Drops the browser glow, the border shows the state */
+:user-invalid {
+  box-shadow: none;
+}
+
+:where(input, select, textarea, .select)[aria-invalid="false"] {
+  --_border: var(--i-input-valid-color-border);
+  --_outline: var(--i-input-valid-focus-color-outline);
+}
+
+:where(input, select, textarea, .select)[aria-invalid="false"]:is(
+    :active,
+    :focus
+  ) {
+  --_border: var(--i-input-valid-active-color-border);
+}
+
+:where(input, select, textarea, .select):is(
+  [aria-invalid="true"],
+  :user-invalid:where(:not([aria-invalid]))
+) {
+  --_border: var(--i-input-invalid-color-border);
+  --_outline: var(--i-input-invalid-focus-color-outline);
+}
+
+:where(input, select, textarea, .select):is(
+    [aria-invalid="true"],
+    :user-invalid:where(:not([aria-invalid]))
+  ):is(:active, :focus) {
+  --_border: var(--i-input-invalid-active-color-border);
+}
+
+/* A state icon at the end. Selects keep the chevron, dates the calendar. */
+:where(
+  input:not(
+    [type="checkbox"],
+    [type="radio"],
+    [type="range"],
+    [type="file"],
+    [type="color"],
+    [type="date"],
+    [type="datetime-local"],
+    [type="month"],
+    [type="time"],
+    [type="week"],
+    [type="submit"],
+    [type="button"],
+    [type="reset"],
+    [type="image"]
+  ),
+  textarea
+):is([aria-invalid], :user-invalid) {
+  --_icon-end: 1rem;
+  background-position: var(--_end-side, right) 0.75rem center;
+  background-size: 1rem auto;
+}
+
+:where(
+  input:not(
+    [type="checkbox"],
+    [type="radio"],
+    [type="range"],
+    [type="file"],
+    [type="color"],
+    [type="date"],
+    [type="datetime-local"],
+    [type="month"],
+    [type="time"],
+    [type="week"],
+    [type="submit"],
+    [type="button"],
+    [type="reset"],
+    [type="image"]
+  ),
+  textarea
+)[aria-invalid="false"] {
+  background-image: var(--i-svg-valid);
+}
+
+:where(
+  input:not(
+    [type="checkbox"],
+    [type="radio"],
+    [type="range"],
+    [type="file"],
+    [type="color"],
+    [type="date"],
+    [type="datetime-local"],
+    [type="month"],
+    [type="time"],
+    [type="week"],
+    [type="submit"],
+    [type="button"],
+    [type="reset"],
+    [type="image"]
+  ),
+  textarea
+):is([aria-invalid="true"], :user-invalid:where(:not([aria-invalid]))) {
+  background-image: var(--i-svg-invalid);
+}
+
+/* In a textarea the icon sits on the first line */
+:where(textarea):is([aria-invalid], :user-invalid) {
+  background-position: var(--_end-side, right) 0.75rem top
+    calc(var(--_padding-block) + (1em * var(--i-line-height) - 1rem) / 2);
+}
+
+/* ==================================================
+   Select
+   ================================================== */
+
+select:not([multiple], [size]),
+.select {
+  --_icon-end: 1.5rem;
+  background-image: var(--i-svg-chevron-down);
+  background-position: var(--_end-side, right) 0.75rem center;
+  background-size: 1rem auto;
+}
+
+/* A button that opens a dropdown, drawn as a select. The field rules above
+   replace its button colors and padding. */
+.select {
+  --_text: var(--i-input-color-placeholder);
+  text-align: start;
+  box-shadow: none;
+}
+
+select[multiple] option:checked {
+  color: var(--i-input-color-text);
+  background: var(--i-input-selected-color-background);
+}
+
+/* A themed option list where the browser supports a customizable select */
+@supports (appearance: base-select) {
+  select:not([multiple], [size]),
+  select:not([multiple], [size])::picker(select) {
+    appearance: base-select;
+  }
+
+  /* The chevron is the background image, as in other browsers */
+  select::picker-icon {
+    display: none;
+  }
+
+  select::picker(select) {
+    padding: calc(var(--i-control-padding-block) * 0.5) 0;
+    border: var(--i-border-width) solid var(--i-dropdown-color-border);
+    border-radius: var(--i-border-radius);
+    margin: var(--i-dropdown-offset) 0;
+    color: var(--i-dropdown-color-text);
+    background-color: var(--i-dropdown-color-background);
+    box-shadow: var(--i-dropdown-shadow);
+    opacity: 0;
+    transition:
+      display var(--i-duration) allow-discrete,
+      overlay var(--i-duration) allow-discrete,
+      opacity var(--i-duration) var(--i-easing);
+  }
+
+  select:open::picker(select) {
+    opacity: 1;
+  }
+
+  @starting-style {
+    select:open::picker(select) {
+      opacity: 0;
+    }
+  }
+
+  select:not([multiple], [size]) option {
+    padding: calc(var(--i-control-padding-block) * 0.5)
+      var(--i-control-padding-inline);
+  }
+
+  select:not([multiple], [size]) option:is(:hover, :focus-visible) {
+    background-color: var(--i-dropdown-hover-color-background);
+  }
+
+  select:not([multiple], [size]) option::checkmark {
+    color: var(--i-color-primary);
+  }
+}
+
+/* ==================================================
+   Textarea
+   ================================================== */
+
+textarea {
+  display: block;
+  overflow: auto;
+  resize: vertical;
+}
+
+/* Grows with its text. A rows attribute keeps the fixed height. */
+@supports (field-sizing: content) {
+  textarea:not([rows]) {
+    min-height: var(--i-textarea-min-height);
+    max-height: var(--i-textarea-max-height);
+    field-sizing: content;
+  }
+}
+
+/* ==================================================
+   Helper text
+   ================================================== */
+
+:where(
+    input,
+    select,
+    textarea,
+    fieldset,
+    .grid,
+    label:has(input, select, textarea)
+  )
+  + small {
+  display: block;
+  width: 100%;
+  margin-top: calc(var(--i-spacing) * -0.75);
+  margin-bottom: var(--i-spacing);
+  color: var(--i-color-subtle);
+}
+
+:where(input, select, textarea, fieldset, .grid)[aria-invalid="false"] + small {
+  color: var(--i-ins-color-text);
+}
+
+:where(input, select, textarea, fieldset, .grid):is(
+    [aria-invalid="true"],
+    :user-invalid:where(:not([aria-invalid]))
+  )
+  + small {
+  color: var(--i-del-color-text);
+}

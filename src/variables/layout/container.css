@@ -1,0 +1,49 @@
+/**
+ * Container variables
+ *
+ * The max width steps up at each breakpoint. Widths are px, like the
+ * breakpoints, so they do not grow with the root font size.
+ */
+:root,
+:host {
+  /* 100%, then 576px, 700px, 950px, 1200px and 1450px from viewports 640px,
+     768px, 1024px, 1280px and 1536px wide */
+  --i-container-max-width: 100%;
+  --i-container-padding-inline: var(--i-spacing);
+}
+
+@media (min-width: 640px) {
+  :root,
+  :host {
+    --i-container-max-width: 576px;
+    --i-container-padding-inline: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  :root,
+  :host {
+    --i-container-max-width: 700px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root,
+  :host {
+    --i-container-max-width: 950px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root,
+  :host {
+    --i-container-max-width: 1200px;
+  }
+}
+
+@media (min-width: 1536px) {
+  :root,
+  :host {
+    --i-container-max-width: 1450px;
+  }
+}

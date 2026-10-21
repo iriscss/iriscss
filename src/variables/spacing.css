@@ -1,0 +1,12 @@
+/**
+ * Spacing variables
+ *
+ * --i-spacing is the base unit. Most other spacing derives from it.
+ */
+:root,
+:host {
+  --i-spacing: 1rem;
+  --i-typography-spacing: 1rem;
+  --i-section-spacing-block: var(--i-spacing);
+  --i-section-spacing-inline: var(--i-spacing);
+}

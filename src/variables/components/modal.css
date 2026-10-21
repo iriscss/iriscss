@@ -1,0 +1,15 @@
+/**
+ * Modal variables
+ */
+:root,
+:host {
+  --i-modal-max-width: 43.75rem;
+  --i-modal-overlay-backdrop-filter: blur(0.375rem);
+  --i-modal-duration: 0.3s;
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-modal-overlay-color-background: light-dark(#e8eaedbf, #08090abf);
+}

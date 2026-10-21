@@ -1,0 +1,19 @@
+/**
+ * Popover variables
+ */
+:root,
+:host {
+  --i-popover-max-width: 20rem;
+  /* Gap between an anchored popover and the button that opens it */
+  --i-popover-offset: calc(var(--i-spacing) * 0.25);
+  --i-popover-duration: var(--i-duration);
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-popover-color-background: var(--i-dropdown-color-background);
+  --i-popover-color-border: var(--i-dropdown-color-border);
+  --i-popover-shadow: var(--i-dropdown-shadow);
+  --i-popover-color-text: var(--i-dropdown-color-text);
+}

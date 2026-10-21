@@ -1,0 +1,66 @@
+/**
+ * Group
+ *
+ * .group joins inputs, selects and buttons into one row:
+ * <div class="group" role="group">. A group in or on <search> or
+ * [role="search"] gets pill ends. The focused child is raised so its focus
+ * ring shows over its neighbors.
+ */
+.group {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  border-radius: var(--i-border-radius);
+  margin-bottom: var(--i-spacing);
+  vertical-align: middle;
+}
+
+.group > * {
+  position: relative;
+  flex: 1 1 auto;
+  margin-bottom: 0;
+}
+
+.group > :not(:first-child) {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+  margin-inline-start: calc(var(--i-border-width) * -1);
+}
+
+.group > :not(:last-child) {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.group > :is(:focus, :focus-within) {
+  z-index: 2;
+}
+
+.group
+  > :is(
+    button,
+    [type="submit"],
+    [type="reset"],
+    [type="button"],
+    [role="button"]
+  ) {
+  --_padding-inline: var(--i-group-button-padding-inline);
+  width: auto;
+}
+
+/* Search: pill ends */
+.group:is(search, [role="search"], search > *, [role="search"] > *) {
+  border-radius: var(--i-group-search-border-radius);
+}
+
+.group:is(search, [role="search"], search > *, [role="search"] > *)
+  > :first-child {
+  border-start-start-radius: var(--i-group-search-border-radius);
+  border-end-start-radius: var(--i-group-search-border-radius);
+}
+
+.group:is(search, [role="search"], search > *, [role="search"] > *)
+  > :last-child {
+  border-start-end-radius: var(--i-group-search-border-radius);
+  border-end-end-radius: var(--i-group-search-border-radius);
+}

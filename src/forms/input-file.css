@@ -1,0 +1,23 @@
+/**
+ * File input
+ *
+ * The picker button is styled as a secondary button by button.css. The input
+ * starts one ring width in, so the button's focus ring is not clipped.
+ */
+[type="file"] {
+  --_text: var(--i-color-subtle);
+  width: 100%;
+  padding-block: calc(var(--i-control-padding-block) * 0.5);
+  padding-inline: var(--i-focus-ring-width) 0;
+  border: 0;
+  border-radius: 0;
+  margin-bottom: var(--i-spacing);
+  margin-inline-start: calc(var(--i-focus-ring-width) * -1);
+  background: none;
+}
+
+[type="file"]::file-selector-button {
+  padding: calc(var(--i-control-padding-block) * 0.5)
+    var(--i-control-padding-inline);
+  margin-inline-end: calc(var(--i-spacing) / 2);
+}

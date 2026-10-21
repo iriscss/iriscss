@@ -1,0 +1,8 @@
+/**
+ * Steps variables
+ */
+:root,
+:host {
+  --i-steps-marker-size: 2rem;
+  --i-steps-line-width: 0.125rem;
+}

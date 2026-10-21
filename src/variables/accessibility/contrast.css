@@ -1,0 +1,18 @@
+/**
+ * Contrast variables
+ *
+ * Wider borders and focus rings when the user asks for more contrast.
+ */
+:root,
+:host {
+  --i-contrast-border-width: 0.125rem;
+  --i-contrast-focus-ring-width: 0.1875rem;
+}
+
+@media (prefers-contrast: more) {
+  :root,
+  :host {
+    --i-border-width: var(--i-contrast-border-width);
+    --i-focus-ring-width: var(--i-contrast-focus-ring-width);
+  }
+}

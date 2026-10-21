@@ -1,0 +1,21 @@
+/**
+ * Table variables
+ */
+:root,
+:host {
+  --i-table-header-border-width: var(--i-border-width);
+  --i-table-header-font-weight: 600;
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-table-color-border: var(--i-color-subtle-border);
+  --i-table-header-color-background: var(--i-color-background);
+  --i-table-row-striped-color-background: #6f78870a;
+  --i-table-row-hover-color-background: color-mix(
+    in oklab,
+    var(--i-color-text) 8%,
+    transparent
+  );
+}

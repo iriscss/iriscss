@@ -1,0 +1,85 @@
+/**
+ * Accordion
+ *
+ * Styles every <details>. A chevron at the end of the summary points down
+ * and turns up while open. The content slides open where the browser
+ * supports ::details-content and interpolate-size, and the gap under the
+ * summary slides with it. role="button" draws the summary as a button.
+ */
+:where(details) {
+  display: block;
+  margin-bottom: var(--i-spacing);
+  interpolate-size: allow-keywords;
+}
+
+/* The chevron sits in the end padding, so long titles wrap before it */
+details > summary {
+  --_chevron-end: 0rem;
+  --_chevron-top: 0rem;
+  position: relative;
+  padding-inline-end: calc(var(--_chevron-end) + 1.5rem);
+  margin-block-end: 0;
+  list-style: none;
+  transition:
+    color var(--i-duration) var(--i-easing),
+    margin-block-end var(--i-duration) var(--i-easing);
+  cursor: pointer;
+}
+
+/* Safari before 18.4 draws its marker here instead of ::marker */
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details > summary:not([role]) {
+  color: var(--i-accordion-summary-color-text);
+}
+
+@media (hover: hover) {
+  details > summary:not([role]):hover {
+    color: var(--i-accordion-summary-hover-color-text);
+  }
+}
+
+details[open] > summary {
+  margin-block-end: var(--i-spacing);
+}
+
+details > summary[role="button"] {
+  --_chevron-end: calc(var(--_padding-inline) * var(--_size-inline, 1));
+  --_chevron-top: calc(var(--i-control-padding-block) * var(--_size-block, 1));
+  display: block;
+  width: 100%;
+  text-align: start;
+}
+
+/* Logical insets put it on the left in right to left text with no extra rule */
+details > summary::after {
+  position: absolute;
+  inset-block-start: var(--_chevron-top);
+  inset-inline-end: var(--_chevron-end);
+  width: 1rem;
+  /* em first, for browsers without the lh unit */
+  height: calc(1em * var(--i-line-height));
+  height: 1lh;
+  background-color: currentcolor;
+  mask: var(--i-svg-chevron-down) center / 1rem auto no-repeat;
+  transition: rotate var(--i-duration) var(--i-easing);
+  content: "";
+}
+
+details[open] > summary::after {
+  rotate: 180deg;
+}
+
+details::details-content {
+  overflow: clip;
+  block-size: 0;
+  transition:
+    block-size var(--i-duration) var(--i-easing),
+    content-visibility var(--i-duration) var(--i-easing) allow-discrete;
+}
+
+details[open]::details-content {
+  block-size: auto;
+}

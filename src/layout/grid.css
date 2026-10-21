@@ -1,0 +1,20 @@
+/**
+ * Grid
+ *
+ * .grid puts its children in equal columns at least --i-grid-column-min-width wide, and
+ * wraps them onto new rows when the grid itself gets narrow, so it works in a
+ * sidebar as well as on the page. .span-full makes a child take a whole row.
+ */
+.grid {
+  display: grid;
+  row-gap: var(--i-grid-row-gap);
+  column-gap: var(--i-grid-column-gap);
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(var(--i-grid-column-min-width), 100%), 1fr)
+  );
+}
+
+.grid > .span-full {
+  grid-column: 1 / -1;
+}

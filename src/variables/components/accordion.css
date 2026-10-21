@@ -1,0 +1,13 @@
+/**
+ * Accordion variables
+ */
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-accordion-summary-color-text: var(--i-color-text);
+  --i-accordion-summary-hover-color-text: color-mix(
+    in oklab,
+    var(--i-color-primary),
+    var(--i-color-ink) 25%
+  );
+}

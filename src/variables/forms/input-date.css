@@ -1,0 +1,7 @@
+/**
+ * Date input variables
+ */
+:root,
+:host {
+  --i-input-date-icon-size: 1rem;
+}

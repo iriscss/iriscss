@@ -1,0 +1,37 @@
+/**
+ * Lists
+ */
+
+ul {
+  list-style-type: square;
+}
+
+ul ul {
+  list-style-type: disc;
+}
+
+ul ul ul {
+  list-style-type: circle;
+}
+
+:where(ol, ul) li {
+  margin-bottom: calc(var(--i-typography-spacing) * 0.25);
+}
+
+:where(ol, ul) > li::marker {
+  color: var(--i-list-marker-color-text);
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-bottom: calc(var(--i-typography-spacing) * 0.5);
+  margin-inline-start: 0;
+}
+
+:where(dl, ol, ul) :where(dl, ol, ul) {
+  margin: 0;
+  margin-top: calc(var(--i-typography-spacing) * 0.25);
+}

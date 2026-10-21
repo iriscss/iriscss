@@ -1,0 +1,69 @@
+/**
+ * Tabs
+ *
+ * Details elements that share a name, so only one opens, laid out as tabs:
+ *   <div class="tabs">
+ *     <details name="plan" open><summary>Monthly</summary>...</details>
+ *     <details name="plan"><summary>Yearly</summary>...</details>
+ *   </div>
+ * Browsers without ::details-content show an accordion instead.
+ */
+:where(.tabs) {
+  --i-variant: var(--i-color-primary);
+  --i-variant-inverse: var(--i-color-primary-inverse);
+}
+
+@supports selector(::details-content) {
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: var(--i-spacing);
+    color: inherit;
+    background-color: transparent;
+  }
+
+  /* The summary and the panel become flex items of .tabs */
+  .tabs > details {
+    display: contents;
+  }
+
+  .tabs > details > summary {
+    order: 0;
+    padding: calc(var(--i-spacing) * 0.5) var(--i-spacing);
+    border-bottom: var(--i-tabs-indicator-width) solid transparent;
+    margin: 0;
+    margin-bottom: calc(var(--i-border-width) * -1);
+    color: var(--i-color-subtle);
+  }
+
+  .tabs > details > summary::after {
+    display: none;
+  }
+
+  .tabs > details > summary:hover {
+    color: var(--i-color-text);
+  }
+
+  .tabs > details > summary:focus-visible:not([role]) {
+    outline-offset: calc(var(--i-focus-ring-width) * -1);
+  }
+
+  /* Clicking the open tab would close it and leave no panel */
+  .tabs > details[open] > summary {
+    border-bottom-color: var(--i-variant);
+    color: var(--i-color-text);
+    pointer-events: none;
+  }
+
+  /* Panels swap at once instead of animating their height */
+  .tabs > details::details-content {
+    order: 1;
+    width: 100%;
+    transition: none;
+  }
+
+  .tabs > details[open]::details-content {
+    padding-top: var(--i-spacing);
+    border-top: var(--i-border-width) solid var(--i-color-subtle-border);
+  }
+}

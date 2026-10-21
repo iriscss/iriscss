@@ -1,0 +1,54 @@
+/**
+ * Document
+ *
+ * Box sizing, root typography and page colors.
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+}
+
+::before,
+::after {
+  text-decoration: inherit;
+  vertical-align: inherit;
+}
+
+:where(:root),
+:where(:host) {
+  font-family: var(--i-font-family);
+  font-size: var(--i-font-size);
+  font-weight: var(--i-font-weight);
+  line-height: var(--i-line-height);
+  color: var(--i-color-text);
+  text-underline-offset: var(--i-text-underline-offset);
+  text-rendering: optimizelegibility;
+  text-size-adjust: 100%;
+  overflow-wrap: break-word;
+  tab-size: 4;
+  background-color: var(--i-color-background);
+  /* Native controls that Iris does not restyle, such as picker popups */
+  accent-color: var(--i-color-primary);
+  scrollbar-color: var(--i-scrollbar-color-thumb) var(--i-scrollbar-color-track);
+  /* Only exists prefixed, and Autoprefixer does not add it */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Nested themes repaint their own subtree */
+:where([data-theme], .light, .dark) {
+  color: var(--i-color-text);
+  background-color: var(--i-color-background);
+  scrollbar-color: var(--i-scrollbar-color-thumb) var(--i-scrollbar-color-track);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+::selection {
+  background-color: var(--i-selection-color-background);
+}

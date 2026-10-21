@@ -1,0 +1,51 @@
+/**
+ * Display
+ *
+ * Utilities for when markup alone does not give the layout you need.
+ * .hidden can be toggled by a script. The [hidden] attribute uses !important
+ * and wins over every display rule, except hidden="until-found", which the
+ * browser reveals on find in page.
+ */
+
+[hidden]:not([hidden="until-found"]) {
+  /* stylelint-disable-next-line declaration-no-important -- see above */
+  display: none !important;
+}
+
+.hidden {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline {
+  display: inline;
+}
+
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.contents {
+  display: contents;
+}
+
+/* Hidden, but still taking up its space */
+
+.visible {
+  visibility: visible;
+}
+
+.invisible {
+  visibility: hidden;
+}

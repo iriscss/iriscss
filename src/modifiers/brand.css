@@ -1,0 +1,17 @@
+/**
+ * Brand
+ *
+ * .brand, .brand-name and .brand-accent color a logo or name with the brand colors.
+ */
+
+.brand {
+  color: var(--i-color-brand);
+}
+
+.brand-name {
+  color: var(--i-color-brand-name);
+}
+
+.brand-accent {
+  color: var(--i-color-brand-accent);
+}

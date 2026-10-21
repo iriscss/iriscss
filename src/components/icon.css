@@ -1,0 +1,35 @@
+/**
+ * Icon
+ *
+ * A square box for an icon font or inline SVG that reserves its space while the
+ * icon loads: <span class="icon"><svg>...</svg></span>. .small, .medium and
+ * .large resize it. .icon-text puts an icon and its label side by side.
+ */
+
+.icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--i-icon-size);
+  height: var(--i-icon-size);
+  color: var(--i-icon-color-text);
+  vertical-align: middle;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.icon-text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--i-icon-text-gap);
+  color: var(--i-icon-color-text);
+  vertical-align: middle;
+}
+
+/* A div spans the full width */
+div.icon-text {
+  display: flex;
+}

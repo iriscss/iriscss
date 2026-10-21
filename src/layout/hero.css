@@ -1,0 +1,29 @@
+/**
+ * Hero
+ *
+ * A large intro band at the top of a page: <section class="hero"> with a
+ * heading, a paragraph and buttons, centered. A color class fills it with
+ * that color, like any element.
+ */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: var(--i-hero-min-height);
+  padding: var(--i-hero-padding-block) var(--i-spacing);
+  text-align: center;
+}
+
+.hero > :last-child {
+  margin-bottom: 0;
+}
+
+.hero > :is(h1, h2) {
+  font-size: var(--i-hero-font-size);
+}
+
+.hero > p {
+  max-width: var(--i-hero-text-max-width);
+  margin-inline: auto;
+  font-size: var(--i-hero-text-font-size);
+}

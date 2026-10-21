@@ -1,0 +1,7 @@
+/**
+ * Search input variables
+ */
+:root,
+:host {
+  --i-input-search-border-radius: var(--i-border-radius-pill);
+}

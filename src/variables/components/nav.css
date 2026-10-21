@@ -1,0 +1,12 @@
+/**
+ * Nav variables
+ */
+:root,
+:host {
+  --i-nav-item-padding-block: 1rem;
+  /* Space between the items of a nav list */
+  --i-nav-gap: 1rem;
+  --i-nav-link-padding-block: 0.5rem;
+  --i-nav-link-padding-inline: 0.5rem;
+  --i-nav-breadcrumb-divider: ">";
+}

@@ -1,0 +1,75 @@
+/**
+ * States
+ *
+ * .hover, .active, .focus and .disabled show a state without interaction, for
+ * demos and design reviews. Buttons and links handle the first three in their
+ * own files. Form fields have no hover look, so .hover leaves them alone.
+ */
+
+/* ==================================================
+   Active
+   ================================================== */
+
+:is(
+  input:not(
+    [type="submit"],
+    [type="button"],
+    [type="reset"],
+    [type="checkbox"],
+    [type="radio"],
+    [type="range"],
+    [type="file"]
+  ),
+  select,
+  textarea,
+  .select
+).active {
+  --_background: var(--i-input-active-color-background);
+  --_border: var(--i-input-active-color-border);
+}
+
+/* ==================================================
+   Focus
+   ================================================== */
+
+:is(
+  input:not(
+    [type="submit"],
+    [type="button"],
+    [type="reset"],
+    [type="checkbox"],
+    [type="radio"],
+    [type="range"],
+    [type="file"]
+  ),
+  select,
+  textarea,
+  .select
+).focus {
+  --_background: var(--i-input-active-color-background);
+  --_border: var(--i-input-active-color-border);
+  outline: var(--i-input-outline-width) solid var(--_outline);
+  outline-offset: 0;
+}
+
+/* ==================================================
+   Disabled
+   ================================================== */
+
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"]
+).disabled,
+:where(a:not([role="button"])).disabled,
+[role="link"].disabled,
+:is(
+  input:not([type="submit"], [type="button"], [type="reset"]),
+  select,
+  textarea
+).disabled {
+  opacity: var(--i-control-disabled-opacity);
+  pointer-events: none;
+}

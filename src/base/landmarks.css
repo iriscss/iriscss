@@ -1,0 +1,23 @@
+/**
+ * Landmarks
+ *
+ * Body, the page level header, main and footer, and sections.
+ */
+body {
+  width: 100%;
+  margin: 0;
+}
+
+main {
+  display: block;
+}
+
+body > header,
+body > main,
+body > footer {
+  padding-block: var(--i-section-spacing-block);
+}
+
+section {
+  margin-bottom: var(--i-section-spacing-block);
+}

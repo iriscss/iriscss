@@ -1,0 +1,22 @@
+/**
+ * Divider
+ *
+ * A rule with text in the middle: <p class="divider">or</p>. For a rule
+ * without text, use <hr>.
+ */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--i-spacing);
+  margin: var(--i-typography-spacing) 0;
+  font-size: var(--i-small-font-size);
+  color: var(--i-color-subtle);
+  text-align: center;
+}
+
+.divider::before,
+.divider::after {
+  flex: 1;
+  border-top: var(--i-border-width) solid var(--i-color-subtle-border);
+  content: "";
+}

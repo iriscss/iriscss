@@ -1,0 +1,8 @@
+/**
+ * Loader variables
+ */
+:root,
+:host {
+  /* One spinner turn */
+  --i-loader-duration: 1.2s;
+}

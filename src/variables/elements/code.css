@@ -1,0 +1,28 @@
+/**
+ * Code variables
+ */
+:root,
+:host {
+  --i-code-font-family: var(--i-font-mono);
+  --i-code-font-size: 0.85em;
+  --i-code-padding-block: 0.125rem;
+  --i-code-padding-inline: 0.35rem;
+  --i-kbd-font-weight: bolder;
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-code-color-text: light-dark(var(--i-color-slate-200), #8891a4);
+  --i-code-color-background: light-dark(var(--i-color-slate-700), #1a1f28);
+  --i-kbd-color-text: light-dark(
+    var(--i-code-color-text),
+    var(--i-color-background)
+  );
+  --i-kbd-color-background: light-dark(
+    var(--i-code-color-background),
+    var(--i-color-text)
+  );
+  --i-code-light-color-text: var(--i-color-slate-700);
+  --i-code-light-color-background: var(--i-color-slate-200);
+}

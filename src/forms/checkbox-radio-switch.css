@@ -1,0 +1,125 @@
+/**
+ * Checkboxes, radios and switches
+ *
+ * Checked colors come from --i-variant, primary by default, so color classes
+ * work on them. The check mark is a mask in --i-variant-inverse, and
+ * [role="switch"] turns a checkbox into a switch.
+ */
+:where([type="checkbox"], [type="radio"]) {
+  --i-variant: var(--i-color-primary);
+  --i-variant-inverse: var(--i-color-primary-inverse);
+}
+
+label:is(:has([type="checkbox"], [type="radio"])) {
+  width: fit-content;
+  cursor: pointer;
+}
+
+/* The label right after a control sits next to it */
+:is([type="checkbox"], [type="radio"]) + label {
+  display: inline-block;
+  margin-bottom: 0;
+  margin-inline-end: 1em;
+  cursor: pointer;
+}
+
+[type="checkbox"],
+[type="radio"] {
+  width: 1.25em;
+  height: 1.25em;
+  padding: 0;
+  border-width: var(--i-checkbox-radio-border-width);
+  margin-top: -0.125em;
+  margin-inline-end: 0.5em;
+  vertical-align: middle;
+  accent-color: var(--i-variant);
+  cursor: pointer;
+  appearance: none;
+}
+
+/* A radio is :indeterminate while its group has no choice, so only checkboxes
+   fill for it */
+:is([type="checkbox"], [type="radio"]):checked,
+[type="checkbox"]:indeterminate {
+  --_background: var(--i-variant);
+  --_border: color-mix(in oklab, var(--i-variant), var(--i-color-ink) 10%);
+}
+
+[type="checkbox"]:not([role="switch"]):is(:checked, :indeterminate)::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--i-variant-inverse);
+  mask: var(--i-svg-checkmark) center / 0.75em auto no-repeat;
+  content: "";
+}
+
+[type="checkbox"]:not([role="switch"]):indeterminate::before {
+  mask-image: var(--i-svg-dash);
+}
+
+[type="radio"] {
+  border-radius: 50%;
+}
+
+[type="radio"]:checked {
+  --_background: var(--i-variant-inverse);
+  border-width: 0.35em;
+}
+
+[type="checkbox"][role="switch"] {
+  --_track: 2.25em;
+  --_thumb: 1.25em;
+  --_background: var(--i-switch-color-background);
+  --_border: var(--i-switch-color-background);
+  --_text: var(--i-switch-color-thumb);
+  width: var(--_track);
+  height: var(--_thumb);
+  border: var(--i-switch-border-width) solid var(--_border);
+  border-radius: var(--_thumb);
+  line-height: var(--_thumb);
+  background-color: var(--_background);
+}
+
+[type="checkbox"][role="switch"]::before {
+  display: block;
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--_text);
+  box-shadow: var(--i-switch-thumb-shadow);
+  transition: margin var(--i-duration) var(--i-easing);
+  content: "";
+}
+
+[type="checkbox"][role="switch"]:checked {
+  --_background: var(--i-variant);
+  --_border: var(--i-variant);
+}
+
+[type="checkbox"][role="switch"]:checked::before {
+  margin-inline-start: calc(var(--_track) - var(--_thumb));
+}
+
+/* Validation colors win over the checked colors */
+:is([type="checkbox"], [type="radio"])[aria-invalid="false"]:checked {
+  --_border: var(--i-input-valid-color-border);
+}
+
+[type="checkbox"][aria-invalid="false"]:checked {
+  --_background: var(--i-input-valid-color-border);
+}
+
+:is([type="checkbox"], [type="radio"]):is(
+  [aria-invalid="true"],
+  :user-invalid:where(:not([aria-invalid]))
+) {
+  --_border: var(--i-input-invalid-color-border);
+}
+
+[type="checkbox"]:is(
+    [aria-invalid="true"],
+    :user-invalid:where(:not([aria-invalid]))
+  ):checked {
+  --_background: var(--i-input-invalid-color-border);
+}

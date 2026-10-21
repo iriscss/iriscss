@@ -1,0 +1,341 @@
+/**
+ * Tooltip
+ *
+ * data-tooltip="Text" shows a tooltip on hover and focus, and data-placement
+ * moves it to the right, bottom or left. ::before is the bubble and ::after the
+ * caret. Each placement sets where they rest (--_at) and slide in from (--_from).
+ * The pointer can move onto the bubble without closing it. Pseudo elements
+ * are part of the element's accessible name, so screen readers read the
+ * tooltip with it. Form fields cannot show pseudo elements, so wrap them.
+ * Elements that draw their own pseudo elements (busy buttons, dropdown
+ * buttons, .close, .nav-toggle, summary, breadcrumb and step items) take no
+ * data-tooltip, so use a hint popover there.
+ *
+ * A hint popover is the richer tooltip: <button interestfor="tip">Save</button>
+ * <div id="tip" popover="hint">Save file</div>. The browser shows it on hover
+ * and focus and closes it with Esc. It is anchored to the button, flips away
+ * from the viewport edge and is never clipped. Browsers without interestfor
+ * do not show it, so keep the label enough on its own.
+ */
+:where([data-tooltip]) {
+  position: relative;
+}
+
+[data-tooltip]:not(a, button, input, [role="button"]) {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+/* Top, the default */
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  )::before,
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  )::after {
+  --_at: translate(-50%, -0.25rem);
+  --_from: translate(-50%, 0.75rem);
+  position: absolute;
+  z-index: var(--i-tooltip-z-index);
+  bottom: 100%;
+  left: 50%;
+  display: block;
+  width: max-content;
+  max-width: var(--i-tooltip-max-width);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--i-border-radius);
+  font-size: 0.875rem;
+  font-weight: var(--i-font-weight);
+  font-style: normal;
+  color: var(--i-tooltip-color-text);
+  text-decoration: none;
+  overflow-wrap: break-word;
+  white-space: normal;
+  background: var(--i-tooltip-color-background);
+  opacity: 0;
+  transform: var(--_at);
+  pointer-events: none;
+  content: attr(data-tooltip);
+}
+
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  )::after {
+  --_at: translate(-50%, 0);
+  --_from: translate(-50%, -0.25rem);
+  padding: 0;
+  border-top: var(--i-tooltip-caret-size) solid;
+  border-inline: var(--i-tooltip-caret-size) solid transparent;
+  border-radius: 0;
+  color: var(--i-tooltip-color-background);
+  background-color: transparent;
+  content: "";
+}
+
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  )[data-placement="bottom"]::before,
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  )[data-placement="bottom"]::after {
+  --_at: translate(-50%, 0.25rem);
+  --_from: translate(-50%, -0.75rem);
+  top: 100%;
+  bottom: auto;
+}
+
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  )[data-placement="bottom"]::after {
+  --_at: translate(-50%, calc(var(--i-tooltip-caret-size) * -1));
+  --_from: translate(-50%, -0.5rem);
+  border: var(--i-tooltip-caret-size) solid transparent;
+  border-bottom: var(--i-tooltip-caret-size) solid;
+}
+
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  )[data-placement="left"]::before,
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  )[data-placement="left"]::after {
+  --_at: translate(-0.25rem, -50%);
+  --_from: translate(0.75rem, -50%);
+  top: 50%;
+  right: 100%;
+  bottom: auto;
+  left: auto;
+}
+
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  )[data-placement="left"]::after {
+  --_at: translate(var(--i-tooltip-caret-size), -50%);
+  --_from: translate(0.05rem, -50%);
+  border: var(--i-tooltip-caret-size) solid transparent;
+  /* stylelint-disable-next-line property-disallowed-list -- placements are physical */
+  border-left: var(--i-tooltip-caret-size) solid;
+}
+
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  )[data-placement="right"]::before,
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  )[data-placement="right"]::after {
+  --_at: translate(0.25rem, -50%);
+  --_from: translate(-0.75rem, -50%);
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 100%;
+}
+
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  )[data-placement="right"]::after {
+  --_at: translate(calc(var(--i-tooltip-caret-size) * -1), -50%);
+  --_from: translate(-0.05rem, -50%);
+  border: var(--i-tooltip-caret-size) solid transparent;
+  /* stylelint-disable-next-line property-disallowed-list -- placements are physical */
+  border-right: var(--i-tooltip-caret-size) solid;
+}
+
+/* The shown bubble takes the pointer, so moving onto it keeps it open. It
+   is hidden with opacity only, so screen readers still read its text. */
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  ):is(:hover, :focus)::before,
+[data-tooltip]:not(
+    .close,
+    .nav-toggle,
+    summary,
+    nav.breadcrumb > :is(ol, ul) > li,
+    ol.steps > li,
+    [aria-busy="true"],
+    :is(:has(+ .dropdown[popover]))
+  ):is(:hover, :focus)::after {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Slide in only where there is a real pointer */
+@media (hover: hover) and (pointer: fine) {
+  [data-tooltip]:not(
+      .close,
+      .nav-toggle,
+      summary,
+      nav.breadcrumb > :is(ol, ul) > li,
+      ol.steps > li,
+      [aria-busy="true"],
+      :is(:has(+ .dropdown[popover]))
+    )::before,
+  [data-tooltip]:not(
+      .close,
+      .nav-toggle,
+      summary,
+      nav.breadcrumb > :is(ol, ul) > li,
+      ol.steps > li,
+      [aria-busy="true"],
+      :is(:has(+ .dropdown[popover]))
+    )::after {
+    transition:
+      opacity var(--i-duration) var(--i-easing),
+      transform var(--i-duration) var(--i-easing);
+    transform: var(--_from);
+  }
+
+  /* The caret appears once the bubble is in place */
+  [data-tooltip]:not(
+      .close,
+      .nav-toggle,
+      summary,
+      nav.breadcrumb > :is(ol, ul) > li,
+      ol.steps > li,
+      [aria-busy="true"],
+      :is(:has(+ .dropdown[popover]))
+    )::after {
+    transition-delay: calc(var(--i-duration) / 2);
+  }
+
+  [data-tooltip]:not(
+      .close,
+      .nav-toggle,
+      summary,
+      nav.breadcrumb > :is(ol, ul) > li,
+      ol.steps > li,
+      [aria-busy="true"],
+      :is(:has(+ .dropdown[popover]))
+    ):is(:hover, :focus)::before,
+  [data-tooltip]:not(
+      .close,
+      .nav-toggle,
+      summary,
+      nav.breadcrumb > :is(ol, ul) > li,
+      ol.steps > li,
+      [aria-busy="true"],
+      :is(:has(+ .dropdown[popover]))
+    ):is(:hover, :focus)::after {
+    transform: var(--_at);
+  }
+}
+
+/* ==================================================
+   Hint popover
+   ================================================== */
+
+@supports selector(:popover-open) {
+  [popover="hint"] {
+    max-width: var(--i-tooltip-max-width);
+    padding: 0.25rem 0.5rem;
+    border: 0;
+    font-size: 0.875rem;
+    color: var(--i-tooltip-color-text);
+    background-color: var(--i-tooltip-color-background);
+    box-shadow: none;
+  }
+
+  /* Above the element that opens it by default, flipped near the edge */
+  @supports (position-area: block-start) {
+    [popover="hint"] {
+      inset: auto;
+      position-area: block-start;
+      position-try-fallbacks: flip-block;
+      margin: var(--i-popover-offset) 0;
+    }
+
+    [popover="hint"][data-placement="bottom"] {
+      position-area: block-end;
+    }
+
+    [popover="hint"][data-placement="left"] {
+      position-area: left;
+      position-try-fallbacks: flip-inline;
+      margin: 0 var(--i-popover-offset);
+    }
+
+    [popover="hint"][data-placement="right"] {
+      position-area: right;
+      position-try-fallbacks: flip-inline;
+      margin: 0 var(--i-popover-offset);
+    }
+  }
+}

@@ -1,0 +1,81 @@
+/**
+ * Progress
+ *
+ * The bar color comes from --i-variant, so color classes work on it. Without
+ * a value the bar sweeps, or rests at the start when the user prefers reduced
+ * motion.
+ */
+:where(progress) {
+  --i-variant: var(--i-progress-color-bar);
+  --_value: var(--i-variant);
+}
+
+progress {
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+  height: 0.6rem;
+  border: 0;
+  border-radius: var(--i-border-radius);
+  margin-bottom: calc(var(--i-spacing) * 0.5);
+  color: var(--i-variant);
+  vertical-align: baseline;
+  background-color: var(--i-progress-color-background);
+  accent-color: var(--i-variant);
+  appearance: none;
+}
+
+/* The bar parts follow the element's corners, so .rounded and .square reach
+   them. Chromium nests them in an inner element that has to pass the corners
+   on. The track is the element's own background. */
+progress::-webkit-progress-inner-element {
+  border-radius: inherit;
+}
+
+progress::-webkit-progress-bar {
+  border-radius: inherit;
+  background-color: transparent;
+}
+
+progress[value]::-webkit-progress-value {
+  border-radius: inherit;
+  background-color: var(--_value);
+  transition: inline-size var(--i-duration) var(--i-easing);
+}
+
+progress::-moz-progress-bar {
+  border-radius: inherit;
+  background-color: var(--_value);
+}
+
+/* The sweep is the element's background, so the value bar steps aside */
+progress:indeterminate {
+  --_value: transparent;
+  background: var(--i-progress-color-background)
+    linear-gradient(
+      to right,
+      var(--i-variant) 30%,
+      var(--i-progress-color-background) 30%
+    )
+    top left/150% 150% no-repeat;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  progress:indeterminate {
+    animation: i-progress-indeterminate var(--i-progress-duration) linear
+      infinite;
+  }
+
+  progress:indeterminate:is(:dir(rtl)) {
+    animation-direction: reverse;
+  }
+}
+
+@keyframes i-progress-indeterminate {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

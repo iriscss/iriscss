@@ -1,0 +1,40 @@
+/**
+ * Alert
+ *
+ * A tinted message box with a colored bar on the start edge:
+ * <div class="alert danger" role="alert">. Color classes set the color, and
+ * text and links inside follow it.
+ */
+:where(.alert) {
+  --i-variant: var(--i-color-base);
+  --i-variant-inverse: var(--i-color-paper);
+}
+
+.alert {
+  display: block;
+  padding: var(--i-alert-padding-block) var(--i-alert-padding-inline);
+  border: var(--i-border-width) solid
+    color-mix(in oklab, var(--i-variant) 35%, var(--i-color-paper));
+  border-inline-start: var(--i-alert-accent-width) solid var(--i-variant);
+  border-radius: var(--i-border-radius);
+  margin-bottom: var(--i-spacing);
+  color: color-mix(in oklab, var(--i-variant), var(--i-color-ink) 60%);
+  background-color: color-mix(
+    in oklab,
+    var(--i-variant) 12%,
+    var(--i-color-paper)
+  );
+}
+
+.alert > :last-child {
+  margin-bottom: 0;
+}
+
+/* Headings set their own color, so hand the alert color down */
+.alert :where(h1, h2, h3, h4, h5, h6) {
+  color: inherit;
+}
+
+.alert :where(a, [role="link"]) {
+  --i-variant: inherit;
+}

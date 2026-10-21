@@ -1,0 +1,12 @@
+/**
+ * Avatar variables
+ */
+:root,
+:host {
+  --i-avatar-size: 2.5rem;
+  --i-avatar-size-small: 2rem;
+  --i-avatar-size-medium: 3rem;
+  --i-avatar-size-large: 4rem;
+  /* How far each avatar in a group tucks under the one before it */
+  --i-avatar-group-overlap: 0.2;
+}

@@ -1,0 +1,26 @@
+/**
+ * Hierarchy colors
+ *
+ * .primary, .secondary, .contrast and .accent. Each sets --i-variant and
+ * --i-variant-inverse, which buttons, links and components read.
+ */
+
+.primary {
+  --i-variant: var(--i-color-primary);
+  --i-variant-inverse: var(--i-color-primary-inverse);
+}
+
+.secondary {
+  --i-variant: var(--i-color-secondary);
+  --i-variant-inverse: var(--i-color-secondary-inverse);
+}
+
+.contrast {
+  --i-variant: var(--i-color-contrast);
+  --i-variant-inverse: var(--i-color-contrast-inverse);
+}
+
+.accent {
+  --i-variant: var(--i-color-accent);
+  --i-variant-inverse: var(--i-color-accent-inverse);
+}

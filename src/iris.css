@@ -1,0 +1,144 @@
+/* Every rule sits in a layer, so any unlayered style of yours wins over Iris
+   without specificity tricks. Later layers win over earlier ones. */
+@layer iris.variables, iris.base, iris.elements, iris.forms, iris.components, iris.layout, iris.modifiers, iris.utilities, iris.accessibility, iris.print;
+
+/* Variables */
+@import "./variables/colors/palette.css" layer(iris.variables);
+@import "./variables/colors/gradients.css" layer(iris.variables);
+@import "./variables/themes/styles.css" layer(iris.variables);
+@import "./variables/typography.css" layer(iris.variables);
+@import "./variables/spacing.css" layer(iris.variables);
+@import "./variables/borders.css" layer(iris.variables);
+@import "./variables/styles.css" layer(iris.variables);
+@import "./variables/icons.css" layer(iris.variables);
+@import "./variables/base/document.css" layer(iris.variables);
+@import "./variables/elements/button.css" layer(iris.variables);
+@import "./variables/elements/code.css" layer(iris.variables);
+@import "./variables/elements/link.css" layer(iris.variables);
+@import "./variables/elements/list.css" layer(iris.variables);
+@import "./variables/elements/media.css" layer(iris.variables);
+@import "./variables/elements/meter.css" layer(iris.variables);
+@import "./variables/elements/popover.css" layer(iris.variables);
+@import "./variables/elements/progress.css" layer(iris.variables);
+@import "./variables/elements/table.css" layer(iris.variables);
+@import "./variables/elements/typography.css" layer(iris.variables);
+@import "./variables/forms/basics.css" layer(iris.variables);
+@import "./variables/forms/checkbox-radio-switch.css" layer(iris.variables);
+@import "./variables/forms/input-date.css" layer(iris.variables);
+@import "./variables/forms/input-range.css" layer(iris.variables);
+@import "./variables/forms/input-search.css" layer(iris.variables);
+@import "./variables/components/accordion.css" layer(iris.variables);
+@import "./variables/components/alert.css" layer(iris.variables);
+@import "./variables/components/avatar.css" layer(iris.variables);
+@import "./variables/components/badge.css" layer(iris.variables);
+@import "./variables/components/box.css" layer(iris.variables);
+@import "./variables/components/card.css" layer(iris.variables);
+@import "./variables/components/carousel.css" layer(iris.variables);
+@import "./variables/components/drawer.css" layer(iris.variables);
+@import "./variables/components/dropdown.css" layer(iris.variables);
+@import "./variables/components/footer.css" layer(iris.variables);
+@import "./variables/components/group.css" layer(iris.variables);
+@import "./variables/components/icon.css" layer(iris.variables);
+@import "./variables/components/loader.css" layer(iris.variables);
+@import "./variables/components/modal.css" layer(iris.variables);
+@import "./variables/components/nav.css" layer(iris.variables);
+@import "./variables/components/navbar.css" layer(iris.variables);
+@import "./variables/components/skeleton.css" layer(iris.variables);
+@import "./variables/components/skip-to-content.css" layer(iris.variables);
+@import "./variables/components/steps.css" layer(iris.variables);
+@import "./variables/components/tabs.css" layer(iris.variables);
+@import "./variables/components/toast.css" layer(iris.variables);
+@import "./variables/components/tooltip.css" layer(iris.variables);
+@import "./variables/layout/container.css" layer(iris.variables);
+@import "./variables/layout/grid.css" layer(iris.variables);
+@import "./variables/layout/hero.css" layer(iris.variables);
+@import "./variables/layout/primitives.css" layer(iris.variables);
+@import "./variables/utilities/overflow.css" layer(iris.variables);
+@import "./variables/accessibility/contrast.css" layer(iris.variables);
+
+/* Base: page defaults that everything else builds on */
+@import "./base/themes.css" layer(iris.base);
+@import "./base/document.css" layer(iris.base);
+@import "./base/variants.css" layer(iris.base);
+@import "./base/landmarks.css" layer(iris.base);
+@import "./base/interaction.css" layer(iris.base);
+@import "./base/focus.css" layer(iris.base);
+
+/* Elements */
+@import "./elements/typography.css" layer(iris.elements);
+@import "./elements/list.css" layer(iris.elements);
+@import "./elements/link.css" layer(iris.elements);
+@import "./elements/button.css" layer(iris.elements);
+@import "./elements/table.css" layer(iris.elements);
+@import "./elements/media.css" layer(iris.elements);
+@import "./elements/code.css" layer(iris.elements);
+@import "./elements/meter.css" layer(iris.elements);
+@import "./elements/progress.css" layer(iris.elements);
+@import "./elements/popover.css" layer(iris.elements);
+
+/* Forms */
+@import "./forms/controls.css" layer(iris.forms);
+@import "./forms/checkbox-radio-switch.css" layer(iris.forms);
+@import "./forms/input-color.css" layer(iris.forms);
+@import "./forms/input-date.css" layer(iris.forms);
+@import "./forms/input-file.css" layer(iris.forms);
+@import "./forms/input-range.css" layer(iris.forms);
+@import "./forms/input-search.css" layer(iris.forms);
+
+/* Components */
+@import "./components/accordion.css" layer(iris.components);
+@import "./components/alert.css" layer(iris.components);
+@import "./components/avatar.css" layer(iris.components);
+@import "./components/badge.css" layer(iris.components);
+@import "./components/box.css" layer(iris.components);
+@import "./components/card.css" layer(iris.components);
+@import "./components/carousel.css" layer(iris.components);
+@import "./components/divider.css" layer(iris.components);
+@import "./components/dropdown.css" layer(iris.components);
+@import "./components/group.css" layer(iris.components);
+@import "./components/loader.css" layer(iris.components);
+@import "./components/modal.css" layer(iris.components);
+@import "./components/drawer.css" layer(iris.components);
+@import "./components/nav.css" layer(iris.components);
+@import "./components/navbar.css" layer(iris.components);
+/* After nav, whose list rules the footer overrides */
+@import "./components/footer.css" layer(iris.components);
+@import "./components/pagination.css" layer(iris.components);
+@import "./components/skeleton.css" layer(iris.components);
+@import "./components/skip-to-content.css" layer(iris.components);
+@import "./components/steps.css" layer(iris.components);
+@import "./components/tabs.css" layer(iris.components);
+@import "./components/toast.css" layer(iris.components);
+@import "./components/tooltip.css" layer(iris.components);
+@import "./components/icon.css" layer(iris.components);
+
+/* Layout: after components, so a primitive's gap and the hero type win over
+   element and component margins and sizes */
+@import "./layout/container.css" layer(iris.layout);
+@import "./layout/grid.css" layer(iris.layout);
+@import "./layout/primitives.css" layer(iris.layout);
+@import "./layout/hero.css" layer(iris.layout);
+
+/* Modifiers */
+@import "./modifiers/brand.css" layer(iris.modifiers);
+@import "./modifiers/contextual.css" layer(iris.modifiers);
+@import "./modifiers/hierarchy.css" layer(iris.modifiers);
+@import "./modifiers/size.css" layer(iris.modifiers);
+@import "./modifiers/styles.css" layer(iris.modifiers);
+@import "./modifiers/states.css" layer(iris.modifiers);
+
+/* Utilities: single purpose classes that win over components */
+@import "./utilities/alignment.css" layer(iris.utilities);
+@import "./utilities/overflow.css" layer(iris.utilities);
+@import "./utilities/display.css" layer(iris.utilities);
+@import "./utilities/palette.css" layer(iris.utilities);
+@import "./utilities/gradients.css" layer(iris.utilities);
+@import "./utilities/screen-reader.css" layer(iris.utilities);
+
+/* Accessibility: user preferences win over everything else */
+@import "./accessibility/aria.css" layer(iris.accessibility);
+@import "./accessibility/contrast.css" layer(iris.accessibility);
+@import "./accessibility/preferences.css" layer(iris.accessibility);
+
+/* Print */
+@import "./base/print.css" layer(iris.print);

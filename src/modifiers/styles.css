@@ -1,0 +1,173 @@
+/**
+ * Styles
+ *
+ * .rounded gives pill corners (larger corners on cards, boxes and code),
+ * .square removes them, and .outlined swaps a fill or shadow for a border.
+ */
+
+/* ==================================================
+   Rounded
+   ================================================== */
+
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"]
+).rounded {
+  border-radius: var(--i-border-radius-pill);
+}
+
+:is(
+  input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"]),
+  select,
+  textarea
+).rounded {
+  border-radius: var(--i-border-radius-pill);
+}
+
+:is(.card, .box).rounded {
+  border-radius: var(--i-border-radius-xlarge);
+}
+
+progress.rounded,
+meter.rounded {
+  border-radius: var(--i-border-radius-pill);
+}
+
+/* One rule per engine: Chromium drops a whole rule with a ::-moz- selector */
+meter.rounded::-webkit-meter-bar,
+meter.rounded::-webkit-meter-optimum-value,
+meter.rounded::-webkit-meter-suboptimum-value,
+meter.rounded::-webkit-meter-even-less-good-value {
+  border-radius: var(--i-border-radius-pill);
+}
+
+meter.rounded::-moz-meter-bar {
+  border-radius: var(--i-border-radius-pill);
+}
+
+.group.rounded {
+  border-radius: var(--i-border-radius-pill);
+}
+
+.group.rounded > :first-child {
+  border-start-start-radius: var(--i-border-radius-pill);
+  border-end-start-radius: var(--i-border-radius-pill);
+}
+
+.group.rounded > :last-child {
+  border-start-end-radius: var(--i-border-radius-pill);
+  border-end-end-radius: var(--i-border-radius-pill);
+}
+
+:is(code, kbd, samp).rounded,
+pre.rounded {
+  border-radius: var(--i-border-radius-xlarge);
+}
+
+.skeleton.rounded {
+  border-radius: var(--i-border-radius-pill);
+}
+
+/* ==================================================
+   Square
+   ================================================== */
+
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"]
+).square {
+  border-radius: 0;
+}
+
+:is(
+  input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"]),
+  select,
+  textarea
+).square {
+  border-radius: 0;
+}
+
+:is(.card, .box).square {
+  border-radius: 0;
+}
+
+progress.square,
+meter.square {
+  border-radius: 0;
+}
+
+/* One rule per engine: Chromium drops a whole rule with a ::-moz- selector */
+meter.square::-webkit-meter-bar,
+meter.square::-webkit-meter-optimum-value,
+meter.square::-webkit-meter-suboptimum-value,
+meter.square::-webkit-meter-even-less-good-value {
+  border-radius: 0;
+}
+
+meter.square::-moz-meter-bar {
+  border-radius: 0;
+}
+
+.group.square {
+  border-radius: 0;
+}
+
+.group.square > :first-child {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+.group.square > :last-child {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+:is(code, kbd, samp).square,
+pre.square {
+  border-radius: 0;
+}
+
+/* Avatars keep slightly rounded corners */
+.avatar.square {
+  border-radius: var(--i-border-radius);
+}
+
+/* ==================================================
+   Outlined
+   ================================================== */
+
+.card.outlined {
+  border: var(--i-border-width) solid var(--i-card-color-border);
+  background: transparent;
+  box-shadow: none;
+}
+
+.card.outlined > :is(header, footer) {
+  background-color: transparent;
+}
+
+.box.outlined {
+  border: var(--i-border-width) solid var(--i-box-color-border);
+  background-color: transparent;
+  box-shadow: none;
+}
+
+:is(
+  input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"]),
+  select,
+  textarea,
+  .select
+).outlined {
+  --_background: transparent;
+}
+
+.badge.outlined {
+  color: color-mix(in oklab, var(--i-variant), var(--i-color-ink) 40%);
+  background-color: transparent;
+}

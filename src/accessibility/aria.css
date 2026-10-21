@@ -1,0 +1,15 @@
+/**
+ * ARIA states
+ *
+ * Cursors that follow ARIA attributes.
+ */
+
+/* Text fields such as a combobox keep the text cursor */
+:where([aria-controls]):not(input, select, textarea) {
+  cursor: pointer;
+}
+
+[aria-disabled="true"],
+[disabled] {
+  cursor: not-allowed;
+}

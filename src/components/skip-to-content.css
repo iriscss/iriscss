@@ -1,0 +1,29 @@
+/**
+ * Skip to content
+ *
+ * A link that only shows on keyboard focus. Put it first in <body>:
+ * <a href="#main" class="skip-to-content">Skip to main content</a>
+ */
+.skip-to-content {
+  position: absolute;
+  z-index: var(--i-skip-to-content-z-index);
+  top: -100%;
+  left: 50%;
+  overflow: hidden;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--i-border-radius);
+  font-weight: 700;
+  color: var(--i-color-primary-inverse);
+  text-decoration: none;
+  background: var(--i-color-primary);
+  opacity: 0;
+  transition:
+    top var(--i-duration) var(--i-easing),
+    opacity var(--i-duration) var(--i-easing);
+  transform: translateX(-50%);
+}
+
+.skip-to-content:focus {
+  top: 1rem;
+  opacity: 1;
+}

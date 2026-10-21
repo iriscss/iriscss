@@ -1,0 +1,55 @@
+/**
+ * Typography element variables
+ *
+ * Headings, small text and inline text elements.
+ */
+:root,
+:host {
+  --i-small-font-size: 0.875em;
+
+  /* Headings */
+  --i-heading-font-weight: 700;
+
+  --i-h1-font-size: 2rem;
+  --i-h1-line-height: 1.125;
+  --i-h1-margin-top: 3rem;
+
+  --i-h2-font-size: 1.7rem;
+  --i-h2-line-height: 1.15;
+  --i-h2-margin-top: 2.625rem;
+
+  --i-h3-font-size: 1.5rem;
+  --i-h3-line-height: 1.175;
+  --i-h3-margin-top: 2.25rem;
+
+  --i-h4-font-size: 1.3rem;
+  --i-h4-line-height: 1.2;
+  --i-h4-margin-top: 1.875rem;
+
+  --i-h5-font-size: 1.2rem;
+  --i-h5-line-height: 1.225;
+  --i-h5-margin-top: 1.6875rem;
+
+  --i-h6-font-size: 1.1rem;
+  --i-h6-line-height: 1.25;
+  --i-h6-margin-top: 1.5rem;
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-h1-color-text: light-dark(#2d3138, #f0f1f3);
+  --i-h2-color-text: light-dark(#373c44, #e0e3e7);
+  --i-h3-color-text: light-dark(#424751, #c2c7d0);
+  --i-h4-color-text: light-dark(#4d535e, #b3b9c5);
+  --i-h5-color-text: light-dark(#5c6370, #a4acba);
+  --i-h6-color-text: light-dark(#646b79, #8891a4);
+
+  --i-mark-color-text: light-dark(#0f1114, var(--i-color-white));
+  --i-mark-color-background: light-dark(#feeaca, #014063);
+  --i-ins-color-text: light-dark(#1d6a54, #62af9a);
+  --i-del-color-text: light-dark(#883835, #cd7e7b);
+
+  --i-blockquote-color-border: var(--i-color-subtle-border);
+  --i-blockquote-footer-color-text: var(--i-color-subtle);
+}

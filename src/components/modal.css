@@ -1,0 +1,122 @@
+/**
+ * Modal
+ *
+ * A <dialog> opened with showModal() or a button with command="show-modal".
+ * The dialog is a card with header and footer bands, and its ::backdrop dims
+ * the page. closedby="any" closes it on a click outside where the browser
+ * supports it. It animates in and out, and the page stops scrolling while it
+ * is open.
+ */
+dialog {
+  overflow: auto;
+  width: calc(100% - var(--i-spacing) * 2);
+  max-width: var(--i-modal-max-width);
+  max-height: calc(100dvh - var(--i-spacing) * 2);
+  border: 0;
+  margin: auto;
+  color: var(--i-color-text);
+  opacity: 0;
+  transition:
+    display var(--i-modal-duration) allow-discrete,
+    overlay var(--i-modal-duration) allow-discrete,
+    opacity var(--i-modal-duration) var(--i-easing),
+    transform var(--i-modal-duration) var(--i-easing);
+  transform: translateY(-2rem);
+}
+
+dialog[open] {
+  opacity: 1;
+  transform: none;
+}
+
+dialog::backdrop {
+  background-color: transparent;
+  backdrop-filter: none;
+  transition:
+    display var(--i-modal-duration) allow-discrete,
+    overlay var(--i-modal-duration) allow-discrete,
+    background-color var(--i-modal-duration) var(--i-easing),
+    backdrop-filter var(--i-modal-duration) var(--i-easing);
+}
+
+dialog[open]::backdrop {
+  background-color: var(--i-modal-overlay-color-background);
+  backdrop-filter: var(--i-modal-overlay-backdrop-filter);
+}
+
+@starting-style {
+  dialog[open] {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+
+  dialog[open]::backdrop {
+    background-color: transparent;
+    backdrop-filter: none;
+  }
+}
+
+/* The icon is a mask on ::before, so the button keeps its focus ring and the
+   icon follows the text color. The padding gives a 2rem hit area. */
+dialog :is(.close, a[rel="prev"]) {
+  display: block;
+  box-sizing: content-box;
+  width: 1rem;
+  height: 1rem;
+  padding: 0.5rem;
+  border: none;
+  margin: calc(var(--i-spacing) * -1 - 0.5rem) -0.5rem var(--i-spacing);
+  margin-inline-start: auto;
+  background-color: transparent;
+  opacity: 0.75;
+  transition: opacity var(--i-duration) var(--i-easing);
+}
+
+dialog :is(.close, a[rel="prev"])::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: currentcolor;
+  mask: var(--i-svg-close) center / auto 1rem no-repeat;
+  content: "";
+}
+
+dialog
+  :is(.close, a[rel="prev"]):is(
+    [aria-current]:not([aria-current="false"]),
+    :hover,
+    :active,
+    :focus
+  ) {
+  opacity: 1;
+}
+
+dialog > header > * {
+  margin-bottom: 0;
+}
+
+dialog > header :is(.close, a[rel="prev"]) {
+  float: right;
+  float: inline-end;
+  margin: 0;
+  margin-inline-start: var(--i-spacing);
+}
+
+dialog > footer {
+  text-align: end;
+}
+
+dialog > footer :is(button, [role="button"]) {
+  margin-bottom: 0;
+}
+
+dialog > footer :is(button, [role="button"]):not(:first-of-type) {
+  margin-inline-start: calc(var(--i-spacing) * 0.5);
+}
+
+/* Only a modal dialog stops the page from scrolling. No scrollbar gutter: it
+   would add one to pages that have no scrollbar, and Chromium leaves it out
+   of the top layer, so the backdrop and drawers stop short of the edge. */
+html:has(dialog:modal) {
+  overflow: hidden;
+}

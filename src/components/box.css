@@ -1,0 +1,36 @@
+/**
+ * Box
+ *
+ * A padded block with a background, radius and shadow: <div class="box">.
+ * On a link the whole box is clickable and lifts on hover.
+ */
+.box {
+  display: block;
+  padding: var(--i-box-padding);
+  border-radius: var(--i-box-border-radius);
+  color: var(--i-box-color-text);
+  background-color: var(--i-box-color-background);
+  box-shadow: var(--i-box-shadow);
+}
+
+.box > :last-child {
+  margin-bottom: 0;
+}
+
+a.box {
+  text-decoration: none;
+  transition: box-shadow var(--i-duration) var(--i-easing);
+}
+
+a.box:is(:hover, :focus) {
+  box-shadow: var(--i-box-hover-shadow);
+}
+
+a.box:focus-visible {
+  outline: var(--i-focus-ring-width) solid var(--_focus);
+  outline-offset: 0;
+}
+
+a.box:active {
+  box-shadow: var(--i-box-active-shadow);
+}

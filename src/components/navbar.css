@@ -1,0 +1,165 @@
+/**
+ * Navbar
+ *
+ * A top bar around a nav: <header class="navbar"><nav class="container">.
+ * The first list holds the brand, the list with popover holds the links. Below
+ * a 48rem wide nav the links collapse behind the .nav-toggle button and open
+ * as a full width panel under the bar. .sticky keeps the bar at the top, and a
+ * color class fills it.
+ */
+.navbar {
+  --_background: var(--i-navbar-color-background);
+  --_border: var(--i-navbar-color-border);
+  anchor-name: --i-navbar;
+  anchor-scope: --i-navbar;
+  display: block;
+  padding-block: 0;
+  border-bottom: var(--i-border-width) solid var(--_border);
+  background-color: var(--_background);
+}
+
+.navbar > nav {
+  align-items: center;
+  min-height: var(--i-navbar-height);
+}
+
+.navbar.sticky {
+  position: sticky;
+  z-index: var(--i-navbar-z-index);
+  top: 0;
+  padding-top: env(safe-area-inset-top, 0);
+}
+
+/* Brand: the link in the first list, with an optional logo */
+.navbar :where(nav > ul:first-of-type > li > a) {
+  gap: calc(var(--i-spacing) * 0.5);
+  font-size: var(--i-navbar-brand-font-size);
+  font-weight: 700;
+  color: var(--i-h1-color-text);
+  text-decoration: none;
+}
+
+.navbar :where(nav > ul:first-of-type > li > a) > :is(img, svg) {
+  width: auto;
+  height: var(--i-navbar-brand-image-height);
+}
+
+/* Logos and icons line up with the text next to them */
+.navbar :where(nav > :is(ol, ul) > li > :is(a, [role="link"])) {
+  display: inline-flex;
+  align-items: center;
+}
+
+.navbar :where(nav a[aria-current]:not([aria-current="false"])) {
+  font-weight: 600;
+  color: var(--i-h1-color-text);
+}
+
+/* Icon buttons, such as a theme toggle: a button with aria-label and no class */
+.navbar
+  :where(nav > :is(ol, ul) > li)
+  :where(button, [role="button"])[aria-label]:not([class]) {
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  color: inherit;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* Color classes fill the bar, and links take its text color */
+.navbar:where(
+  .primary,
+  .secondary,
+  .contrast,
+  .accent,
+  .info,
+  .success,
+  .warning,
+  .danger,
+  .link
+) {
+  --_background: var(--i-variant);
+  --_border: var(--i-variant);
+  color: var(--i-variant-inverse);
+}
+
+.navbar:where(
+    .primary,
+    .secondary,
+    .contrast,
+    .accent,
+    .info,
+    .success,
+    .warning,
+    .danger,
+    .link
+  )
+  :where(nav a:not([role="button"]), nav [role="link"]) {
+  color: inherit;
+  text-decoration-color: currentcolor;
+}
+
+/* Mobile menu: a full width panel under the bar */
+@container (width < 48rem) {
+  .navbar nav > ul[popover] {
+    position: fixed;
+    top: var(--i-navbar-height);
+    right: 0;
+    bottom: auto;
+    left: 0;
+    overflow-y: auto;
+    width: auto;
+    max-width: none;
+    max-height: calc(100dvh - var(--i-navbar-height));
+    padding: calc(var(--i-spacing) * 0.5) var(--i-spacing);
+    border: 0;
+    border-bottom: var(--i-border-width) solid var(--i-navbar-color-border);
+    border-radius: 0;
+    margin: 0;
+    transform: translateY(-0.5rem);
+  }
+
+  .navbar nav > ul[popover]:popover-open {
+    transform: none;
+  }
+
+  @starting-style {
+    .navbar nav > ul[popover]:popover-open {
+      opacity: 0;
+      transform: translateY(-0.5rem);
+    }
+  }
+
+  /* Without anchor support the panel starts at --i-navbar-height */
+  @supports (anchor-name: --i-navbar) {
+    .navbar nav > ul[popover] {
+      top: anchor(bottom);
+      position-anchor: --i-navbar;
+    }
+  }
+
+  .navbar nav > ul[popover] > li {
+    display: block;
+    padding: 0;
+  }
+
+  .navbar
+    nav
+    > ul[popover]
+    > li
+    > :is(a, [role="link"], button, [role="button"]) {
+    display: flex;
+    width: 100%;
+    padding: calc(var(--i-spacing) * 0.75) calc(var(--i-spacing) * 0.5);
+    margin: 0;
+  }
+
+  .navbar
+    nav
+    > ul[popover]
+    > li
+    > :is(button, [role="button"]):not([aria-label]) {
+    justify-content: center;
+  }
+}

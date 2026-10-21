@@ -1,0 +1,31 @@
+/**
+ * Contextual colors
+ *
+ * .info, .success, .warning, .danger and .link. Each sets --i-variant and
+ * --i-variant-inverse, which buttons, links and components read.
+ */
+
+.info {
+  --i-variant: var(--i-color-info);
+  --i-variant-inverse: var(--i-color-info-inverse);
+}
+
+.success {
+  --i-variant: var(--i-color-success);
+  --i-variant-inverse: var(--i-color-success-inverse);
+}
+
+.warning {
+  --i-variant: var(--i-color-warning);
+  --i-variant-inverse: var(--i-color-warning-inverse);
+}
+
+.danger {
+  --i-variant: var(--i-color-danger);
+  --i-variant-inverse: var(--i-color-danger-inverse);
+}
+
+.link {
+  --i-variant: var(--i-color-link);
+  --i-variant-inverse: var(--i-color-link-inverse);
+}

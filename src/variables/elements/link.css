@@ -1,0 +1,7 @@
+/**
+ * Link variables
+ */
+:root,
+:host {
+  --i-link-text-decoration: underline;
+}

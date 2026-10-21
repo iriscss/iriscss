@@ -1,0 +1,113 @@
+/**
+ * Steps
+ *
+ * A numbered tracker for flows like checkout: <ol class="steps">. Mark the
+ * current step with aria-current="step". Steps before it show as done. On
+ * narrow screens the steps stack, with the label next to each marker.
+ */
+:where(ol.steps) {
+  --i-variant: var(--i-color-primary);
+  --i-variant-inverse: var(--i-color-primary-inverse);
+}
+
+ol.steps {
+  display: flex;
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  counter-reset: step;
+}
+
+ol.steps > li {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--i-spacing) * 0.5);
+  margin: 0;
+  font-size: var(--i-small-font-size);
+  color: var(--i-color-subtle);
+  text-align: center;
+  list-style: none;
+  counter-increment: step;
+}
+
+ol.steps > li::before {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--i-steps-marker-size);
+  height: var(--i-steps-marker-size);
+  border: var(--i-steps-line-width) solid var(--i-color-subtle-border);
+  border-radius: 50%;
+  font-weight: 600;
+  background-color: var(--i-color-background);
+  content: counter(step);
+}
+
+/* Line from this marker to the next one */
+ol.steps > li:not(:last-child)::after {
+  position: absolute;
+  top: calc(var(--i-steps-marker-size) / 2);
+  inset-inline-start: 50%;
+  width: 100%;
+  border-top: var(--i-steps-line-width) solid var(--i-color-subtle-border);
+  translate: 0 -50%;
+  content: "";
+}
+
+ol.steps > li[aria-current="step"] {
+  font-weight: 600;
+  color: var(--i-color-text);
+}
+
+ol.steps > li[aria-current="step"]::before {
+  border-color: var(--i-variant);
+  color: color-mix(in oklab, var(--i-variant), var(--i-color-ink) 40%);
+}
+
+/* Done: every step before the current one */
+ol.steps > li:is(:has(~ li[aria-current="step"])) {
+  color: var(--i-color-text);
+}
+
+ol.steps > li:is(:has(~ li[aria-current="step"]))::before {
+  border-color: var(--i-variant);
+  color: var(--i-variant-inverse);
+  background-color: var(--i-variant);
+}
+
+ol.steps > li:is(:has(~ li[aria-current="step"]))::after {
+  border-top-color: var(--i-variant);
+}
+
+/* max-width, since Safari before 16.4 has no range syntax in media queries */
+@media (max-width: 35.98rem) {
+  ol.steps {
+    flex-direction: column;
+    gap: calc(var(--i-spacing) * 0.75);
+  }
+
+  ol.steps > li {
+    flex-direction: row;
+    text-align: start;
+  }
+
+  /* The line runs down to the next marker */
+  ol.steps > li:not(:last-child)::after {
+    top: var(--i-steps-marker-size);
+    inset-inline-start: calc(var(--i-steps-marker-size) / 2);
+    width: 0;
+    height: calc(100% - var(--i-steps-marker-size) + var(--i-spacing) * 0.75);
+    border-top: 0;
+    border-inline-start: var(--i-steps-line-width) solid
+      var(--i-color-subtle-border);
+    translate: -50% 0;
+  }
+
+  ol.steps > li:is(:has(~ li[aria-current="step"]))::after {
+    border-inline-start-color: var(--i-variant);
+  }
+}

@@ -1,0 +1,13 @@
+/**
+ * Gradient variables
+ *
+ * Defaults for the .gradient classes, which set these per element.
+ */
+:root,
+:host {
+  --i-gradient-stops:
+    var(--i-color-gray-200), var(--i-color-gray-500), var(--i-color-gray-800);
+  --i-gradient-direction: to right;
+  --i-gradient-shape: circle;
+  --i-gradient-position: center;
+}

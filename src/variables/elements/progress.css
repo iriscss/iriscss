@@ -1,0 +1,15 @@
+/**
+ * Progress variables
+ */
+:root,
+:host {
+  /* One sweep of an indeterminate progress bar */
+  --i-progress-duration: 1s;
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-progress-color-background: light-dark(#dfe3eb, #202632);
+  --i-progress-color-bar: var(--i-color-primary);
+}

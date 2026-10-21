@@ -1,0 +1,39 @@
+/**
+ * Search input
+ *
+ * A magnifier icon at the start and a pill shape.
+ */
+[type="search"] {
+  --_icon-start: 1.75rem;
+  border-radius: var(--i-input-search-border-radius);
+  background-image: var(--i-svg-search);
+  background-position: var(--_start-side, left)
+    calc(var(--_padding-inline) + 0.125rem) center;
+  background-size: 1rem auto;
+  appearance: textfield;
+}
+
+[type="search"]::-webkit-search-decoration {
+  appearance: none;
+}
+
+/* The magnifier and the state icon side by side */
+[type="search"]:is([aria-invalid], :user-invalid) {
+  background-position:
+    var(--_start-side, left) calc(var(--_padding-inline) + 0.125rem) center,
+    var(--_end-side, right) 0.75rem center;
+  background-size:
+    1rem auto,
+    1rem auto;
+}
+
+[type="search"][aria-invalid="false"] {
+  background-image: var(--i-svg-search), var(--i-svg-valid);
+}
+
+[type="search"]:is(
+  [aria-invalid="true"],
+  :user-invalid:where(:not([aria-invalid]))
+) {
+  background-image: var(--i-svg-search), var(--i-svg-invalid);
+}

@@ -1,0 +1,14 @@
+/**
+ * Icon variables
+ */
+:root,
+:host {
+  --i-icon-size: 1.5rem;
+  --i-icon-size-small: 1rem;
+  --i-icon-size-medium: 2rem;
+  --i-icon-size-large: 3rem;
+
+  --i-icon-color-text: currentcolor;
+
+  --i-icon-text-gap: 0.25em;
+}

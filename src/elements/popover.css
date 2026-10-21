@@ -1,0 +1,90 @@
+/**
+ * Popover
+ *
+ * Any element with the popover attribute, opened by a button with
+ * popovertarget. It fades in over the page, centered by default.
+ * data-placement="bottom", "top", "left" or "right" anchors it to that button
+ * where the browser supports anchor positioning. Browsers without the
+ * Popover API show the content in place, as normal page content.
+ */
+@supports selector(:popover-open) {
+  [popover] {
+    overflow: auto;
+    max-width: min(
+      var(--i-popover-max-width),
+      calc(100svw - var(--i-spacing) * 2)
+    );
+    max-height: calc(100dvh - var(--i-spacing) * 2);
+    padding: var(--i-spacing);
+    border: var(--i-border-width) solid var(--i-popover-color-border);
+    border-radius: var(--i-border-radius);
+    /* Centers it. Restated so a p or ul popover drops its own margins. */
+    margin: auto;
+    color: var(--i-popover-color-text);
+    background-color: var(--i-popover-color-background);
+    box-shadow: var(--i-popover-shadow);
+    opacity: 0;
+    transition:
+      display var(--i-popover-duration) allow-discrete,
+      overlay var(--i-popover-duration) allow-discrete,
+      opacity var(--i-popover-duration) var(--i-easing),
+      transform var(--i-popover-duration) var(--i-easing);
+    transform: scale(0.96);
+  }
+
+  [popover]:popover-open {
+    opacity: 1;
+    transform: none;
+  }
+
+  @starting-style {
+    [popover]:popover-open {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+
+  [popover] > :last-child {
+    margin-bottom: 0;
+  }
+
+  /* Without anchor support the popover stays centered */
+  @supports (position-area: bottom) {
+    [popover][data-placement] {
+      inset: auto;
+      margin: 0;
+    }
+
+    [popover][data-placement="bottom"] {
+      position-area: block-end span-inline-end;
+      position-try-fallbacks:
+        flip-inline,
+        flip-block,
+        flip-block flip-inline;
+      margin-block-start: var(--i-popover-offset);
+    }
+
+    [popover][data-placement="top"] {
+      position-area: block-start span-inline-end;
+      position-try-fallbacks:
+        flip-inline,
+        flip-block,
+        flip-block flip-inline;
+      margin-block-end: var(--i-popover-offset);
+    }
+
+    [popover][data-placement="left"] {
+      position-area: left;
+      position-try-fallbacks: flip-inline;
+      /* stylelint-disable-next-line property-disallowed-list -- placements are physical */
+      margin-right: var(--i-popover-offset);
+    }
+
+    [popover][data-placement="right"] {
+      position-area: right;
+      position-try-fallbacks: flip-inline;
+      /* stylelint-disable-next-line property-disallowed-list -- placements are physical */
+      margin-left: var(--i-popover-offset);
+    }
+  }
+}

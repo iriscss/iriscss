@@ -1,0 +1,63 @@
+/**
+ * Form variables
+ */
+:root,
+:host {
+  /* Controls: buttons and inputs */
+  --i-control-padding-block: 0.4rem;
+  --i-control-padding-inline: 0.875rem;
+  --i-control-disabled-opacity: 0.5;
+
+  --i-label-font-weight: var(--i-font-weight);
+
+  /* Inputs: text, select and textarea */
+  --i-input-outline-width: var(--i-focus-ring-width);
+  /* Growth range of a textarea without rows, where field-sizing is supported */
+  --i-textarea-min-height: 4lh;
+  --i-textarea-max-height: 16lh;
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-input-color-text: light-dark(#23262c, #e0e3e7);
+  --i-input-color-background: light-dark(#fbfcfd, #1c212c);
+  /* 3:1 against the page, as WCAG asks for control boundaries */
+  --i-input-color-border: light-dark(#878fa2, #636c84);
+  --i-input-color-placeholder: light-dark(var(--i-color-subtle), #8891a4);
+  --i-input-selected-color-background: light-dark(#dfe3eb, #2a3140);
+  --i-input-active-color-background: light-dark(var(--i-color-white), #1a1f28);
+  --i-input-active-color-border: color-mix(
+    in oklab,
+    var(--i-color-primary),
+    var(--i-color-ink) 10%
+  );
+  --i-input-focus-color-outline: color-mix(
+    in oklab,
+    var(--i-color-primary),
+    var(--i-color-ink) 40%
+  );
+  --i-input-button-focus-color-outline: var(--i-input-focus-color-outline);
+
+  /* Derived from the danger and success colors, like the state icons */
+  --i-input-invalid-color-border: var(--i-color-danger);
+  --i-input-invalid-active-color-border: color-mix(
+    in oklab,
+    var(--i-color-danger),
+    var(--i-color-ink) 15%
+  );
+  --i-input-invalid-focus-color-outline: var(
+    --i-input-invalid-active-color-border
+  );
+  --i-input-valid-color-border: color-mix(
+    in oklab,
+    var(--i-color-success),
+    var(--i-color-ink) 15%
+  );
+  --i-input-valid-active-color-border: color-mix(
+    in oklab,
+    var(--i-color-success),
+    var(--i-color-ink) 30%
+  );
+  --i-input-valid-focus-color-outline: var(--i-input-valid-active-color-border);
+}

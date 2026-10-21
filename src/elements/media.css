@@ -1,0 +1,61 @@
+/**
+ * Media
+ *
+ * Images, audio, video, iframes, embeds, SVG and figures. Media scales down to
+ * fit its container. An iframe without width or height fills the width at 16:9.
+ */
+
+:where(audio, canvas, iframe, img, svg, video) {
+  vertical-align: middle;
+}
+
+:where(audio, video) {
+  display: inline-block;
+}
+
+:where(img, picture, video, canvas, object, embed) {
+  max-width: 100%;
+}
+
+:where(img, picture, video) {
+  height: auto;
+}
+
+/* Sets apart the alt text of an image that fails to load */
+:where(img) {
+  font-style: italic;
+}
+
+:where(audio) {
+  width: 100%;
+}
+
+:where(iframe) {
+  border-style: none;
+}
+
+:where(iframe:not([width], [height])) {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+/* An SVG without fill uses the text color */
+:where(svg:not([fill])) {
+  fill: currentcolor;
+}
+
+figure {
+  margin: 0;
+}
+
+figure figcaption {
+  padding: calc(var(--i-spacing) * 0.5) 0;
+  color: var(--i-color-subtle);
+}
+
+/* Captions from <track> */
+::cue {
+  font-family: var(--i-font-family);
+  color: var(--i-cue-color-text);
+  background-color: var(--i-cue-color-background);
+}

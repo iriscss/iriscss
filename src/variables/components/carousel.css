@@ -1,0 +1,11 @@
+/**
+ * Carousel variables
+ */
+:root,
+:host {
+  /* Width of each slide. Lower it to show several at once. */
+  --i-carousel-item-width: 100%;
+  --i-carousel-gap: var(--i-spacing);
+  --i-carousel-button-size: 2.5rem;
+  --i-carousel-marker-size: 0.625rem;
+}

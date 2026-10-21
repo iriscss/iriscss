@@ -1,0 +1,26 @@
+/**
+ * Date and time inputs
+ *
+ * Date, datetime-local, month, time and week. Where the browser shows a picker
+ * button (Chrome, Edge), it gets a calendar or clock icon. Firefox and Safari
+ * keep their own.
+ */
+:is(
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="time"],
+  [type="week"]
+)::-webkit-calendar-picker-indicator {
+  width: var(--i-input-date-icon-size);
+  height: var(--i-input-date-icon-size);
+  padding: 0;
+  margin: 0;
+  margin-inline-start: calc(var(--i-spacing) * 0.5);
+  background: var(--i-svg-date) center / contain no-repeat;
+  cursor: pointer;
+}
+
+[type="time"]::-webkit-calendar-picker-indicator {
+  background-image: var(--i-svg-time);
+}

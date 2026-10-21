@@ -1,0 +1,22 @@
+/**
+ * Focus
+ *
+ * A visible outline for keyboard focus only, as WCAG 2.4.7 asks. Buttons,
+ * links and form controls draw their own outline in their color; these
+ * zero specificity rules only cover everything else.
+ */
+
+:where(:focus-visible) {
+  outline: var(--i-focus-ring-width) solid var(--i-color-focus);
+  outline-offset: 0.125rem;
+}
+
+:where(:focus:not(:focus-visible)) {
+  outline: none;
+}
+
+/* Skip link targets need no ring around the whole region. Widgets that move
+   focus with tabindex="-1", such as menus, keep theirs. */
+:where(main, section, article, h1, h2, h3, h4, h5, h6)[tabindex="-1"]:focus {
+  outline: none;
+}

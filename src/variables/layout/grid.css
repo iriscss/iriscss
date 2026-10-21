@@ -1,0 +1,10 @@
+/**
+ * Grid variables
+ */
+:root,
+:host {
+  --i-grid-column-gap: var(--i-spacing);
+  --i-grid-row-gap: var(--i-spacing);
+  /* Narrowest column. Columns wrap onto a new row below this width. */
+  --i-grid-column-min-width: 10rem;
+}

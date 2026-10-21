@@ -1,0 +1,8 @@
+/**
+ * List variables
+ */
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-list-marker-color-text: var(--i-color-subtle);
+}

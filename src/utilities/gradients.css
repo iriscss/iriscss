@@ -1,0 +1,207 @@
+/**
+ * Gradients
+ *
+ * .gradient paints a linear gradient, .gradient.radial a radial one. A palette
+ * family class (.blue, .amber, ...) picks the colors, or set --i-gradient-stops.
+ * Direction: .to-top, .to-bottom, .to-left. Radial shape: .ellipse.
+ * Radial center: .radial-top, .radial-right, .radial-bottom, .radial-left.
+ */
+
+/* ==================================================
+   Linear
+   ================================================== */
+
+.gradient {
+  background-image: linear-gradient(
+    var(--i-gradient-direction),
+    var(--i-gradient-stops)
+  );
+}
+
+.gradient.to-top {
+  --i-gradient-direction: to top;
+}
+
+.gradient.to-bottom {
+  --i-gradient-direction: to bottom;
+}
+
+.gradient.to-left {
+  --i-gradient-direction: to left;
+}
+
+/* ==================================================
+   Radial
+   ================================================== */
+
+.gradient.radial {
+  background-image: radial-gradient(
+    var(--i-gradient-shape) at var(--i-gradient-position),
+    var(--i-gradient-stops)
+  );
+}
+
+.gradient.ellipse {
+  --i-gradient-shape: ellipse;
+}
+
+.gradient.radial-top {
+  --i-gradient-position: top;
+}
+
+.gradient.radial-right {
+  --i-gradient-position: right;
+}
+
+.gradient.radial-bottom {
+  --i-gradient-position: bottom;
+}
+
+.gradient.radial-left {
+  --i-gradient-position: left;
+}
+
+/* ==================================================
+   Colors
+   ================================================== */
+
+.gradient.amber {
+  --i-gradient-stops:
+    var(--i-color-amber-200), var(--i-color-amber-500), var(--i-color-amber-800);
+}
+
+.gradient.blue {
+  --i-gradient-stops:
+    var(--i-color-blue-200), var(--i-color-blue-500), var(--i-color-blue-800);
+}
+
+.gradient.chartreuse {
+  --i-gradient-stops:
+    var(--i-color-chartreuse-200), var(--i-color-chartreuse-500),
+    var(--i-color-chartreuse-800);
+}
+
+.gradient.cyan {
+  --i-gradient-stops:
+    var(--i-color-cyan-200), var(--i-color-cyan-500), var(--i-color-cyan-800);
+}
+
+.gradient.emerald {
+  --i-gradient-stops:
+    var(--i-color-emerald-200), var(--i-color-emerald-500),
+    var(--i-color-emerald-800);
+}
+
+.gradient.fuchsia {
+  --i-gradient-stops:
+    var(--i-color-fuchsia-200), var(--i-color-fuchsia-500),
+    var(--i-color-fuchsia-800);
+}
+
+.gradient.gray {
+  --i-gradient-stops:
+    var(--i-color-gray-200), var(--i-color-gray-500), var(--i-color-gray-800);
+}
+
+.gradient.green {
+  --i-gradient-stops:
+    var(--i-color-green-200), var(--i-color-green-500), var(--i-color-green-800);
+}
+
+.gradient.indigo {
+  --i-gradient-stops:
+    var(--i-color-indigo-200), var(--i-color-indigo-500),
+    var(--i-color-indigo-800);
+}
+
+.gradient.jade {
+  --i-gradient-stops:
+    var(--i-color-jade-200), var(--i-color-jade-500), var(--i-color-jade-800);
+}
+
+.gradient.lime {
+  --i-gradient-stops:
+    var(--i-color-lime-200), var(--i-color-lime-500), var(--i-color-lime-800);
+}
+
+.gradient.neutral {
+  --i-gradient-stops:
+    var(--i-color-neutral-200), var(--i-color-neutral-500),
+    var(--i-color-neutral-800);
+}
+
+.gradient.orange {
+  --i-gradient-stops:
+    var(--i-color-orange-200), var(--i-color-orange-500),
+    var(--i-color-orange-800);
+}
+
+.gradient.pink {
+  --i-gradient-stops:
+    var(--i-color-pink-200), var(--i-color-pink-500), var(--i-color-pink-800);
+}
+
+.gradient.purple {
+  --i-gradient-stops:
+    var(--i-color-purple-200), var(--i-color-purple-500),
+    var(--i-color-purple-800);
+}
+
+.gradient.red {
+  --i-gradient-stops:
+    var(--i-color-red-200), var(--i-color-red-500), var(--i-color-red-800);
+}
+
+.gradient.rose {
+  --i-gradient-stops:
+    var(--i-color-rose-200), var(--i-color-rose-500), var(--i-color-rose-800);
+}
+
+.gradient.sky {
+  --i-gradient-stops:
+    var(--i-color-sky-200), var(--i-color-sky-500), var(--i-color-sky-800);
+}
+
+.gradient.slate {
+  --i-gradient-stops:
+    var(--i-color-slate-200), var(--i-color-slate-500), var(--i-color-slate-800);
+}
+
+.gradient.spring {
+  --i-gradient-stops:
+    var(--i-color-spring-200), var(--i-color-spring-500),
+    var(--i-color-spring-800);
+}
+
+.gradient.stone {
+  --i-gradient-stops:
+    var(--i-color-stone-200), var(--i-color-stone-500), var(--i-color-stone-800);
+}
+
+.gradient.teal {
+  --i-gradient-stops:
+    var(--i-color-teal-200), var(--i-color-teal-500), var(--i-color-teal-800);
+}
+
+.gradient.vermilion {
+  --i-gradient-stops:
+    var(--i-color-vermilion-200), var(--i-color-vermilion-500),
+    var(--i-color-vermilion-800);
+}
+
+.gradient.violet {
+  --i-gradient-stops:
+    var(--i-color-violet-200), var(--i-color-violet-500),
+    var(--i-color-violet-800);
+}
+
+.gradient.yellow {
+  --i-gradient-stops:
+    var(--i-color-yellow-200), var(--i-color-yellow-500),
+    var(--i-color-yellow-800);
+}
+
+.gradient.zinc {
+  --i-gradient-stops:
+    var(--i-color-zinc-200), var(--i-color-zinc-500), var(--i-color-zinc-800);
+}

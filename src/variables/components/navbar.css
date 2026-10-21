@@ -1,0 +1,18 @@
+/**
+ * Navbar variables
+ */
+:root,
+:host {
+  /* Bar height, and where the mobile menu panel starts without anchor support */
+  --i-navbar-height: 4rem;
+  --i-navbar-brand-font-size: 1.25rem;
+  --i-navbar-brand-image-height: 2rem;
+  --i-navbar-z-index: 90;
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-navbar-color-background: var(--i-color-background);
+  --i-navbar-color-border: var(--i-color-subtle-border);
+}

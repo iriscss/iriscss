@@ -1,0 +1,15 @@
+/**
+ * Layout primitive variables
+ */
+:root,
+:host {
+  --i-stack-gap: var(--i-spacing);
+  --i-cluster-gap: calc(var(--i-spacing) * 0.5);
+  --i-sidebar-gap: var(--i-spacing);
+  --i-sidebar-width: 16rem;
+  /* The content wraps below the sidebar once it would be narrower than this */
+  --i-sidebar-content-min-width: 50%;
+  --i-switcher-gap: var(--i-spacing);
+  /* Container width below which a switcher stacks its children */
+  --i-switcher-threshold: 40rem;
+}

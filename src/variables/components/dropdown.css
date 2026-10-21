@@ -1,0 +1,18 @@
+/**
+ * Dropdown variables
+ */
+:root,
+:host {
+  /* Gap between the button and the menu */
+  --i-dropdown-offset: 0.0625rem;
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-dropdown-color-text: var(--i-color-text);
+  --i-dropdown-color-background: light-dark(var(--i-color-white), #181c25);
+  --i-dropdown-color-border: light-dark(#eff1f4, #202632);
+  --i-dropdown-hover-color-background: light-dark(#eff1f4, #202632);
+  --i-dropdown-shadow: var(--i-shadow);
+}

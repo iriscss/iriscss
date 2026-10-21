@@ -1,0 +1,16 @@
+/**
+ * Tooltip variables
+ */
+:root,
+:host {
+  --i-tooltip-max-width: 20rem;
+  --i-tooltip-caret-size: 0.3rem;
+  --i-tooltip-z-index: 99;
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-tooltip-color-text: var(--i-color-contrast-inverse);
+  --i-tooltip-color-background: var(--i-color-contrast);
+}

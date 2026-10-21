@@ -1,0 +1,87 @@
+/**
+ * Table
+ *
+ * table.striped shades odd rows, table.hover highlights the row under the
+ * pointer and table.sticky keeps the header in view. Wrap a wide table in
+ * .table-responsive to scroll it sideways.
+ */
+:where(table) {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-top: 0;
+  margin-bottom: var(--i-spacing);
+  text-indent: 0;
+}
+
+caption {
+  padding-bottom: calc(var(--i-spacing) / 2);
+  font-size: var(--i-small-font-size);
+  color: var(--i-color-subtle);
+  text-align: start;
+}
+
+th,
+td {
+  padding: calc(var(--i-spacing) / 2) var(--i-spacing);
+  border-bottom: var(--i-border-width) solid var(--i-table-color-border);
+  font-weight: var(--i-font-weight);
+  /* Even digit widths, so number columns line up */
+  font-variant-numeric: tabular-nums;
+  text-align: start;
+}
+
+/* Row headers */
+tbody th {
+  font-weight: var(--i-table-header-font-weight);
+}
+
+thead th,
+thead td {
+  border-bottom: calc(var(--i-table-header-border-width) * 2) solid
+    var(--i-table-color-border);
+  font-weight: var(--i-table-header-font-weight);
+}
+
+tfoot th,
+tfoot td {
+  border-top: var(--i-table-header-border-width) solid
+    var(--i-table-color-border);
+  border-bottom: 0;
+  font-weight: var(--i-table-header-font-weight);
+}
+
+table.striped tbody tr:nth-child(odd) th,
+table.striped tbody tr:nth-child(odd) td {
+  background-color: var(--i-table-row-striped-color-background);
+}
+
+@media (hover: hover) {
+  table.hover tbody tr:hover :is(td, th) {
+    background-color: var(--i-table-row-hover-color-background);
+  }
+}
+
+/* Separate borders move with the stuck cells. The header sticks to the page.
+   Inside .table-responsive it sticks to the wrapper instead, which needs a
+   max height to scroll. */
+table.sticky {
+  border-collapse: separate;
+}
+
+table.sticky thead :is(th, td) {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  background-color: var(--i-table-header-color-background);
+}
+
+/* The last body row already draws this line */
+table.sticky tfoot :is(th, td) {
+  border-top: 0;
+}
+
+.table-responsive {
+  display: block;
+  overflow-x: auto;
+}

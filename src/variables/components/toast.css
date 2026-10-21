@@ -1,0 +1,14 @@
+/**
+ * Toast variables
+ */
+:root,
+:host {
+  --i-toast-max-width: 24rem;
+  /* Distance from the edges of the viewport */
+  --i-toast-offset: var(--i-spacing);
+  --i-toast-gap: calc(var(--i-spacing) * 0.5);
+  --i-toast-padding-block: calc(var(--i-spacing) * 0.75);
+  --i-toast-padding-inline: var(--i-spacing);
+  --i-toast-duration: 0.3s;
+  --i-toast-z-index: 1000;
+}

@@ -1,0 +1,333 @@
+/**
+ * Button
+ *
+ * Colors come from --i-variant and --i-variant-inverse, which the color classes
+ * set. The mode rules (solid, .outlined, .tint, .deep) derive rest and hover
+ * colors from them, so every color works with every mode and state.
+ */
+
+/* ==================================================
+   Base
+   ================================================== */
+
+button {
+  margin: 0;
+  font-family: inherit;
+  text-transform: none;
+}
+
+button,
+[type="submit"],
+[type="reset"],
+[type="button"] {
+  appearance: button;
+}
+
+/* Neutral by default */
+:where(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [type="file"],
+  [role="button"]
+) {
+  --i-variant: var(--i-color-base);
+  --i-variant-inverse: var(--i-color-paper);
+}
+
+:where([type="reset"], [type="file"]) {
+  --i-variant: var(--i-color-secondary);
+  --i-variant-inverse: var(--i-color-secondary-inverse);
+}
+
+/* A soft tint of the variant color */
+button,
+[type="submit"],
+[type="reset"],
+[type="button"],
+[type="file"]::file-selector-button,
+[role="button"] {
+  --_rest-background: color-mix(
+    in oklab,
+    var(--i-variant) 15%,
+    var(--i-color-paper)
+  );
+  --_rest-border: color-mix(
+    in oklab,
+    var(--i-variant) 40%,
+    var(--i-color-paper)
+  );
+  --_rest-text: color-mix(in oklab, var(--i-variant), var(--i-color-ink) 55%);
+  --_hover-background: color-mix(
+    in oklab,
+    var(--i-variant) 25%,
+    var(--i-color-paper)
+  );
+  --_hover-border: color-mix(
+    in oklab,
+    var(--i-variant) 55%,
+    var(--i-color-paper)
+  );
+  --_hover-text: var(--_rest-text);
+  --_focus: color-mix(in oklab, var(--i-variant), var(--i-color-ink) 40%);
+  --_rest-shadow: var(--i-button-shadow);
+  --_hover-shadow: var(--i-button-hover-shadow);
+  --_padding-inline: var(--i-control-padding-inline);
+  --_text: var(--_rest-text);
+  --_background: var(--_rest-background);
+  --_border: var(--_rest-border);
+  --_shadow: var(--_rest-shadow);
+  padding: calc(var(--i-control-padding-block) * var(--_size-block, 1))
+    calc(var(--_padding-inline) * var(--_size-inline, 1));
+  border: var(--i-border-width) solid var(--_border);
+  border-radius: var(--i-border-radius);
+  font-size: calc(1rem * var(--_size-font, 1));
+  font-weight: var(--i-font-weight);
+  line-height: var(--i-line-height);
+  color: var(--_text);
+  text-align: center;
+  text-decoration: none;
+  background-color: var(--_background);
+  box-shadow: var(--_shadow);
+  outline: none;
+  transition:
+    background-color var(--i-duration) var(--i-easing),
+    border-color var(--i-duration) var(--i-easing),
+    color var(--i-duration) var(--i-easing),
+    box-shadow var(--i-duration) var(--i-easing);
+  cursor: pointer;
+  user-select: none;
+}
+
+button,
+[type="submit"],
+[type="reset"],
+[type="button"],
+[role="button"] {
+  margin-bottom: var(--i-spacing);
+}
+
+a[role="button"] {
+  display: inline-block;
+}
+
+/* ==================================================
+   Modes
+   ================================================== */
+
+/* Solid: color classes, reset buttons and file pickers. Hover darkens in both
+   themes so light text keeps its contrast. */
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"]
+):is(
+  .primary,
+  .secondary,
+  .contrast,
+  .accent,
+  .info,
+  .success,
+  .warning,
+  .danger,
+  .link
+),
+[type="reset"],
+[type="file"]::file-selector-button {
+  --_rest-background: var(--i-variant);
+  --_rest-border: color-mix(in oklab, var(--i-variant), var(--i-color-ink) 10%);
+  --_rest-text: var(--i-variant-inverse);
+  --_hover-background: color-mix(
+    in oklab,
+    var(--i-variant),
+    var(--i-color-black) 12%
+  );
+  --_hover-border: color-mix(
+    in oklab,
+    var(--i-variant),
+    var(--i-color-black) 22%
+  );
+  --_hover-text: var(--i-variant-inverse);
+}
+
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"]
+).outlined {
+  --_rest-background: transparent;
+  --_rest-border: color-mix(in oklab, var(--i-variant), var(--i-color-ink) 30%);
+  --_rest-text: color-mix(in oklab, var(--i-variant), var(--i-color-ink) 40%);
+  --_hover-background: color-mix(in oklab, var(--i-variant) 12%, transparent);
+  --_hover-border: color-mix(
+    in oklab,
+    var(--i-variant),
+    var(--i-color-ink) 50%
+  );
+  --_hover-text: color-mix(in oklab, var(--i-variant), var(--i-color-ink) 55%);
+}
+
+/* Tint: pale background and dark text in every theme */
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"]
+).tint {
+  --_rest-background: color-mix(
+    in oklab,
+    var(--i-variant) 20%,
+    var(--i-color-white)
+  );
+  --_rest-border: color-mix(
+    in oklab,
+    var(--i-variant) 45%,
+    var(--i-color-white)
+  );
+  --_rest-text: color-mix(in oklab, var(--i-variant), var(--i-color-black) 60%);
+  --_hover-background: color-mix(
+    in oklab,
+    var(--i-variant) 30%,
+    var(--i-color-white)
+  );
+  --_hover-border: color-mix(
+    in oklab,
+    var(--i-variant) 60%,
+    var(--i-color-white)
+  );
+  --_hover-text: var(--_rest-text);
+}
+
+/* Deep: dark background and white text in every theme */
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"]
+).deep {
+  --_rest-background: color-mix(
+    in oklab,
+    var(--i-variant),
+    var(--i-color-black) 55%
+  );
+  --_rest-border: color-mix(
+    in oklab,
+    var(--i-variant),
+    var(--i-color-black) 65%
+  );
+  --_rest-text: var(--i-color-white);
+  --_hover-background: color-mix(
+    in oklab,
+    var(--i-variant),
+    var(--i-color-black) 65%
+  );
+  --_hover-border: color-mix(
+    in oklab,
+    var(--i-variant),
+    var(--i-color-black) 75%
+  );
+  --_hover-text: var(--i-color-white);
+}
+
+/* ==================================================
+   States
+   ================================================== */
+
+/* The .hover, .active and .focus classes show the same look without interaction */
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"]
+):is(
+  :focus-visible,
+  :where([aria-current]:not([aria-current="false"])),
+  .hover,
+  .focus
+),
+[type="file"]:focus-visible::file-selector-button {
+  --_background: var(--_hover-background);
+  --_border: var(--_hover-border);
+  --_text: var(--_hover-text);
+  --_shadow: var(--_hover-shadow);
+}
+
+/* Only where a real pointer hovers, so the look does not stick after a tap */
+@media (hover: hover) {
+  :is(
+    button,
+    [type="submit"],
+    [type="reset"],
+    [type="button"],
+    [role="button"]
+  ):hover,
+  [type="file"]:hover::file-selector-button {
+    --_background: var(--_hover-background);
+    --_border: var(--_hover-border);
+    --_text: var(--_hover-text);
+    --_shadow: var(--_hover-shadow);
+  }
+}
+
+/* Pressed: the hover look, one step toward ink */
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"]
+):is(:active, .active),
+[type="file"]:active::file-selector-button {
+  --_background: color-mix(
+    in oklab,
+    var(--_hover-background),
+    var(--i-color-ink) 8%
+  );
+  --_border: var(--_hover-border);
+  --_text: var(--_hover-text);
+  --_shadow: var(--_hover-shadow);
+}
+
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"]
+):is(:focus-visible, .focus),
+[type="file"]:focus-visible::file-selector-button {
+  outline: var(--i-focus-ring-width) solid var(--_focus);
+  outline-offset: 0.125rem;
+}
+
+/* Disabled buttons keep their rest colors on hover. aria-disabled ones stay
+   focusable, so the script that set it must also ignore their clicks. */
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"]
+):is([disabled], [aria-disabled="true"]),
+fieldset[disabled]
+  :is(
+    button,
+    [type="submit"],
+    [type="button"],
+    [type="reset"],
+    [role="button"]
+  ) {
+  --_background: var(--_rest-background);
+  --_border: var(--_rest-border);
+  --_text: var(--_rest-text);
+  --_shadow: var(--_rest-shadow);
+  opacity: var(--i-control-disabled-opacity);
+}

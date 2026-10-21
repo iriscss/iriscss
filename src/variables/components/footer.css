@@ -1,0 +1,27 @@
+/**
+ * Footer variables
+ */
+:root,
+:host {
+  --i-footer-padding-block: 2.5rem;
+  --i-footer-font-size: 0.9375rem;
+  --i-footer-gap: 2rem;
+
+  /* Columns shrink to this width before they wrap to a new row */
+  --i-footer-column-min-width: 8rem;
+  --i-footer-heading-font-size: 0.8125rem;
+  --i-footer-brand-font-size: 1.25rem;
+  --i-footer-brand-image-height: 1.75rem;
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-footer-color-text: var(--i-color-subtle);
+  --i-footer-color-background: color-mix(
+    in oklab,
+    var(--i-color-subtle) 7%,
+    var(--i-color-background)
+  );
+  --i-footer-color-border: var(--i-color-subtle-border);
+}

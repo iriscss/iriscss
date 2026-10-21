@@ -1,0 +1,194 @@
+/**
+ * Nav
+ *
+ * The lists of a <nav> line up as a row, and links get a padded hit area.
+ * nav.breadcrumb adds dividers between items. Inside <aside> the lists stack.
+ *
+ * For a menu that collapses on narrow screens, make the link list a popover
+ * and add a .nav-toggle button for it. The list sits in the nav while there is
+ * room, and opens from the button below a 48rem wide nav. The nav measures
+ * its own width, so in a flex row it takes the free space:
+ *   <button class="nav-toggle" popovertarget="menu" aria-label="Menu"></button>
+ *   <ul id="menu" popover data-placement="bottom">...</ul>
+ * For a top bar with a full width mobile panel, wrap the nav in .navbar.
+ */
+/* Zero specificity and the nav's own lists only, so a class overrides the
+   row and a menu or list nested in an item keeps its own layout. Items sit
+   apart by a gap, so the first and last line up with the content around. */
+:where(nav) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: visible;
+}
+
+:where(nav > :is(ol, ul)) {
+  display: flex;
+  align-items: center;
+  gap: 0 var(--i-nav-gap);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+:where(nav > :is(ol, ul) > li) {
+  padding-block: var(--i-nav-item-padding-block);
+  margin: 0;
+}
+
+/* The hit area reaches past the text, and the negative margin keeps the text
+   where it would be without it */
+:where(nav > :is(ol, ul) > li > :is(a, [role="link"])) {
+  display: inline-block;
+  padding: var(--i-nav-link-padding-block) var(--i-nav-link-padding-inline);
+  border-radius: var(--i-border-radius);
+  margin: calc(var(--i-nav-link-padding-block) * -1)
+    calc(var(--i-nav-link-padding-inline) * -1);
+}
+
+:where(nav > :is(ol, ul) > li > :is(a, [role="link"])):not(:hover) {
+  text-decoration: none;
+}
+
+:where(nav > :is(ol, ul) > li)
+  :is(button, [role="button"], [type="button"], [type="submit"]) {
+  padding: calc(var(--i-nav-link-padding-block) - var(--i-border-width) * 2)
+    var(--i-nav-link-padding-inline);
+  margin-bottom: 0;
+  margin-inline: inherit;
+}
+
+/* Fields read the padding variables, so icon room such as the search
+   magnifier's still adds to it */
+:where(nav > :is(ol, ul) > li)
+  :is(
+    input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"]),
+    select
+  ) {
+  --_padding-block: calc(
+    var(--i-nav-link-padding-block) - var(--i-border-width) * 2
+  );
+  --_padding-inline: var(--i-nav-link-padding-inline);
+  margin-bottom: 0;
+  margin-inline: inherit;
+}
+
+/* The divider sits in the flow before each item but the first, so the trail
+   wraps and spaces itself with no positioning */
+nav.breadcrumb {
+  justify-content: start;
+}
+
+nav.breadcrumb > :is(ol, ul) {
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+nav.breadcrumb > :is(ol, ul) > li + li::before {
+  display: inline-block;
+  margin-inline: var(--i-nav-link-padding-inline);
+  color: var(--i-color-subtle);
+  content: var(--i-nav-breadcrumb-divider);
+  /* Empty alt text, so screen readers skip the divider */
+  content: var(--i-nav-breadcrumb-divider) / "";
+}
+
+/* Mirror the divider in right to left text. It is laid out left to right, or
+   the browser would already mirror a glyph like > and the scale would undo it. */
+nav.breadcrumb > :is(ol, ul) > li + li:dir(rtl)::before {
+  direction: ltr;
+  scale: -1 1;
+  unicode-bidi: isolate;
+}
+
+/* The current page reads as plain text but stays a working link */
+nav.breadcrumb [aria-current]:not([aria-current="false"]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* A nav in an aside stacks. Other lists in an aside keep their markers. */
+aside nav,
+aside nav :is(ol, ul, li) {
+  display: block;
+}
+
+aside nav li {
+  padding-block: calc(var(--i-nav-item-padding-block) * 0.5);
+}
+
+aside nav li a {
+  display: block;
+}
+
+aside nav li [role="button"] {
+  margin: inherit;
+}
+
+/* A size container has no width of its own, so it grows to fill a flex row */
+nav:is(:has(> .nav-toggle)) {
+  container-type: inline-size;
+  flex: 1 1 auto;
+  align-items: center;
+  min-width: 0;
+}
+
+nav > .nav-toggle {
+  display: none;
+  width: auto;
+  padding: var(--i-nav-link-padding-block);
+  border: 0;
+  margin: 0;
+  color: inherit;
+  background-color: transparent;
+}
+
+nav > .nav-toggle::before {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: currentcolor;
+  mask: var(--i-svg-menu) center / contain no-repeat;
+  content: "";
+}
+
+@container (width >= 48rem) {
+  nav > ul[popover] {
+    position: static;
+    display: flex;
+    overflow: visible;
+    max-width: none;
+    max-height: none;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    color: inherit;
+    background-color: transparent;
+    box-shadow: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@container (width < 48rem) {
+  nav > .nav-toggle {
+    display: inline-flex;
+  }
+
+  nav > ul[popover]:not(:popover-open) {
+    display: none;
+  }
+
+  nav > ul[popover]:popover-open {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* Without the Popover API the button could not open the list, so the list
+   stays in the nav */
+@supports not selector(:popover-open) {
+  nav > .nav-toggle {
+    display: none;
+  }
+}

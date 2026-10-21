@@ -1,0 +1,9 @@
+/**
+ * Drawer variables
+ */
+:root,
+:host {
+  --i-drawer-width: 20rem;
+  /* Tallest a bottom sheet gets */
+  --i-drawer-max-height: 80dvh;
+}

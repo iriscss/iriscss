@@ -1,0 +1,21 @@
+/**
+ * Color class fills
+ *
+ * An element with a color class (.primary, .danger, ...) and no styling of its
+ * own gets the color as its background. Links only change color. Components
+ * that use the color their own way, such as alerts and badges, override this.
+ */
+:where(
+  .primary,
+  .secondary,
+  .contrast,
+  .accent,
+  .info,
+  .success,
+  .warning,
+  .danger,
+  .link
+):where(:not(a, [role="link"])) {
+  color: var(--i-variant-inverse);
+  background-color: var(--i-variant);
+}

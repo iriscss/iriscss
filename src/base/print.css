@@ -1,0 +1,66 @@
+/**
+ * Print
+ *
+ * Black text on white paper, no site navigation or decoration, the address
+ * after each external link, and no page breaks inside tables, figures, code
+ * and cards. The print layer is last, so these rules need no !important and
+ * your own print styles still win.
+ */
+@media print {
+  :root,
+  :host,
+  [data-theme],
+  .light,
+  .dark {
+    color-scheme: light;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-shadow: none;
+    text-shadow: none;
+  }
+
+  body {
+    color: var(--i-color-black);
+    background-color: var(--i-color-white);
+  }
+
+  :is(
+    .navbar,
+    body > nav,
+    body > header nav,
+    dialog,
+    [popover],
+    .nav-toggle,
+    .toasts,
+    .skip-to-content
+  ) {
+    display: none;
+  }
+
+  a[href^="http"]::after {
+    font-size: 0.875em;
+    font-weight: normal;
+    color: var(--i-color-gray-600);
+    content: " (" attr(href) ")";
+  }
+
+  :is(pre, blockquote, table, figure, img, svg, .card, .box) {
+    break-inside: avoid;
+  }
+
+  :is(h1, h2, h3, h4, h5, h6) {
+    break-after: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  :is(p, h2, h3) {
+    orphans: 3;
+    widows: 3;
+  }
+}

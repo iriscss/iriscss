@@ -1,0 +1,27 @@
+/**
+ * Box variables
+ */
+:root,
+:host {
+  --i-box-padding: 1.25rem;
+  --i-box-border-radius: var(--i-border-radius);
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-box-color-text: var(--i-color-text);
+  --i-box-color-background: var(--i-color-background);
+  --i-box-color-border: var(--i-color-subtle-border);
+  --i-box-shadow: var(--i-shadow);
+
+  /* Linked box hover and press */
+  --i-box-hover-shadow:
+    0 0.5em 1em -0.125em
+      color-mix(in oklab, var(--i-color-text) 10%, transparent),
+    0 0 0 var(--i-border-width) var(--i-color-link);
+  --i-box-active-shadow:
+    inset 0 0.0625rem 0.125rem
+      color-mix(in oklab, var(--i-color-text) 20%, transparent),
+    0 0 0 var(--i-border-width) var(--i-color-link);
+}

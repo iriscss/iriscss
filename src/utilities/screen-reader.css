@@ -1,0 +1,19 @@
+/**
+ * Screen reader
+ *
+ * .sr-only hides content visually but keeps it for screen readers.
+ * .sr-only-focusable does the same until it or something inside it gets focus.
+ */
+
+.sr-only,
+.sr-only-focusable:not(:focus, :focus-within) {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border-width: 0;
+  margin: -1px;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}

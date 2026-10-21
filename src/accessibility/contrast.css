@@ -1,0 +1,76 @@
+/**
+ * High contrast
+ *
+ * Stronger borders and focus rings for prefers-contrast: more, and system
+ * colors without decorative shadows for forced colors (Windows High Contrast).
+ */
+
+@media (prefers-contrast: more) {
+  input:not(
+    [type="submit"],
+    [type="button"],
+    [type="reset"],
+    [type="checkbox"],
+    [type="radio"]
+  ),
+  select,
+  textarea {
+    border-width: var(--i-border-width);
+  }
+
+  :focus-visible {
+    outline-width: var(--i-focus-ring-width);
+  }
+
+  hr {
+    border-color: currentcolor;
+  }
+
+  :where(thead, tfoot) th {
+    border-width: 0.125rem;
+  }
+}
+
+@media (forced-colors: active) {
+  a,
+  [role="link"] {
+    text-decoration: underline;
+  }
+
+  button,
+  [type="submit"],
+  [type="button"],
+  [type="reset"],
+  [role="button"] {
+    border: 0.125rem solid ButtonText;
+  }
+
+  [aria-disabled="true"],
+  [disabled] {
+    color: GrayText;
+  }
+
+  :focus-visible {
+    outline-color: Highlight;
+  }
+
+  /* Shadows draw focus rings and borders that forced colors would hide anyway */
+  /* stylelint-disable declaration-no-important -- forced colors win over page styles */
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  /* stylelint-enable declaration-no-important */
+
+  svg {
+    fill: currentcolor;
+  }
+
+  /* mark sets its colors through variables, which forced colors ignores */
+  :where(mark) {
+    color: HighlightText;
+    background: Highlight;
+  }
+}

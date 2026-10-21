@@ -1,0 +1,25 @@
+/**
+ * Icons
+ *
+ * SVG data URIs from System UIcons (public domain,
+ * https://github.com/coreyginnivan/system-uicons), with heavier strokes and some
+ * viewBoxes cropped so they fill 1rem like the controls expect. The loading
+ * ring is drawn for Iris, since that set has no arc spinner. Each has its
+ * color baked in, so replace the whole value to change one. The valid and
+ * invalid icons use the success and danger palette shades, which read on both
+ * themes.
+ */
+:root,
+:host {
+  --i-svg-checkmark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2.5 2.5 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='m5.5 11.5 3 3 8.028-8'/%3E%3C/svg%3E");
+  --i-svg-chevron-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='5 5 11 11'%3E%3Cpath fill='none' stroke='%238891a4' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round' d='m14.5 8.5-4 4-4-4'/%3E%3C/svg%3E");
+  --i-svg-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 17 17'%3E%3Cpath fill='none' stroke='%238891a4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='m7.5 7.5 6 6m0-6-6 6'/%3E%3C/svg%3E");
+  --i-svg-dash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2.5 2.5 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='m5.5 10.5h10'/%3E%3C/svg%3E");
+  --i-svg-date: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='1.5 1.5 18 18'%3E%3Cpath fill='none' stroke='%238891a4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='m4.5 2.5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2v-12a2 2 0 0 1 2-2zm-2 4h16'/%3E%3C/svg%3E");
+  --i-svg-invalid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='1.5 1.5 18 18'%3E%3Cg fill='none' stroke='%23e7000b' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='8'/%3E%3Cpath d='m10.5 11.5v-5'/%3E%3C/g%3E%3Ccircle cx='10.5' cy='14.5' r='1.25' fill='%23e7000b'/%3E%3C/svg%3E");
+  --i-svg-loading: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='1.5 1.5 18 18'%3E%3Cg fill='none' stroke='%238891a4' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='8' opacity='.25'/%3E%3Cpath d='M10.5 2.5a8 8 0 0 1 8 8'/%3E%3C/g%3E%3C/svg%3E");
+  --i-svg-menu: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 21'%3E%3Cpath fill='none' stroke='%238891a4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='m4.5 6.5h12m-12 4h12m-12 4h12'/%3E%3C/svg%3E");
+  --i-svg-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2 2 17 17'%3E%3Cg fill='none' stroke='%238891a4' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8.5' cy='8.5' r='5'/%3E%3Cpath d='m17.571 17.5-5.571-5.5'/%3E%3C/g%3E%3C/svg%3E");
+  --i-svg-time: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='1.5 1.5 18 18'%3E%3Cg fill='none' stroke='%238891a4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10.5' cy='10.5' r='8'/%3E%3Cpath d='m10.5 7.5v4h3.5'/%3E%3C/g%3E%3C/svg%3E");
+  --i-svg-valid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='2.5 2.5 16 16'%3E%3Cpath fill='none' stroke='%2300a63e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='m5.5 11.5 3 3 8.028-8'/%3E%3C/svg%3E");
+}

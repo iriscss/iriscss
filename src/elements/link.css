@@ -1,0 +1,48 @@
+/**
+ * Link
+ *
+ * Link colors come from --i-variant, which the color classes set. The text is
+ * mixed toward ink so colored links stay readable.
+ */
+
+:where(a:not([role="button"]), [role="link"]) {
+  --i-variant: var(--i-color-base);
+  --_link: color-mix(in oklab, var(--i-variant), var(--i-color-ink) 40%);
+  --_link-hover: color-mix(in oklab, var(--i-variant), var(--i-color-ink) 60%);
+  --_focus: color-mix(in oklab, var(--i-variant), var(--i-color-ink) 40%);
+  color: var(--_link);
+  text-decoration: var(--i-link-text-decoration);
+  text-decoration-color: color-mix(in oklab, var(--_link), transparent 50%);
+  background-color: transparent;
+  outline: none;
+  transition:
+    color var(--i-duration) var(--i-easing),
+    text-decoration-color var(--i-duration) var(--i-easing);
+}
+
+/* The .hover, .active and .focus classes show the same look without interaction */
+:where(a:not([role="button"]), [role="link"]):is(
+  :active,
+  :focus-visible,
+  :where([aria-current]:not([aria-current="false"])),
+  .hover,
+  .active,
+  .focus
+) {
+  color: var(--_link-hover);
+  text-decoration: underline;
+  text-decoration-color: currentcolor;
+}
+
+@media (hover: hover) {
+  :where(a:not([role="button"]), [role="link"]):hover {
+    color: var(--_link-hover);
+    text-decoration: underline;
+    text-decoration-color: currentcolor;
+  }
+}
+
+:where(a:not([role="button"]), [role="link"]):is(:focus-visible, .focus) {
+  outline: var(--i-focus-ring-width) solid var(--_focus);
+  outline-offset: 0.125rem;
+}

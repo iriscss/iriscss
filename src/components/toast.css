@@ -1,0 +1,106 @@
+/**
+ * Toast
+ *
+ * A short message in the bottom end corner. On its own, make it a manual
+ * popover and open it with showPopover():
+ *   <div class="toast success" popover="manual" role="status">Saved</div>
+ * To stack several, add and remove .toast elements inside a .toasts region:
+ *   <div class="toasts" aria-live="polite">...</div>
+ * Color classes set the color. A .close button inside dismisses it.
+ */
+:where(.toast) {
+  --i-variant: var(--i-color-contrast);
+  --i-variant-inverse: var(--i-color-contrast-inverse);
+}
+
+.toasts {
+  position: fixed;
+  z-index: var(--i-toast-z-index);
+  inset-block-end: var(--i-toast-offset);
+  inset-inline-end: var(--i-toast-offset);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--i-toast-gap);
+  max-width: calc(100svw - var(--i-toast-offset) * 2);
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--i-toast-gap);
+  max-width: min(var(--i-toast-max-width), 100%);
+  padding: var(--i-toast-padding-block) var(--i-toast-padding-inline);
+  border: 0;
+  border-radius: var(--i-border-radius);
+  color: var(--i-variant-inverse);
+  background-color: var(--i-variant);
+  box-shadow: var(--i-shadow);
+  transition:
+    display var(--i-toast-duration) allow-discrete,
+    overlay var(--i-toast-duration) allow-discrete,
+    opacity var(--i-toast-duration) var(--i-easing),
+    transform var(--i-toast-duration) var(--i-easing);
+  pointer-events: auto;
+}
+
+@starting-style {
+  .toast,
+  .toast[popover]:popover-open {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
+/* A popover toast places itself, instead of the centered popover default */
+@supports selector(:popover-open) {
+  .toast[popover] {
+    inset: auto;
+    inset-block-end: var(--i-toast-offset);
+    inset-inline-end: var(--i-toast-offset);
+    max-width: min(
+      var(--i-toast-max-width),
+      calc(100svw - var(--i-toast-offset) * 2)
+    );
+    margin: 0;
+    transform: translateY(1rem);
+  }
+
+  .toast[popover]:popover-open {
+    transform: none;
+  }
+}
+
+.toast > * {
+  margin-bottom: 0;
+}
+
+/* The padding gives a hit area of at least 1.5rem around the 1rem icon */
+.toast > .close {
+  flex-shrink: 0;
+  box-sizing: content-box;
+  width: 1rem;
+  height: calc(var(--i-line-height) * 1em);
+  height: 1lh;
+  padding: 0.25rem;
+  border: 0;
+  margin: -0.25rem;
+  margin-inline-start: auto;
+  color: inherit;
+  background-color: transparent;
+  opacity: 0.8;
+}
+
+.toast > .close::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: currentcolor;
+  mask: var(--i-svg-close) center / auto 1rem no-repeat;
+  content: "";
+}
+
+.toast > .close:is(:hover, :focus-visible) {
+  opacity: 1;
+}

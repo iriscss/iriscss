@@ -1,0 +1,10 @@
+/**
+ * Meter variables
+ */
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-meter-color-optimum: var(--i-color-success);
+  --i-meter-color-suboptimum: var(--i-color-warning);
+  --i-meter-color-poor: var(--i-color-danger);
+}

@@ -1,0 +1,11 @@
+/**
+ * Hero variables
+ */
+:root,
+:host {
+  --i-hero-min-height: min(60svh, 32rem);
+  --i-hero-padding-block: calc(var(--i-spacing) * 4);
+  --i-hero-font-size: clamp(2.25rem, 1.5rem + 3svw, 3.5rem);
+  --i-hero-text-font-size: 1.25rem;
+  --i-hero-text-max-width: 40rem;
+}

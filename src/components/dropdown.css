@@ -1,0 +1,108 @@
+/**
+ * Dropdown
+ *
+ * A popover list of links or choices, opened by the button whose
+ * popovertarget points at it. The browser closes it on Esc and on a click
+ * outside. Where anchor positioning works it opens below the button and flips
+ * near the edge of the screen. Elsewhere it is centered like any popover.
+ * Put it right after its button, which then shows a chevron:
+ *   <button popovertarget="account">Account</button>
+ *   <ul id="account" popover class="dropdown">...</ul>
+ */
+.dropdown[popover] {
+  min-width: 10rem;
+  padding: calc(var(--i-control-padding-block) * 0.5) 0;
+  border-color: var(--i-dropdown-color-border);
+  color: var(--i-dropdown-color-text);
+  white-space: nowrap;
+  background-color: var(--i-dropdown-color-background);
+  box-shadow: var(--i-dropdown-shadow);
+  transform: none;
+}
+
+@supports (position-area: block-end) {
+  .dropdown[popover] {
+    inset: auto;
+    position-area: block-end span-inline-end;
+    position-try-fallbacks:
+      flip-block,
+      flip-inline,
+      flip-block flip-inline;
+    min-width: anchor-size(width);
+    margin: 0;
+    margin-block-start: var(--i-dropdown-offset);
+  }
+}
+
+.dropdown li {
+  padding: calc(var(--i-control-padding-block) * 0.5)
+    var(--i-control-padding-inline);
+  margin: 0;
+  list-style: none;
+}
+
+.dropdown li a {
+  display: block;
+  overflow: hidden;
+  padding: calc(var(--i-control-padding-block) * 0.5)
+    var(--i-control-padding-inline);
+  margin: calc(var(--i-control-padding-block) * -0.5)
+    calc(var(--i-control-padding-inline) * -1);
+  color: var(--i-dropdown-color-text);
+  text-decoration: none;
+  text-overflow: ellipsis;
+}
+
+.dropdown
+  li
+  a:is(
+    :hover,
+    :active,
+    :focus-visible,
+    [aria-current]:not([aria-current="false"])
+  ),
+.dropdown li:is(:has(label)):hover {
+  background-color: var(--i-dropdown-hover-color-background);
+}
+
+.dropdown li label {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+/* The chevron on the button. A .select draws its own. */
+:is(button, [role="button"]):not(.select):has(+ .dropdown[popover])::after {
+  display: inline-block;
+  width: 1rem;
+  height: 1em;
+  margin-inline: 0.25rem -0.2rem;
+  vertical-align: -0.125em;
+  background-color: currentcolor;
+  mask: var(--i-svg-chevron-down) center / 1rem auto no-repeat;
+  transition: transform var(--i-duration) var(--i-easing);
+  content: "";
+}
+
+:is(button, [role="button"]):not(.select):has(+ .dropdown:popover-open)::after {
+  transform: rotate(180deg);
+}
+
+/* In a nav, a button without a class opens its menu like a link */
+nav li button:not([class]):has(+ .dropdown[popover]) {
+  --_rest-text: color-mix(
+    in oklab,
+    var(--i-color-base),
+    var(--i-color-ink) 40%
+  );
+  --_hover-text: color-mix(
+    in oklab,
+    var(--i-color-base),
+    var(--i-color-ink) 60%
+  );
+  --_rest-background: transparent;
+  --_hover-background: transparent;
+  --_rest-border: transparent;
+  --_hover-border: transparent;
+  --_rest-shadow: none;
+  --_hover-shadow: none;
+}

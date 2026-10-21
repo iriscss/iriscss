@@ -1,0 +1,40 @@
+/**
+ * Card
+ *
+ * A padded block with optional header and footer bands, usually
+ * <article class="card">. A dialog is always a card.
+ */
+.card,
+dialog {
+  --_space-block: var(--i-section-spacing-block);
+  --_space-inline: var(--i-section-spacing-inline);
+  padding: var(--_space-block) var(--_space-inline);
+  border-radius: var(--i-border-radius);
+  margin-bottom: var(--i-section-spacing-block);
+  background: var(--i-card-color-background);
+  box-shadow: var(--i-card-shadow);
+}
+
+:is(.card, dialog) > :is(header, footer) {
+  padding: calc(var(--_space-block) * var(--i-card-section-padding-scale))
+    var(--_space-inline);
+  margin-inline: calc(var(--_space-inline) * -1);
+  background-color: var(--i-card-section-color-background);
+}
+
+/* Bands inherit the card corners, so .rounded and .square only set them on the card */
+:is(.card, dialog) > header {
+  border-bottom: var(--i-border-width) solid var(--i-card-color-border);
+  border-start-start-radius: inherit;
+  border-start-end-radius: inherit;
+  margin-top: calc(var(--_space-block) * -1);
+  margin-bottom: var(--_space-block);
+}
+
+:is(.card, dialog) > footer {
+  border-top: var(--i-border-width) solid var(--i-card-color-border);
+  border-end-start-radius: inherit;
+  border-end-end-radius: inherit;
+  margin-top: var(--_space-block);
+  margin-bottom: calc(var(--_space-block) * -1);
+}

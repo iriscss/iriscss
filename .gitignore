@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+._*
+
+# Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# Logs & temp
+*.log
+*.err
+*.diff
+*.orig
+*.rej
+*~
+
+# Playwright
+test-results/
+playwright-report/

@@ -1,0 +1,28 @@
+/**
+ * User preferences
+ *
+ * Iris CSS motion and blur run through variables, so a preference sets them
+ * here. Reduced motion makes transitions 1ms long: instant, but transitionend
+ * still fires for scripts that wait for it. Loading spinners keep their own
+ * duration, since they carry meaning. Smooth scrolling, the skeleton shimmer
+ * and the indeterminate progress bar only run without a motion preference.
+ */
+
+/* stylelint-disable declaration-no-important -- a page's own value for these
+   variables must not bring the motion or the blur back */
+
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  :host {
+    --i-duration: 1ms !important;
+    --i-modal-duration: 1ms !important;
+    --i-toast-duration: 1ms !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root,
+  :host {
+    --i-modal-overlay-backdrop-filter: none !important;
+  }
+}

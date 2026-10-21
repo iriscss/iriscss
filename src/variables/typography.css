@@ -1,0 +1,29 @@
+/**
+ * Typography variables
+ */
+:root,
+:host {
+  /* Font stacks: each platform's system font, then generic fallbacks */
+  --i-font-emoji:
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Twemoji Mozilla",
+    "Noto Color Emoji";
+
+  --i-font-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    var(--i-font-emoji);
+
+  --i-font-mono:
+    ui-monospace, "Cascadia Mono", SFMono-Regular, Menlo, Consolas,
+    "Roboto Mono", "Liberation Mono", "Courier New", monospace,
+    var(--i-font-emoji);
+
+  --i-font-family: var(--i-font-sans);
+
+  /* Base text. The root size starts at the size the user set in the browser
+     and grows to 112.5% between a 576px and a 1280px wide viewport. */
+  --i-line-height: 1.5;
+  --i-font-weight: 400;
+  --i-font-size: clamp(100%, 89.75% + 0.285svw, 112.5%);
+  --i-text-underline-offset: 0.125em;
+}

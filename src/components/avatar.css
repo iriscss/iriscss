@@ -1,0 +1,54 @@
+/**
+ * Avatar
+ *
+ * A round picture or initials: <img class="avatar" src="..." alt="..."> or
+ * <span class="avatar">MG</span>. .small, .medium and .large resize it, .square
+ * rounds the corners only, and color classes color the initials. Wrap several
+ * in .avatar-group to overlap them.
+ */
+:where(.avatar) {
+  --i-variant: var(--i-color-secondary);
+  --i-variant-inverse: var(--i-color-secondary-inverse);
+}
+
+.avatar {
+  --_size: var(--i-avatar-size);
+  display: inline-flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: var(--_size);
+  height: var(--_size);
+  border-radius: 50%;
+  font-size: calc(var(--_size) * 0.4);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--i-variant-inverse);
+  text-transform: uppercase;
+  text-box: trim-both cap alphabetic;
+  vertical-align: middle;
+  background-color: var(--i-variant);
+  object-fit: cover;
+  user-select: none;
+}
+
+.avatar > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-group {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* A ring in the page color separates overlapping avatars */
+.avatar-group > .avatar {
+  box-shadow: 0 0 0 calc(var(--i-border-width) * 2) var(--i-color-background);
+}
+
+.avatar-group > .avatar + .avatar {
+  margin-inline-start: calc(var(--_size) * var(--i-avatar-group-overlap) * -1);
+}

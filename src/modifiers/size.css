@@ -1,0 +1,171 @@
+/**
+ * Sizes
+ *
+ * .small, .medium and .large. Normal is the default and needs no class.
+ * Buttons and form fields read three multipliers from their size
+ * class: --_size-block and --_size-inline for the padding and --_size-font for
+ * the text. On a .group they reach every control inside.
+ */
+
+/* ==================================================
+   Controls
+   ================================================== */
+
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"],
+  input,
+  select,
+  textarea,
+  .group
+).small {
+  --_size-block: 0.625;
+  --_size-inline: 0.75;
+  --_size-font: 0.875;
+}
+
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"],
+  input,
+  select,
+  textarea,
+  .group
+).medium {
+  --_size-block: 1.125;
+  --_size-inline: 1.25;
+  --_size-font: 1.125;
+}
+
+:is(
+  button,
+  [type="submit"],
+  [type="reset"],
+  [type="button"],
+  [role="button"],
+  input,
+  select,
+  textarea,
+  .group
+).large {
+  --_size-block: 1.375;
+  --_size-inline: 1.5;
+  --_size-font: 1.25;
+}
+
+/* ==================================================
+   Table
+   ================================================== */
+
+table.small th,
+table.small td {
+  padding: calc(var(--i-spacing) / 4) calc(var(--i-spacing) * 0.5);
+  font-size: 0.875rem;
+}
+
+table.medium th,
+table.medium td {
+  padding: calc(var(--i-spacing) * 0.75) calc(var(--i-spacing) * 1.25);
+  font-size: 1.125rem;
+}
+
+table.large th,
+table.large td {
+  padding: var(--i-spacing) calc(var(--i-spacing) * 1.5);
+  font-size: 1.25rem;
+}
+
+/* ==================================================
+   Card
+   ================================================== */
+
+.card.small {
+  --_space-block: calc(var(--i-section-spacing-block) * 0.625);
+  --_space-inline: calc(var(--i-section-spacing-inline) * 0.75);
+}
+
+.card.medium {
+  --_space-block: calc(var(--i-section-spacing-block) * 1.25);
+  --_space-inline: calc(var(--i-section-spacing-inline) * 1.25);
+}
+
+.card.large {
+  --_space-block: calc(var(--i-section-spacing-block) * 1.5);
+  --_space-inline: calc(var(--i-section-spacing-inline) * 1.5);
+}
+
+/* ==================================================
+   Progress
+   ================================================== */
+
+progress.small {
+  height: 0.375rem;
+}
+
+progress.medium {
+  height: 0.875rem;
+}
+
+progress.large {
+  height: 1.25rem;
+}
+
+/* ==================================================
+   Meter
+   ================================================== */
+
+meter.small {
+  height: 0.3125rem;
+}
+
+meter.medium {
+  height: 0.75rem;
+}
+
+meter.large {
+  height: 1rem;
+}
+
+/* ==================================================
+   Avatar
+   ================================================== */
+
+.avatar.small {
+  --_size: var(--i-avatar-size-small);
+}
+
+.avatar.medium {
+  --_size: var(--i-avatar-size-medium);
+}
+
+.avatar.large {
+  --_size: var(--i-avatar-size-large);
+}
+
+/* ==================================================
+   Icon
+   ================================================== */
+
+.icon.small {
+  width: var(--i-icon-size-small);
+  height: var(--i-icon-size-small);
+  font-size: 0.75rem;
+}
+
+.icon.medium {
+  width: var(--i-icon-size-medium);
+  height: var(--i-icon-size-medium);
+  font-size: 1.25rem;
+}
+
+.icon.large {
+  width: var(--i-icon-size-large);
+  height: var(--i-icon-size-large);
+  font-size: 2rem;
+}

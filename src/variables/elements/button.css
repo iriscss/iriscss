@@ -1,0 +1,8 @@
+/**
+ * Button variables
+ */
+:root,
+:host {
+  --i-button-shadow: 0 0 0 #0000;
+  --i-button-hover-shadow: 0 0 0 #0000;
+}

@@ -1,0 +1,11 @@
+/**
+ * Style variables
+ *
+ * Motion.
+ */
+:root,
+:host {
+  /* Transitions */
+  --i-duration: 0.2s;
+  --i-easing: ease-in-out;
+}

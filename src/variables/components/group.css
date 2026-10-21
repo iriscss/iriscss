@@ -1,0 +1,8 @@
+/**
+ * Group variables
+ */
+:root,
+:host {
+  --i-group-button-padding-inline: 2rem;
+  --i-group-search-border-radius: var(--i-border-radius-pill);
+}

@@ -1,0 +1,35 @@
+/**
+ * Badge
+ *
+ * A small pill for counts and labels: <span class="badge success">. Its size
+ * follows the surrounding text, so it fits headings, buttons and nav links.
+ * .outlined gives a border instead of a fill.
+ */
+/* Secondary by default: the neutral base color is too light for white text */
+:where(.badge) {
+  --i-variant: var(--i-color-secondary);
+  --i-variant-inverse: var(--i-color-secondary-inverse);
+}
+
+.badge {
+  display: inline-block;
+  padding: var(--i-badge-padding-block) var(--i-badge-padding-inline);
+  border: var(--i-border-width) solid var(--i-variant);
+  border-radius: var(--i-border-radius-pill);
+  font-size: var(--i-badge-font-size);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--i-variant-inverse);
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: var(--i-variant);
+}
+
+/* Centers the text on its capitals instead of the line box */
+@supports (text-box: trim-both cap alphabetic) {
+  .badge {
+    padding-block: var(--i-badge-trimmed-padding-block);
+    text-box: trim-both cap alphabetic;
+  }
+}

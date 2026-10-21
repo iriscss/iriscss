@@ -1,0 +1,16 @@
+/**
+ * Checkbox, radio and switch variables
+ */
+:root,
+:host {
+  --i-checkbox-radio-border-width: 0.125rem;
+  --i-switch-border-width: 0.1875rem;
+  --i-switch-thumb-shadow: 0 0 0 #0000;
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-switch-color-background: light-dark(#8790a3, #5f6880);
+  --i-switch-color-thumb: var(--i-color-white);
+}

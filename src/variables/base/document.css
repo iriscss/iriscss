@@ -1,0 +1,16 @@
+/**
+ * Document variables
+ */
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-selection-color-background: light-dark(#05cc4740, #05cc4730);
+
+  /* Scrollbar */
+  --i-scrollbar-color-thumb: color-mix(
+    in oklab,
+    var(--i-color-subtle) 50%,
+    transparent
+  );
+  --i-scrollbar-color-track: transparent;
+}
