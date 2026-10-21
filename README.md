@@ -59,10 +59,12 @@ npm install iriscss
 ### Usage from CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iriscss@1.0.0/dist/iris.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iriscss@1/dist/iris.min.css">
 ```
 
-Keep the version in the URL. Without it the CDN serves the newest release, and a release can change classes and variables. jsDelivr lists the SRI hash for each file, add it as an `integrity` attribute with `crossorigin="anonymous"`.
+`iriscss@1` serves the newest 1.x release. Minor releases only add and patches only fix, so an update never breaks your page, and it never jumps to 2.0. Keep the major in the URL: without it the CDN serves the newest release, whatever its major.
+
+To pin one release, use its full version, such as `iriscss@1.0.1`. Only a pinned URL can take an SRI hash: jsDelivr lists it for each file, add it as an `integrity` attribute with `crossorigin="anonymous"`.
 
 ### Starter HTML template
 

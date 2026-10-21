@@ -1,6 +1,6 @@
 {
   "name": "iriscss",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Modern, minimalist and lightweight CSS Framework",
   "author": "Madalin Grigore-Enescu",
   "main": "dist/iris.min.css",
