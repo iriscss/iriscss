@@ -410,6 +410,49 @@ test.describe("buttons and forms", () => {
 });
 
 test.describe("components", () => {
+  test("a color class fills a card band and its heading stays readable", async ({
+    page,
+  }) => {
+    for (const scheme of ["light", "dark"]) {
+      await page.emulateMedia({ colorScheme: scheme });
+      for (const color of ["primary", "warning", "danger"]) {
+        await render(
+          page,
+          `<article class="card">
+             <header id="plain"><h3>Plain</h3></header>
+             <p>Body</p>
+             <footer class="${color}" id="band"><h3>Title</h3><a href="#">Link</a></footer>
+           </article>
+           <dialog open><header class="${color}" id="dialog-band"><h3>Dialog</h3></header></dialog>`,
+        );
+        const [plain, band, dialogBand, variant] = await page.evaluate(() =>
+          ["#plain", "#band", "#dialog-band"]
+            .map(
+              (sel) =>
+                getComputedStyle(document.querySelector(sel)).backgroundColor,
+            )
+            .concat(
+              getComputedStyle(
+                document.querySelector("#band"),
+              ).getPropertyValue("--i-variant"),
+            ),
+        );
+        expect(band).not.toBe(plain);
+        expect(dialogBand).toBe(band);
+        expect(variant.trim()).not.toBe("");
+        expect(
+          await contrast(page, "#band h3", "color"),
+        ).toBeGreaterThanOrEqual(4.5);
+        expect(await contrast(page, "#band a", "color")).toBeGreaterThanOrEqual(
+          4.5,
+        );
+        expect(
+          await contrast(page, "#dialog-band h3", "color"),
+        ).toBeGreaterThanOrEqual(4.5);
+      }
+    }
+  });
+
   test("an alert close button sits at the end with its icon", async ({
     page,
   }) => {

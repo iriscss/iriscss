@@ -2,7 +2,8 @@
  * Card
  *
  * A padded block with optional header and footer bands, usually
- * <article class="card">. A dialog is always a card.
+ * <article class="card">. A dialog is always a card. A color class on a band
+ * fills it.
  */
 .card,
 dialog {
@@ -37,4 +38,50 @@ dialog {
   border-end-end-radius: inherit;
   margin-top: var(--_space-block);
   margin-bottom: calc(var(--_space-block) * -1);
+}
+
+/* Color classes fill a band. Headings, links and a close button take its
+   text color. */
+:is(.card, dialog)
+  > :is(header, footer):where(
+    .primary,
+    .secondary,
+    .contrast,
+    .accent,
+    .info,
+    .success,
+    .warning,
+    .danger,
+    .link
+  ) {
+  border-color: var(--i-variant);
+  color: var(--i-variant-inverse);
+  background-color: var(--i-variant);
+}
+
+:is(.card, dialog)
+  > :is(header, footer):where(
+    .primary,
+    .secondary,
+    .contrast,
+    .accent,
+    .info,
+    .success,
+    .warning,
+    .danger,
+    .link
+  )
+  :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    a:not([role="button"]),
+    [role="link"],
+    .close
+  ) {
+  color: inherit;
+  text-decoration-color: currentcolor;
 }

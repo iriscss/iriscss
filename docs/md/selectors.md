@@ -189,7 +189,7 @@ These classes show a state without user interaction, for example in documentatio
 | `.alert` | any block element | Tinted message box with a colored bar on the start edge. Add a color class and `role="alert"` or `role="status"`. Links inside take the alert color. A `.close` button as the first child sits at the end and dismisses it |
 | `.badge` | `span` or `a` | Small pill for counts, tags and labels. Sized from the surrounding text. Secondary by default. `.outlined` gives a border instead of a fill |
 | `.box` | any block element, or `a` | Padded block with a background, rounded corners and a shadow. As a link, the whole box is clickable and lifts on hover |
-| `.card` | any block element, usually `article` | Padded block with a background and a shadow. A direct `header` or `footer` becomes a tinted band. A `dialog` is always a card |
+| `.card` | any block element, usually `article` | Padded block with a background and a shadow. A direct `header` or `footer` becomes a tinted band, and a color class fills it. A `dialog` is always a card |
 | `.carousel` | any block | A row of slides that scrolls sideways and snaps to each one. Browsers with CSS scroll buttons add previous and next buttons and a dot per slide. Give it `tabindex="0"` and an `aria-label` so keyboard users can reach it |
 | `.divider` | `p` or `div` | A rule with text in the middle, such as "or". For a rule without text, use `hr` |
 | `.drawer` | `dialog` | A modal that slides in from the end edge. `.start` uses the start edge and `.bottom` makes a bottom sheet. Open it with `showModal()` |

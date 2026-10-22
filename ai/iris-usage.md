@@ -129,13 +129,18 @@ Footer: a wrapper whose first child holds the brand and the `nav` columns, then 
 </footer>
 ```
 
-Card: a direct `header` and `footer` become tinted bands.
+Card: a direct `header` and `footer` become tinted bands. A color class on a band fills it.
 
 ```html
 <article class="card">
   <header><h3>Pro</h3></header>
   <p>Everything in Free, plus teams.</p>
   <footer><button class="primary">Choose</button></footer>
+</article>
+
+<article class="card">
+  <header class="primary"><h3>Recommended</h3></header>
+  <p>The plan most teams pick.</p>
 </article>
 ```
 
