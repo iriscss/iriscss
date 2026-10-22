@@ -1,0 +1,182 @@
+/**
+ * Sidenav
+ *
+ * A vertical nav for docs and settings pages: <nav class="sidenav">. A details
+ * is a collapsible group and its summary the label. A heading (h2 to h6) before
+ * a ul is a group that stays open. A list in an li is one level deeper, with a
+ * guide line. aria-current marks the current link with a bar. .sticky keeps the
+ * menu in view. A popover list inside, such as a .dropdown, keeps its own look.
+ *
+ * For small screens, wrap it in a details: <aside><details><summary>Menu</summary>
+ * <nav class="sidenav">. The summary hides and the menu shows while the screen
+ * is 48rem wide or more and the aside is 24rem wide or less. Otherwise the menu
+ * folds behind the summary. Browsers without ::details-content keep it folded.
+ */
+.sidenav {
+  display: block;
+  font-size: var(--i-sidenav-font-size);
+}
+
+.sidenav > :first-child,
+.sidenav > details:first-child > summary {
+  margin-block-start: 0;
+}
+
+/* Block, or the nav's own lists would form a row */
+.sidenav :is(ul, ol):where(:not([popover])) {
+  display: block;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.sidenav :not([popover]) > li {
+  padding: 0;
+  margin: 0;
+}
+
+/* The list of a group, a nested list, and the list after a heading */
+.sidenav :is(details > ul, li ul, :is(h2, h3, h4, h5, h6) + ul) {
+  border-inline-start: var(--i-border-width) solid var(--i-sidenav-color-border);
+  margin-inline-start: var(--i-sidenav-indent);
+}
+
+/* The bar covers the guide line */
+.sidenav :not([popover]) > li > :is(a, span) {
+  display: block;
+  padding: var(--i-sidenav-link-padding-block)
+    var(--i-sidenav-link-padding-inline);
+  border-inline-start: 2px solid transparent;
+  border-radius: 0;
+  margin: 0;
+  margin-inline-start: -1px;
+  color: var(--i-sidenav-link-color-text);
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .sidenav :not([popover]) > li > a:hover {
+    color: var(--i-sidenav-link-hover-color-text);
+    text-decoration: none;
+  }
+}
+
+.sidenav :not([popover]) > li > a[aria-current]:not([aria-current="false"]) {
+  font-weight: 600;
+  color: var(--i-sidenav-current-color-text);
+  text-decoration: none;
+  border-inline-start-color: var(--i-sidenav-current-color-border);
+}
+
+/* Group labels: a summary or a heading */
+.sidenav :is(h2, h3, h4, h5, h6),
+.sidenav > details > summary {
+  margin-block: 1.25rem 0.375rem;
+  font-size: inherit;
+  font-weight: 700;
+  line-height: var(--i-line-height);
+  color: var(--i-sidenav-label-color-text);
+}
+
+.sidenav details {
+  margin: 0;
+}
+
+.sidenav details > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.sidenav > details[open] > summary {
+  margin-block-end: 0.375rem;
+}
+
+/* A group inside an li reads as a row of its list */
+.sidenav li > details > summary {
+  padding-block: var(--i-sidenav-link-padding-block);
+  padding-inline-start: var(--i-sidenav-link-padding-inline);
+  margin-block: 0;
+  font-weight: 600;
+  color: var(--i-sidenav-link-color-text);
+}
+
+.sidenav li > details > summary::after {
+  inset-block-start: var(--i-sidenav-link-padding-block);
+}
+
+/* A closed group still shows where the current page is */
+.sidenav
+  details:not([open]):has([aria-current]:not([aria-current="false"]))
+  > summary {
+  color: var(--i-sidenav-current-color-text);
+}
+
+.sidenav .icon,
+.sidenav summary > :is(img, svg) {
+  flex: none;
+}
+
+/* A wrapped menu sticks through its details, below */
+.sidenav.sticky:not(details > .sidenav) {
+  position: sticky;
+  top: var(--_sticky-top);
+  overflow-y: auto;
+  max-height: calc(
+    100dvh - var(--_sticky-top) - var(--i-sidenav-sticky-offset)
+  );
+  scrollbar-width: thin;
+}
+
+:is(.sidenav.sticky, details:has(> .sidenav.sticky)) {
+  --_sticky-top: var(--i-sidenav-sticky-offset);
+}
+
+body:has(> .navbar.sticky)
+  :is(.sidenav.sticky, details:has(> .sidenav.sticky)) {
+  --_sticky-top: calc(var(--i-navbar-height) + var(--i-sidenav-sticky-offset));
+}
+
+/* The size container for the fold rules below. Its width cannot come from its
+   content, which holds for an aside in .with-sidebar. */
+:where(:has(> details > .sidenav)) {
+  container-type: inline-size;
+}
+
+@supports selector(::details-content) {
+  @media (min-width: 48rem) {
+    @container (width <= 24rem) {
+      details:has(> .sidenav) {
+        padding: 0;
+        border: 0;
+        margin: 0;
+      }
+
+      details:has(> .sidenav) > summary {
+        display: none;
+      }
+
+      details:has(> .sidenav)::details-content {
+        overflow: visible;
+        block-size: auto;
+        transition: none;
+        content-visibility: visible;
+      }
+
+      /* The details sticks, since the nav cannot move inside it. The nav
+         scrolls, so its links count as the scroll region's content. */
+      details:has(> .sidenav.sticky) {
+        position: sticky;
+        top: var(--_sticky-top);
+      }
+
+      details > .sidenav.sticky {
+        overflow-y: auto;
+        max-height: calc(
+          100dvh - var(--_sticky-top) - var(--i-sidenav-sticky-offset)
+        );
+        scrollbar-width: thin;
+      }
+    }
+  }
+}

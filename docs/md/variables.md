@@ -599,6 +599,24 @@ Source: `variables/components/nav.css`.
 | `--i-navbar-color-background` | `var(--i-color-background)` | same |
 | `--i-navbar-color-border` | `var(--i-color-subtle-border)` | same |
 
+### Sidenav
+
+`--i-sidenav-sticky-offset` is the gap above a `.sticky` menu. Under a sticky navbar it is added to `--i-navbar-height`. Source: `variables/components/sidenav.css`.
+
+| Variable | Light | Dark |
+|---|---|---|
+| `--i-sidenav-font-size` | `0.9375rem` | same |
+| `--i-sidenav-indent` | `0.875rem` | same |
+| `--i-sidenav-link-padding-block` | `0.25rem` | same |
+| `--i-sidenav-link-padding-inline` | `1rem` | same |
+| `--i-sidenav-sticky-offset` | `var(--i-spacing)` | same |
+| `--i-sidenav-link-color-text` | `var(--i-color-subtle)` | same |
+| `--i-sidenav-link-hover-color-text` | `var(--i-color-text)` | same |
+| `--i-sidenav-label-color-text` | `var(--i-h3-color-text)` | same |
+| `--i-sidenav-color-border` | `var(--i-color-subtle-border)` | same |
+| `--i-sidenav-current-color-border` | `var(--i-color-primary)` | same |
+| `--i-sidenav-current-color-text` | `var(--i-h1-color-text)` | same |
+
 ### Skeleton
 
 Source: `variables/components/skeleton.css`.

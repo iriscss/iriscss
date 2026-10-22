@@ -53,7 +53,7 @@ These are all the Iris CSS classes.
 | Sizes | `.small`, `.medium`, `.large`. No class is the default size, and `.medium` is larger than the default |
 | States | `.hover`, `.active`, `.focus`, `.disabled`, for previews only. Use the real `disabled` attribute in forms |
 | Tables | `.striped`, `.hover`, `.sticky` on `table`, `.table-responsive` on a wrapper |
-| Components | `.alert`, `.avatar`, `.avatar-group`, `.badge`, `.box`, `.breadcrumb`, `.card`, `.carousel`, `.close` (in `dialog`, `.toast`, `.alert`), `.divider`, `.drawer` (`.start`, `.bottom`), `.dropdown`, `.select`, `.footer`, `.group`, `.icon`, `.icon-text`, `.navbar`, `.nav-toggle`, `.pagination`, `.skeleton`, `.steps`, `.tabs`, `.toast`, `.toasts`, `.sticky` |
+| Components | `.alert`, `.avatar`, `.avatar-group`, `.badge`, `.box`, `.breadcrumb`, `.card`, `.carousel`, `.close` (in `dialog`, `.toast`, `.alert`), `.divider`, `.drawer` (`.start`, `.bottom`), `.dropdown`, `.select`, `.footer`, `.group`, `.icon`, `.icon-text`, `.navbar`, `.nav-toggle`, `.pagination`, `.sidenav`, `.skeleton`, `.steps`, `.tabs`, `.toast`, `.toasts`, `.sticky` |
 | Brand | `.brand`, `.brand-name`, `.brand-accent` |
 | Gradients | `.gradient` with a family class (`.blue`, `.emerald`...), `.to-top`, `.to-bottom`, `.to-left`, `.radial`, `.ellipse`, `.radial-top`, `.radial-right`, `.radial-bottom`, `.radial-left` |
 | Palette | `.color-{family}-{shade}`, `.background-{family}-{shade}`. Families: amber, blue, chartreuse, cyan, emerald, fuchsia, gray, green, indigo, jade, lime, neutral, orange, pink, purple, red, rose, sky, slate, spring, stone, teal, vermilion, violet, yellow, zinc. Shades: 50, 100 to 900 by 100, 950 |
@@ -68,7 +68,7 @@ There are no spacing, margin, padding, width or font size utilities. Use `.stack
 |---|---|
 | `aria-busy="true"` | Loading spinner. On a button, add `aria-disabled="true"` too |
 | `aria-invalid="true"` / `"false"` | Error or valid style on a field. Native validation (`required`, `type="email"`) shows errors with no attribute |
-| `aria-current="page"` | Current link in a nav, navbar, pagination or breadcrumb. `aria-current="step"` in `.steps` |
+| `aria-current="page"` | Current link in a nav, navbar, sidenav, pagination or breadcrumb. `aria-current="step"` in `.steps` |
 | `aria-pressed="true"` | On a button: a toggle that is on. Use it instead of a color class for the selected filter or view |
 | `aria-disabled="true"` | Disabled look on any element |
 | `role="switch"` | On `input type="checkbox"`: a toggle switch |
@@ -110,6 +110,30 @@ Navbar: a `header.navbar` around a `nav`. The first list is the brand. The links
     </ul>
   </nav>
 </header>
+```
+
+Sidenav: a docs or settings menu in the sidebar of `.with-sidebar`. Each `details` is a group, `open` on the group holding the current page. The outer `details` folds the menu on small screens and needs no script.
+
+```html
+<div class="container with-sidebar">
+  <aside>
+    <details>
+      <summary>Menu</summary>
+      <nav class="sidenav sticky" aria-label="Documentation">
+        <details open>
+          <summary>Components</summary>
+          <ul>
+            <li><a href="/docs/alert/">Alert</a></li>
+            <li><a href="/docs/card/" aria-current="page">Card</a></li>
+          </ul>
+        </details>
+        <h2>Resources</h2>
+        <ul><li><a href="/changelog/">Changelog</a></li></ul>
+      </nav>
+    </details>
+  </aside>
+  <main>...</main>
+</div>
 ```
 
 Footer: a wrapper whose first child holds the brand and the `nav` columns, then a bottom row.

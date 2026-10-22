@@ -68,6 +68,12 @@
     fill: currentcolor;
   }
 
+  /* A transparent border shows in forced colors, so only the current link
+     keeps its bar */
+  .sidenav li > :is(a, span):not([aria-current]:not([aria-current="false"])) {
+    border-inline-start-color: Canvas;
+  }
+
   /* mark sets its colors through variables, which forced colors ignores */
   :where(mark) {
     color: HighlightText;

@@ -110,7 +110,7 @@ Iris CSS follows the user's system preference by default. Force a scheme with th
 - Utilities: alignment, display, overflow, text truncation, palette colors and gradients
 - Elements: typography, lists, links, buttons, tables, media, code, progress, meter and popover
 - Form elements: inputs, selects, checkboxes, radios, switches, range, color, date and file inputs, validation states
-- Components: accordion, alert, avatar, badge, box, breadcrumb, card, carousel, divider, drawer, dropdown, footer, group, icon, loader, modal, nav with a collapsing menu, navbar, pagination, skeleton, skip to content link, steps, tabs, toast, tooltip
+- Components: accordion, alert, avatar, badge, box, breadcrumb, card, carousel, divider, drawer, dropdown, footer, group, icon, loader, modal, nav with a collapsing menu, navbar, pagination, sidenav, skeleton, skip to content link, steps, tabs, toast, tooltip
 - Accessibility: focus styles, screen reader utilities, high contrast, forced colors, reduced motion and transparency
 - Print styles
 

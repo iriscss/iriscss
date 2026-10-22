@@ -1028,6 +1028,256 @@ test.describe("tooltips and nav", () => {
   });
 });
 
+test.describe("sidenav", () => {
+  const menu = `<nav class="sidenav" aria-label="Docs">
+    <ul><li><a id="top" href="#">All topics</a></li></ul>
+    <details id="group">
+      <summary>Components</summary>
+      <ul>
+        <li><a id="plain" href="#">Alert</a></li>
+        <li><a id="current" href="#" aria-current="page">Card</a></li>
+        <li><details id="nested"><summary>Forms</summary>
+          <ul><li><a id="deep" href="#" aria-current="page">Input</a></li></ul>
+        </details></li>
+      </ul>
+    </details>
+    <details id="closed"><summary>Layout</summary>
+      <ul><li><a href="#" aria-current="page">Grid</a></li></ul>
+    </details>
+    <details id="other"><summary>Helpers</summary>
+      <ul><li><a href="#">Stack</a></li></ul>
+    </details>
+    <h2 id="label">Resources</h2>
+    <ul id="static"><li><a href="#">Changelog</a></li><li><a href="#">License</a></li></ul>
+  </nav>`;
+
+  const supportsDetailsContent = (page) =>
+    page.evaluate(() => CSS.supports("selector(::details-content)"));
+
+  test("nested lists indent and draw a guide line", async ({ page }) => {
+    for (const dir of ["ltr", "rtl"]) {
+      await render(page, `<aside>${menu}</aside>`, { dir });
+      await page.locator("#group").evaluate((el) => (el.open = true));
+      await page.locator("#nested").evaluate((el) => (el.open = true));
+      const side = dir === "ltr" ? "Left" : "Right";
+      for (const sel of ["#group > ul", "#nested > ul", "#static"]) {
+        expect(px(await style(page, sel, `margin${side}`))).toBeGreaterThan(8);
+        expect(px(await style(page, sel, `border${side}Width`))).toBe(1);
+      }
+      expect(px(await style(page, "nav > ul", `margin${side}`))).toBe(0);
+      expect(px(await style(page, "nav > ul", `border${side}Width`))).toBe(0);
+    }
+  });
+
+  test("the current link gets a bar and a stronger text color", async ({
+    page,
+  }) => {
+    await render(page, `<aside>${menu}</aside>`);
+    await page.locator("#group").evaluate((el) => (el.open = true));
+    await page.locator("#nested").evaluate((el) => (el.open = true));
+    for (const id of ["#current", "#deep"]) {
+      expect(await style(page, id, "borderLeftColor")).not.toBe(
+        "rgba(0, 0, 0, 0)",
+      );
+      expect(await style(page, id, "fontWeight")).toBe("600");
+      expect(await style(page, id, "textDecorationLine")).toBe("none");
+    }
+    expect(await style(page, "#plain", "borderLeftColor")).toBe(
+      "rgba(0, 0, 0, 0)",
+    );
+    expect(await style(page, "#plain", "fontWeight")).not.toBe("600");
+  });
+
+  test("a closed group holding the current page has a stronger summary", async ({
+    page,
+  }) => {
+    await render(page, `<aside>${menu}</aside>`);
+    const stronger = await style(page, "#closed > summary", "color");
+    const plain = await style(page, "#other > summary", "color");
+    expect(stronger).not.toBe(plain);
+    expect(stronger).toBe(await style(page, "#current", "color"));
+  });
+
+  test("headings and summaries are the same kind of label", async ({
+    page,
+  }) => {
+    await render(page, `<aside>${menu}</aside>`);
+    for (const prop of ["fontWeight", "fontSize", "color", "marginTop"]) {
+      expect(await style(page, "#label", prop)).toBe(
+        await style(page, "#other > summary", prop),
+      );
+    }
+  });
+
+  test("the first group label has no space above it", async ({ page }) => {
+    await render(
+      page,
+      `<nav class="sidenav"><details open><summary>First</summary>
+       <ul><li><a href="#">A</a></li></ul></details></nav>`,
+    );
+    expect(await style(page, "summary", "marginTop")).toBe("0px");
+  });
+
+  test("an open nested group sits in its list like a row", async ({ page }) => {
+    await render(page, menu);
+    await page.locator("#group").evaluate((el) => (el.open = true));
+    await page.locator("#nested").evaluate((el) => (el.open = true));
+    expect(await style(page, "#nested > summary", "marginBottom")).toBe("0px");
+    expect(
+      px(await style(page, "#group > summary", "marginBottom")),
+    ).toBeGreaterThan(0);
+  });
+
+  test("only the current link has a bar in forced colors", async ({ page }) => {
+    await page.emulateMedia({ forcedColors: "active" });
+    await render(page, menu);
+    await page.locator("#group").evaluate((el) => (el.open = true));
+    const canvas = await page.evaluate(() => {
+      const probe = document.createElement("div");
+      probe.style.cssText = "forced-color-adjust: none; color: Canvas";
+      document.body.append(probe);
+      return getComputedStyle(probe).color;
+    });
+    expect(await style(page, "#plain", "borderLeftColor")).toBe(canvas);
+    expect(await style(page, "#current", "borderLeftColor")).not.toBe(canvas);
+  });
+
+  test("lists stack outside an aside", async ({ page }) => {
+    await render(page, menu);
+    const [a, b] = await Promise.all(
+      ["#static li:first-child a", "#static li:last-child a"].map((sel) =>
+        page.locator(sel).evaluate((el) => el.getBoundingClientRect().toJSON()),
+      ),
+    );
+    expect(b.top).toBeGreaterThanOrEqual(a.bottom);
+  });
+
+  test("a dropdown inside keeps its own look", async ({ page }) => {
+    await render(
+      page,
+      `<nav class="sidenav"><ul><li><a href="#">One</a></li></ul>
+       <button popovertarget="d">More</button>
+       <ul id="d" popover class="dropdown"><li><a id="item" href="#" aria-current="page">Item</a></li></ul></nav>`,
+    );
+    await page.locator("button").click();
+    expect(await style(page, "#item", "borderLeftWidth")).not.toBe("2px");
+  });
+
+  test("the style is scoped to .sidenav", async ({ page }) => {
+    await render(
+      page,
+      `<aside><nav><ul><li><a id="a" href="#">A</a></li></ul></nav></aside>`,
+    );
+    expect(px(await style(page, "#a", "paddingLeft"))).not.toBe(16);
+    expect(await style(page, "#a", "borderLeftWidth")).toBe("0px");
+  });
+
+  const wrapped = `<div class="with-sidebar" style="--i-sidebar-content-min-width: 60%">
+    <aside><details><summary>Menu</summary>${menu}</details></aside>
+    <main>Content</main></div>`;
+
+  test("a wrapped menu shows on wide screens with the summary hidden", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await render(page, wrapped);
+    test.skip(!(await supportsDetailsContent(page)), "no ::details-content");
+    await expect(page.locator("aside > details > summary")).toBeHidden();
+    await expect(page.locator("#top")).toBeVisible();
+    expect(
+      await page.locator("aside > details").evaluate((el) => el.open),
+    ).toBe(false);
+  });
+
+  test("a wrapped menu folds on a phone and opens from the summary", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 400, height: 800 });
+    await render(page, wrapped);
+    test.skip(!(await supportsDetailsContent(page)), "no ::details-content");
+    await expect(page.locator("aside > details > summary")).toBeVisible();
+    await expect(page.locator("#top")).toBeHidden();
+    await page.locator("aside > details > summary").click();
+    await expect(page.locator("#top")).toBeVisible();
+  });
+
+  test("a wrapped menu folds when the aside is stacked above the content", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 900, height: 800 });
+    await render(
+      page,
+      `<div style="width: 700px">${wrapped.replace("--i-sidebar-content-min-width: 60%", "--i-sidebar-content-min-width: 60%; --i-sidebar-gap: 3rem")}</div>`,
+    );
+    test.skip(!(await supportsDetailsContent(page)), "no ::details-content");
+    const width = await page
+      .locator("aside")
+      .evaluate((el) => el.getBoundingClientRect().width);
+    expect(width).toBeGreaterThan(384);
+    await expect(page.locator("aside > details > summary")).toBeVisible();
+    await expect(page.locator("#top")).toBeHidden();
+  });
+
+  test("a wrapped menu stays a plain details without ::details-content", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    const plainCss = css.replaceAll("::details-content", "::x-details-content");
+    await page.setContent(
+      `<!doctype html><html lang="en"><head><style>${plainCss}</style></head>
+       <body>${wrapped}</body></html>`,
+    );
+    await expect(page.locator("aside > details > summary")).toBeVisible();
+    await expect(page.locator("#top")).toBeHidden();
+  });
+
+  test(".sticky sticks below a sticky navbar and scrolls on its own", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 500 });
+    await render(
+      page,
+      `<header class="navbar sticky"><nav><ul><li><a href="#">Brand</a></li></ul></nav></header>
+       <div class="with-sidebar"><aside><details><summary>Menu</summary>
+         <nav class="sidenav sticky" aria-label="Docs">
+           <ul>${Array.from({ length: 40 }, (_, i) => `<li><a href="#">Item ${i}</a></li>`).join("")}</ul>
+         </nav></details></aside>
+         <main style="height: 3000px">Content</main></div>`,
+    );
+    test.skip(!(await supportsDetailsContent(page)), "no ::details-content");
+    await page.evaluate(() => window.scrollTo(0, 1000));
+    const [navbar, wrapper] = await Promise.all(
+      ["header", "aside > details"].map((sel) =>
+        page.locator(sel).evaluate((el) => el.getBoundingClientRect().toJSON()),
+      ),
+    );
+    expect(wrapper.top).toBeGreaterThanOrEqual(navbar.bottom);
+    expect(wrapper.top).toBeLessThan(navbar.bottom + 40);
+    expect(wrapper.bottom).toBeLessThanOrEqual(500);
+    expect(
+      await page
+        .locator(".sidenav")
+        .evaluate((el) => el.scrollHeight > el.clientHeight),
+    ).toBe(true);
+  });
+
+  test("an unwrapped .sticky menu sticks", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 500 });
+    await render(
+      page,
+      `<div class="with-sidebar"><aside>
+         <nav class="sidenav sticky" aria-label="Docs"><ul><li><a href="#">One</a></li></ul></nav>
+       </aside><main style="height: 3000px">Content</main></div>`,
+    );
+    await page.evaluate(() => window.scrollTo(0, 1000));
+    const top = await page
+      .locator(".sidenav")
+      .evaluate((el) => el.getBoundingClientRect().top);
+    expect(top).toBeLessThan(40);
+    expect(top).toBeGreaterThanOrEqual(0);
+  });
+});
+
 test.describe("contrast", () => {
   for (const scheme of ["light", "dark"]) {
     test(`focus rings, borders and brand text in ${scheme}`, async ({

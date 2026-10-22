@@ -1,0 +1,24 @@
+/**
+ * Sidenav variables
+ */
+:root,
+:host {
+  --i-sidenav-font-size: 0.9375rem;
+  /* Indent of a nested list, where its guide line sits */
+  --i-sidenav-indent: 0.875rem;
+  --i-sidenav-link-padding-block: 0.25rem;
+  --i-sidenav-link-padding-inline: 1rem;
+  /* Gap above a sticky menu, added to the navbar height under a sticky navbar */
+  --i-sidenav-sticky-offset: var(--i-spacing);
+}
+
+:root,
+:host,
+:where([data-theme], .light, .dark) {
+  --i-sidenav-link-color-text: var(--i-color-subtle);
+  --i-sidenav-link-hover-color-text: var(--i-color-text);
+  --i-sidenav-label-color-text: var(--i-h3-color-text);
+  --i-sidenav-color-border: var(--i-color-subtle-border);
+  --i-sidenav-current-color-border: var(--i-color-primary);
+  --i-sidenav-current-color-text: var(--i-h1-color-text);
+}
