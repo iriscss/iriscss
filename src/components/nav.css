@@ -171,8 +171,10 @@ nav > .nav-toggle::before {
 }
 
 @container (width < 48rem) {
+  /* The margin keeps it next to a list that comes after the menu */
   nav > .nav-toggle {
     display: inline-flex;
+    margin-inline-start: auto;
   }
 
   nav > ul[popover]:not(:popover-open) {

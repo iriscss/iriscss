@@ -3,7 +3,8 @@
  *
  * A tinted message box with a colored bar on the start edge:
  * <div class="alert danger" role="alert">. Color classes set the color, and
- * text and links inside follow it.
+ * text and links inside follow it. A .close button as the first child
+ * dismisses it.
  */
 :where(.alert) {
   --i-variant: var(--i-color-base);
@@ -37,4 +38,35 @@
 
 .alert :where(a, [role="link"]) {
   --i-variant: inherit;
+}
+
+/* First child and floated, so the text wraps around it. The padding gives a
+   hit area of at least 1.5rem around the 1rem icon. */
+.alert > .close {
+  float: right;
+  float: inline-end;
+  box-sizing: content-box;
+  width: 1rem;
+  height: calc(var(--i-line-height) * 1em);
+  height: 1lh;
+  padding: 0.25rem;
+  border: 0;
+  margin: -0.25rem;
+  margin-inline-start: calc(var(--i-spacing) * 0.5);
+  color: inherit;
+  background-color: transparent;
+  opacity: 0.8;
+}
+
+.alert > .close::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: currentcolor;
+  mask: var(--i-svg-close) center / auto 1rem no-repeat;
+  content: "";
+}
+
+.alert > .close:is(:hover, :focus-visible) {
+  opacity: 1;
 }

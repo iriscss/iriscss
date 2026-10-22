@@ -332,6 +332,24 @@ test.describe("buttons and forms", () => {
     expect(await style(page, "button", "opacity")).toBe("0.5");
   });
 
+  test("a pressed toggle keeps the current look, an unpressed one rests", async ({
+    page,
+  }) => {
+    for (const color of ["", "primary"]) {
+      await render(
+        page,
+        `<button class="${color}" id="rest">A</button>
+         <button class="${color}" id="current" aria-current="true">B</button>
+         <button class="${color}" id="on" aria-pressed="true">C</button>
+         <button class="${color}" id="off" aria-pressed="false">D</button>`,
+      );
+      const background = (id) => style(page, `#${id}`, "backgroundColor");
+      expect(await background("on")).toBe(await background("current"));
+      expect(await background("on")).not.toBe(await background("rest"));
+      expect(await background("off")).toBe(await background("rest"));
+    }
+  });
+
   test("readonly fields show keyboard focus", async ({ page }) => {
     await render(page, `<button>Before</button><input readonly value="x">`);
     await page.keyboard.press("Tab");
@@ -392,6 +410,63 @@ test.describe("buttons and forms", () => {
 });
 
 test.describe("components", () => {
+  test("an alert close button sits at the end with its icon", async ({
+    page,
+  }) => {
+    for (const dir of ["ltr", "rtl"]) {
+      await render(
+        page,
+        `<div class="alert danger" role="alert" style="width: 20rem">
+           <button class="close" aria-label="Close"></button>
+           <p>A message long enough to wrap onto a second line of the alert.</p>
+         </div>`,
+        { dir },
+      );
+      const [alert, close, text] = await Promise.all(
+        [".alert", ".close", ".alert p"].map((sel) =>
+          page
+            .locator(sel)
+            .evaluate((el) => el.getBoundingClientRect().toJSON()),
+        ),
+      );
+      expect(await style(page, ".close", "maskImage", "::before")).toContain(
+        "url(",
+      );
+      expect(await style(page, ".close", "backgroundColor")).toBe(
+        "rgba(0, 0, 0, 0)",
+      );
+      if (dir === "ltr") {
+        expect(alert.right - close.right).toBeLessThan(24);
+        expect(close.left).toBeGreaterThan(text.left + 200);
+      } else {
+        expect(close.left - alert.left).toBeLessThan(24);
+        expect(close.right).toBeLessThan(text.right - 200);
+      }
+      expect(close.top).toBeLessThan(text.top + 8);
+    }
+  });
+
+  test("a narrow navbar keeps its toggle next to a list after the menu", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 400, height: 600 });
+    await render(
+      page,
+      `<header class="navbar"><nav aria-label="Main">
+         <ul><li><a href="#">Brand</a></li></ul>
+         <button class="nav-toggle" popovertarget="m" aria-label="Menu"></button>
+         <ul id="m" popover><li><a href="#">Docs</a></li></ul>
+         <ul id="icons"><li><a href="#">GH</a></li></ul>
+       </nav></header>`,
+    );
+    const [toggle, icons] = await Promise.all(
+      [".nav-toggle", "#icons"].map((sel) =>
+        page.locator(sel).evaluate((el) => el.getBoundingClientRect().toJSON()),
+      ),
+    );
+    expect(icons.left - toggle.right).toBeLessThan(40);
+  });
+
   test("a nav with a toggle keeps its width in a flex row", async ({
     page,
   }) => {
@@ -591,6 +666,51 @@ test.describe("dropdown", () => {
     await page.click("#other");
     await expect(page.locator("#m")).toBeHidden();
     expect(await page.locator("#other").getAttribute("data-clicked")).toBe("1");
+  });
+
+  test("command buttons fill their item without the button look", async ({
+    page,
+  }) => {
+    await render(
+      page,
+      `<main><button popovertarget="m">File</button>
+       <ul id="m" popover class="dropdown">
+         <li><a href="#">Open</a></li>
+         <li><button id="save">Save</button></li>
+       </ul></main>`,
+    );
+    await page.click("button");
+    const [item, link, button] = await Promise.all(
+      ["#m li:has(#save)", "#m a", "#save"].map((sel) => box(page, sel)),
+    );
+    expect(Math.round(button.width)).toBe(Math.round(link.width));
+    expect(button.width).toBeGreaterThanOrEqual(item.width);
+    expect(await style(page, "#save", "backgroundColor")).toBe(
+      "rgba(0, 0, 0, 0)",
+    );
+    expect(await style(page, "#save", "borderTopWidth")).toBe("0px");
+    expect(await style(page, "#save", "boxShadow")).toBe("none");
+    await page.hover("#save");
+    // Buttons transition their background, so wait for it to settle
+    await expect
+      .poll(() => style(page, "#save", "backgroundColor"))
+      .not.toBe("rgba(0, 0, 0, 0)");
+    expect(await style(page, "#save", "content", "::after")).toBe("none");
+  });
+
+  test("a separator item is a thin line across the menu", async ({ page }) => {
+    await render(
+      page,
+      `<main><button popovertarget="m">File</button>
+       <ul id="m" popover class="dropdown">
+         <li><a href="#">Open</a></li><li><hr></li><li><a href="#">Exit</a></li>
+       </ul></main>`,
+    );
+    await page.click("button");
+    const [list, rule] = [await box(page, "#m"), await box(page, "#m hr")];
+    expect(list.width - rule.width).toBeLessThan(4);
+    expect(await style(page, "#m hr", "borderTopWidth")).not.toBe("0px");
+    expect(px(await style(page, "#m hr", "marginTop"))).toBeLessThan(8);
   });
 
   test("the button shows a chevron that turns when open", async ({ page }) => {
@@ -993,7 +1113,7 @@ test.describe("parsing", () => {
     const newer = /:has\(|:user-invalid|:dir\(/;
     const unforgiving = (selector) => {
       let rest = selector;
-      for (let at; (at = rest.search(/:(is|where)\(/)) >= 0; ) {
+      for (let at; (at = rest.search(/:(is|where)\(/)) >= 0;) {
         let end = rest.indexOf("(", at) + 1;
         for (let depth = 1; depth; end++) {
           if (rest[end] === "(") depth++;

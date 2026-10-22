@@ -53,7 +53,7 @@ These are all the Iris CSS classes.
 | Sizes | `.small`, `.medium`, `.large`. No class is the default size, and `.medium` is larger than the default |
 | States | `.hover`, `.active`, `.focus`, `.disabled`, for previews only. Use the real `disabled` attribute in forms |
 | Tables | `.striped`, `.hover`, `.sticky` on `table`, `.table-responsive` on a wrapper |
-| Components | `.alert`, `.avatar`, `.avatar-group`, `.badge`, `.box`, `.breadcrumb`, `.card`, `.carousel`, `.close`, `.divider`, `.drawer` (`.start`, `.bottom`), `.dropdown`, `.select`, `.footer`, `.group`, `.icon`, `.icon-text`, `.navbar`, `.nav-toggle`, `.pagination`, `.skeleton`, `.steps`, `.tabs`, `.toast`, `.toasts`, `.sticky` |
+| Components | `.alert`, `.avatar`, `.avatar-group`, `.badge`, `.box`, `.breadcrumb`, `.card`, `.carousel`, `.close` (in `dialog`, `.toast`, `.alert`), `.divider`, `.drawer` (`.start`, `.bottom`), `.dropdown`, `.select`, `.footer`, `.group`, `.icon`, `.icon-text`, `.navbar`, `.nav-toggle`, `.pagination`, `.skeleton`, `.steps`, `.tabs`, `.toast`, `.toasts`, `.sticky` |
 | Brand | `.brand`, `.brand-name`, `.brand-accent` |
 | Gradients | `.gradient` with a family class (`.blue`, `.emerald`...), `.to-top`, `.to-bottom`, `.to-left`, `.radial`, `.ellipse`, `.radial-top`, `.radial-right`, `.radial-bottom`, `.radial-left` |
 | Palette | `.color-{family}-{shade}`, `.background-{family}-{shade}`. Families: amber, blue, chartreuse, cyan, emerald, fuchsia, gray, green, indigo, jade, lime, neutral, orange, pink, purple, red, rose, sky, slate, spring, stone, teal, vermilion, violet, yellow, zinc. Shades: 50, 100 to 900 by 100, 950 |
@@ -69,6 +69,7 @@ There are no spacing, margin, padding, width or font size utilities. Use `.stack
 | `aria-busy="true"` | Loading spinner. On a button, add `aria-disabled="true"` too |
 | `aria-invalid="true"` / `"false"` | Error or valid style on a field. Native validation (`required`, `type="email"`) shows errors with no attribute |
 | `aria-current="page"` | Current link in a nav, navbar, pagination or breadcrumb. `aria-current="step"` in `.steps` |
+| `aria-pressed="true"` | On a button: a toggle that is on. Use it instead of a color class for the selected filter or view |
 | `aria-disabled="true"` | Disabled look on any element |
 | `role="switch"` | On `input type="checkbox"`: a toggle switch |
 | `role="button"` | On a link: looks like a button |
@@ -164,6 +165,14 @@ Dropdown and popover: a `popover` element right after the button that opens it.
   <li><a href="/logout/">Sign out</a></li>
 </ul>
 
+<button popovertarget="file">File</button>
+<ul id="file" popover class="dropdown">
+  <li><button type="button">Save</button></li>
+  <li><button type="button">Save as...</button></li>
+  <li><hr></li>
+  <li><button type="button">Close</button></li>
+</ul>
+
 <button popovertarget="help">Help</button>
 <div id="help" popover data-placement="bottom">Short help text.</div>
 ```
@@ -200,6 +209,10 @@ Hero, alert, badge, joined controls, steps:
 </section>
 
 <div class="alert warning" role="alert">Your trial ends tomorrow.</div>
+<div class="alert info" role="status">
+  <button class="close" aria-label="Dismiss"></button>
+  <p>New features are available.</p>
+</div>
 <h3>Inbox <span class="badge danger">4</span></h3>
 
 <search>

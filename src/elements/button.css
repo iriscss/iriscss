@@ -240,7 +240,8 @@ a[role="button"] {
    States
    ================================================== */
 
-/* The .hover, .active and .focus classes show the same look without interaction */
+/* The .hover, .active and .focus classes show the same look without interaction.
+   A toggle that is on keeps it, like the current item. */
 :is(
   button,
   [type="submit"],
@@ -250,6 +251,7 @@ a[role="button"] {
 ):is(
   :focus-visible,
   :where([aria-current]:not([aria-current="false"])),
+  :where([aria-pressed="true"]),
   .hover,
   .focus
 ),

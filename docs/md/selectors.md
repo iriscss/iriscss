@@ -186,19 +186,19 @@ These classes show a state without user interaction, for example in documentatio
 |---|---|---|
 | `.avatar` | `img` or `span` | Round picture or initials. `.small`, `.medium` and `.large` resize it, `.square` rounds the corners only, and a color class colors the initials |
 | `.avatar-group` | a wrapper around avatars | Overlaps them in a row |
-| `.alert` | any block element | Tinted message box with a colored bar on the start edge. Add a color class and `role="alert"` or `role="status"`. Links inside take the alert color |
+| `.alert` | any block element | Tinted message box with a colored bar on the start edge. Add a color class and `role="alert"` or `role="status"`. Links inside take the alert color. A `.close` button as the first child sits at the end and dismisses it |
 | `.badge` | `span` or `a` | Small pill for counts, tags and labels. Sized from the surrounding text. Secondary by default. `.outlined` gives a border instead of a fill |
 | `.box` | any block element, or `a` | Padded block with a background, rounded corners and a shadow. As a link, the whole box is clickable and lifts on hover |
 | `.card` | any block element, usually `article` | Padded block with a background and a shadow. A direct `header` or `footer` becomes a tinted band. A `dialog` is always a card |
 | `.carousel` | any block | A row of slides that scrolls sideways and snaps to each one. Browsers with CSS scroll buttons add previous and next buttons and a dot per slide. Give it `tabindex="0"` and an `aria-label` so keyboard users can reach it |
 | `.divider` | `p` or `div` | A rule with text in the middle, such as "or". For a rule without text, use `hr` |
 | `.drawer` | `dialog` | A modal that slides in from the end edge. `.start` uses the start edge and `.bottom` makes a bottom sheet. Open it with `showModal()` |
-| `.dropdown` | a `ul` with `popover` | A menu of links or choices, opened by the button whose `popovertarget` points at it. It closes on Esc and on a click outside, opens below the button where anchor positioning works and flips near the edge of the screen. Put it right after the button, which gets a chevron. In a `nav`, a button without a class looks like a link |
+| `.dropdown` | a `ul` with `popover` | A menu of links or choices, opened by the button whose `popovertarget` points at it. It closes on Esc and on a click outside, opens below the button where anchor positioning works and flips near the edge of the screen. Put it right after the button, which gets a chevron. Items hold links, labels or command buttons, which fill the item like a link. `<li><hr></li>` separates groups. In a `nav`, a button without a class looks like a link |
 | `.select` | a `button` that opens a `.dropdown` | Draws the button as a select, for a menu of choices. Takes sizes, styles and `aria-invalid` like a select |
 | `.group` | any element holding inputs, selects and buttons, usually with `role="group"` | Joins them into one row. In or on `<search>` or `[role="search"]` the row gets pill ends. When `<search>` holds a `form`, put the class on the form |
-| `.close` | a button inside a `dialog` | Close button with a cross icon. `rel="prev"` on a link does the same |
+| `.close` | a button inside a `dialog`, a `.toast` or an `.alert` | Close button with a cross icon. In a dialog, `rel="prev"` on a link does the same |
 | `.pagination` | `nav` | Page links in an `ol` or `ul`. Mark the current page with `aria-current="page"` and unavailable links with `aria-disabled="true"`. Use a `span` for gaps |
-| `.navbar` | `header` around a `nav` | Top bar with a background and a bottom border. The first list is the brand: a link with an optional logo. A list with `popover` and a `.nav-toggle` button collapse into a full width panel under the bar below a 48rem wide nav. `.sticky` keeps the bar at the top of the screen. A color class fills it. `aria-current="page"` marks the current link, and a button with `aria-label` and no class is drawn as a plain icon button |
+| `.navbar` | `header` around a `nav` | Top bar with a background and a bottom border. The first list is the brand: a link with an optional logo. A list with `popover` and a `.nav-toggle` button collapse into a full width panel under the bar below a 48rem wide nav. A list after the popover list stays in the bar, next to the button. `.sticky` keeps the bar at the top of the screen. A color class fills it. `aria-current="page"` marks the current link, and a button with `aria-label` and no class is drawn as a plain icon button |
 | `.footer` | `footer`, usually a direct child of `body` | Page footer band with a background and a top border. The element holding the `nav` elements becomes a column grid, its first child is the brand when it is not a `nav`, and the element after the grid is the bottom row. Below a 48rem wide footer the brand spans the row and the bottom row stacks. `.sticky` keeps it at the bottom of short pages. A color class fills it |
 | `.nav-toggle` | a `button` inside `nav` | Menu button for a link list with `popover`. Below a 48rem wide nav the list collapses behind it, and above that the list sits in the nav and the button hides |
 | `.skeleton` | any element | Shimmering placeholder while content loads, one line tall by default. Set a width or height, and `aria-hidden="true"`. `.rounded` makes a circle or pill |
@@ -361,6 +361,7 @@ Families are the same 26 as in [Gradients](#gradients). Shades are `50`, `100`, 
 | `aria-invalid="true"` | inputs, selects, textareas | Error style with a red border and icon |
 | `aria-invalid="false"` | inputs, selects, textareas | Valid style with a green border and check icon |
 | `aria-current` | links, buttons, nav links | Active look. `aria-current="false"` is ignored |
+| `aria-pressed="true"` | buttons | On look for a toggle button, the same as `aria-current`. `"false"` and `"mixed"` keep the rest look |
 | `aria-disabled="true"` | any element | `not-allowed` cursor. Buttons fade like disabled ones but stay focusable, so the script that sets it must also ignore their clicks |
 | `aria-controls` | any element except text fields | Pointer cursor |
 

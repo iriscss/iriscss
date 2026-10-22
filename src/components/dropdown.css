@@ -8,6 +8,8 @@
  * Put it right after its button, which then shows a chevron:
  *   <button popovertarget="account">Account</button>
  *   <ul id="account" popover class="dropdown">...</ul>
+ * Items hold links, labels or command buttons, and <li><hr></li> separates
+ * groups.
  */
 .dropdown[popover] {
   min-width: 10rem;
@@ -68,6 +70,36 @@
 .dropdown li label {
   width: 100%;
   margin-bottom: 0;
+}
+
+/* Command items: a button fills the item like a link, without the button look */
+.dropdown li > button {
+  display: block;
+  width: calc(100% + var(--i-control-padding-inline) * 2);
+  padding: calc(var(--i-control-padding-block) * 0.5)
+    var(--i-control-padding-inline);
+  border: 0;
+  border-radius: 0;
+  margin: calc(var(--i-control-padding-block) * -0.5)
+    calc(var(--i-control-padding-inline) * -1);
+  color: var(--i-dropdown-color-text);
+  text-align: start;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.dropdown li > button:is(:hover, :active, :focus-visible) {
+  background-color: var(--i-dropdown-hover-color-background);
+}
+
+/* Separator: <li><hr></li> */
+.dropdown li:has(> hr) {
+  padding-inline: 0;
+}
+
+.dropdown li > hr {
+  border-color: var(--i-dropdown-color-border);
+  margin: calc(var(--i-control-padding-block) * 0.25) 0;
 }
 
 /* The chevron on the button. A .select draws its own. */
